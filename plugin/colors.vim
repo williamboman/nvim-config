@@ -16,6 +16,8 @@ hi Pmenu guibg=#3A3E47
 
 hi LspDiagnosticsVirtualTextError guifg=#BF616A gui=italic
 hi LspDiagnosticsVirtualTextWarning guifg=#D7BA7D gui=italic
+hi LspDiagnosticsVirtualTextInformation guifg=#B48EAD gui=italic
+hi LspDiagnosticsVirtualTextHint guifg=#B48EAD gui=italic
 
 hi LspDiagnosticsUnderlineError guibg=#BF616A gui=underline,bold
 hi LspDiagnosticsUnderlineWarning gui=underline,bold
@@ -24,8 +26,8 @@ hi LspDiagnosticsUnderlineHint gui=underline
 
 hi LspDiagnosticsFloatingError guifg=#BF616A
 hi LspDiagnosticsFloatingWarning guifg=#D7BA7D
-hi LspDiagnosticsFloatingInformation guifg=#D7BA7D
-hi LspDiagnosticsFloatingHint guifg=#D7BA7D
+hi LspDiagnosticsFloatingInformation guifg=#B48EAD
+hi LspDiagnosticsFloatingHint guifg=#B48EAD
 
 hi def link LspReferenceText CursorLine
 hi def link LspReferenceRead CursorLine

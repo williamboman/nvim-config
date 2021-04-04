@@ -314,13 +314,13 @@ M.setup = function ()
             condition = buffer_not_empty,
             highlight = {colors.fg, colors.bg, 'bold'},
             separator = '▲ ',
-            separator_highlight = {colors.orange, colors.bg},
+            separator_highlight = {colors.cyan, colors.bg},
         },
     }
 
     gls.short_line_left[4] = {
         WinNr = {
-            highlight = {colors.orange, colors.bg, 'bold'},
+            highlight = {colors.cyan, colors.bg, 'bold'},
             provider = function ()
                 return string.format("%d", vim.fn.winnr())
             end,

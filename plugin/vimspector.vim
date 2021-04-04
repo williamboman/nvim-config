@@ -1,4 +1,4 @@
-func! AddToWatch()
+function! VimspectorAddToWatch()
     let word = expand("<cexpr>")
     call vimspector#AddWatch(word)
 endfunction
@@ -34,4 +34,4 @@ nnoremap <leader>dL :call vimspector#ListBreakpoints()<CR>
 nnoremap <leader>db :call vimspector#ToggleConditionalBreakpoint()<CR>
 nnoremap <leader>dx :call vimspector#ClearBreakpoints()<CR>
 
-nnoremap <leader>d? :call AddToWatch()<CR>
+nnoremap <leader>d? :call VimspectorAddToWatch()<CR>
