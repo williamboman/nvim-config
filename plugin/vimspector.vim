@@ -28,7 +28,6 @@ nnoremap <leader>dj :call vimspector#StepInto()<CR>
 
 nnoremap <leader>dc :call vimspector#Continue()<CR>
 nnoremap <leader>d. :call vimspector#RunToCursor()<CR>
-nnoremap <leader>do :call vimspector#GoToFrame()<CR>
 
 nnoremap <leader>da :call vimspector#ToggleBreakpoint()<CR>
 nnoremap <leader>dL :call vimspector#ListBreakpoints()<CR>

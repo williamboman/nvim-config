@@ -18,9 +18,7 @@ function _G.packer_upgrade()
     install_packer()
 end
 
-vim.cmd([[
-command! PackerUpgrade :call v:lua.packer_upgrade()
-]])
+vim.cmd [[command! PackerUpgrade :call v:lua.packer_upgrade()]]
 
 return require('packer').startup(function(use, use_rocks)
     -- tpope
@@ -68,6 +66,7 @@ return require('packer').startup(function(use, use_rocks)
         'hrsh7th/vim-vsnip',
         'Raimondi/delimitMate',
         'wellle/tmux-complete.vim',
+        'psliwka/vim-smoothie',
         { 'hrsh7th/nvim-compe',
             config = function ()
                 require 'wb.nvim-compe'.setup()
@@ -80,7 +79,6 @@ return require('packer').startup(function(use, use_rocks)
             setup = function ()
                 vim.g.move_key_modifier = 'C'
             end },
-        'psliwka/vim-smoothie',
         { 'junegunn/vim-peekaboo',
             setup = function ()
                 vim.g.peekaboo_compact = 0

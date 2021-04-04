@@ -9,8 +9,6 @@ end
 
 M.setup = function ()
     local gl = require('galaxyline')
-    -- get my theme in galaxyline repo
-    -- local colors = require('galaxyline.theme').default
     local colors = {
         bg = '#1B1F28',
         fg = '#E5E9F0',
@@ -179,11 +177,44 @@ M.setup = function ()
     }
     gls.left[9] = {
         FileName = {
-            provider = {'FileName', 'FileSize'},
+            provider = 'FileName',
             condition = buffer_not_empty,
-            highlight = {colors.fg, colors.bg, 'bold'}
+            highlight = {colors.fg, colors.bg, 'bold'},
+            separator = ' ',
+            separator_highlight = {'NONE', colors.bg},
         }
     }
+
+    local wide_window_condition = function ()
+        return buffer_not_empty() and vim.fn.winwidth('%') >= 160 -- 160 is a somewhat random number. it felt nice.
+    end
+
+    gls.left[10] = {
+        FilePath = {
+            provider = {
+                function ()
+                    return ' '
+                end,
+                function ()
+                    return vim.fn.expand('%:.')
+                end
+                },
+            condition = wide_window_condition,
+            highlight = {colors.grey, colors.bg},
+            separator = ' ',
+            separator_highlight = {'NONE', colors.bg},
+        }
+    }
+    gls.left[11] = {
+        FileSize = {
+            provider = 'FileSize',
+            condition = wide_window_condition,
+            highlight = {colors.grey, colors.bg},
+            separator = '  ',
+            separator_highlight = {'NONE', colors.bg},
+        }
+    }
+
 
     gls.right[1] = {
         DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}
@@ -250,31 +281,51 @@ M.setup = function ()
         }
     }
 
+    local Space = {
+        provider = function()
+            return ' '
+        end,
+        separator = ' ',
+        separator_highlight = {'NONE', colors.bg},
+        highlight = {'NONE', colors.bg}
+    }
+
     gls.right[10] = {
-        Space = {
-            provider = function()
-                return ' '
-            end,
-            separator = ' ',
-            separator_highlight = {'NONE', colors.bg},
-            highlight = {colors.orange, colors.bg}
-        }
+        Space = Space,
     }
 
     gls.short_line_left[1] = {
-        BufferType = {
-            provider = 'FileTypeName',
-            separator = ' ',
-            separator_highlight = {'NONE', colors.bg},
-            highlight = {colors.grey, colors.bg}
-        }
+        Space = Space,
     }
 
     gls.short_line_left[2] = {
-        SFileName = {provider = 'SFileName', condition = condition.buffer_not_empty, highlight = {colors.grey, colors.bg}}
+        RelPath = {
+            provider = function ()
+                return vim.fn.expand('%:h') .. '/'
+            end,
+            condition = buffer_not_empty,
+            highlight = {colors.grey, colors.bg},
+        },
     }
 
-    gls.short_line_right[1] = {BufferIcon = {provider = 'BufferIcon', highlight = {colors.grey, colors.bg}}}
+    gls.short_line_left[3] = {
+        SFileName = {
+            provider = 'SFileName',
+            condition = buffer_not_empty,
+            highlight = {colors.fg, colors.bg, 'bold'},
+            separator = '▲ ',
+            separator_highlight = {colors.orange, colors.bg},
+        },
+    }
+
+    gls.short_line_left[4] = {
+        WinNr = {
+            highlight = {colors.orange, colors.bg, 'bold'},
+            provider = function ()
+                return string.format("%d", vim.fn.winnr())
+            end,
+        },
+    }
 end
 
 return M
