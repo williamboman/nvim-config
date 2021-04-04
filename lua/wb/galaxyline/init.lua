@@ -102,16 +102,18 @@ M.setup = function ()
                 return '  ' .. mode_alias .. ' '
             end,
             highlight = {colors.red, colors.bg},
+            separator_highlight = {'NONE', colors.bg},
+            separator = ' ',
         }
     }
 
     gls.left[2] = {
         ReadOnly = {
             provider = function()
-                if vim.bo.readonly then
-                    return '  RO'
-                end
-                return ''
+                return 'RO'
+            end,
+            condition = function ()
+                return vim.bo.readonly
             end,
             highlight = {colors.orange, colors.bg},
             separator_highlight = {'NONE', colors.bg},
