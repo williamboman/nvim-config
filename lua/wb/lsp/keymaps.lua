@@ -46,9 +46,9 @@ function M.buf_set_keymaps(bufnr, type)
     buf_set_keymap('n', '<space>d', "<cmd>lua require'wb.telescope.lsp'.document_diagnostics()<CR>", opts)
     buf_set_keymap('n', '[E', "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = lsp_popup_opts })<CR>", opts)
     for _, mode in pairs({'n', 'v'}) do
-        buf_set_keymap(mode, ']E', "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = lsp_popup_opts })<CR>", opts)
-        buf_set_keymap(mode, '[e', "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = lsp_popup_opts })<CR>", opts)
-        buf_set_keymap(mode, ']e', "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = lsp_popup_opts })<CR>", opts)
+        buf_set_keymap(mode, ']E', "<cmd>lua vim.lsp.diagnostic.goto_next({ severity_limit = 'Error', popup_opts = lsp_popup_opts })<CR>", opts)
+        buf_set_keymap(mode, '[e', "<cmd>lua vim.lsp.diagnostic.goto_prev({ severity_limit = 'Error', popup_opts = lsp_popup_opts })<CR>", opts)
+        buf_set_keymap(mode, ']e', "<cmd>lua vim.lsp.diagnostic.goto_next({ severity_limit = 'Error', popup_opts = lsp_popup_opts })<CR>", opts)
     end
     buf_set_keymap('n', '].', "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics(lsp_popup_opts)<CR>", opts)
 end
