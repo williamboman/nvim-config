@@ -28,24 +28,24 @@ local padding = {
 ---             - pad_bottom number of lines to pad contents at bottom (default 0)
 ---@return table of trimmed and padded lines
 local function trim_and_pad(contents, opts)
-  opts = opts or {}
-  local left_padding = (" "):rep(opts.pad_left or 1)
-  local right_padding = (" "):rep(opts.pad_right or 1)
-  contents = util.trim_empty_lines(contents)
-  for i, line in ipairs(contents) do
-    contents[i] = string.format('%s%s%s', left_padding, line:gsub("\r", ""), right_padding)
-  end
-  if opts.pad_top then
-    for _ = 1, opts.pad_top do
-      table.insert(contents, 1, "")
+    opts = opts or {}
+    local left_padding = (" "):rep(opts.pad_left or 1)
+    local right_padding = (" "):rep(opts.pad_right or 1)
+    contents = util.trim_empty_lines(contents)
+    for i, line in ipairs(contents) do
+        contents[i] = string.format('%s%s%s', left_padding, line:gsub("\r", ""), right_padding)
     end
-  end
-  if opts.pad_bottom then
-    for _ = 1, opts.pad_bottom do
-      table.insert(contents, "")
+    if opts.pad_top then
+        for _ = 1, opts.pad_top do
+            table.insert(contents, 1, "")
+        end
     end
-  end
-  return contents
+    if opts.pad_bottom then
+        for _ = 1, opts.pad_bottom do
+            table.insert(contents, "")
+        end
+    end
+    return contents
 end
 
 --- Computes size of float needed to show contents (with optional wrapping)
@@ -59,49 +59,49 @@ end
 --             - max_height maximal height of floating window
 --@returns width,height size of float
 local function make_floating_popup_size(contents, opts)
-  opts = opts or {}
+    opts = opts or {}
 
-  local width = opts.width
-  local height = opts.height
-  local wrap_at = opts.wrap_at
-  local max_width = opts.max_width
-  local max_height = opts.max_height
-  local line_widths = {}
+    local width = opts.width
+    local height = opts.height
+    local wrap_at = opts.wrap_at
+    local max_width = opts.max_width
+    local max_height = opts.max_height
+    local line_widths = {}
 
-  if not width then
-    width = 0
-    for i, line in ipairs(contents) do
-      -- TODO(ashkan) use nvim_strdisplaywidth if/when that is introduced.
-      line_widths[i] = vim.fn.strdisplaywidth(line)
-      width = math.max(line_widths[i], width)
-    end
-  end
-  if max_width then
-    width = math.min(width, max_width)
-    wrap_at = math.min(wrap_at or max_width, max_width)
-  end
-
-  if not height then
-    height = #contents
-    if wrap_at and width >= wrap_at then
-      height = 0
-      if vim.tbl_isempty(line_widths) then
-        for _, line in ipairs(contents) do
-          local line_width = vim.fn.strdisplaywidth(line)
-          height = height + math.ceil(line_width/wrap_at)
+    if not width then
+        width = 0
+        for i, line in ipairs(contents) do
+            -- TODO(ashkan) use nvim_strdisplaywidth if/when that is introduced.
+            line_widths[i] = vim.fn.strdisplaywidth(line)
+            width = math.max(line_widths[i], width)
         end
-      else
-        for i = 1, #contents do
-          height = height + math.max(1, math.ceil(line_widths[i]/wrap_at))
-        end
-      end
     end
-  end
-  if max_height then
-    height = math.min(height, max_height)
-  end
+    if max_width then
+        width = math.min(width, max_width)
+        wrap_at = math.min(wrap_at or max_width, max_width)
+    end
 
-  return width, height
+    if not height then
+        height = #contents
+        if wrap_at and width >= wrap_at then
+            height = 0
+            if vim.tbl_isempty(line_widths) then
+                for _, line in ipairs(contents) do
+                    local line_width = vim.fn.strdisplaywidth(line)
+                    height = height + math.ceil(line_width/wrap_at)
+                end
+            else
+                for i = 1, #contents do
+                    height = height + math.max(1, math.ceil(line_widths[i]/wrap_at))
+                end
+            end
+        end
+    end
+    if max_height then
+        height = math.min(height, max_height)
+    end
+
+    return width, height
 end
 
 --- Shows contents in a floating window.

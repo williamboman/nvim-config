@@ -45,24 +45,24 @@ local function common_on_attach(client, bufnr)
 end
 
 function M.setup(stop_active_clients)
-	if stop_active_clients then
-		vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
-	end
+    if stop_active_clients then
+        vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
+    end
 
-	setup_handlers()
+    setup_handlers()
 
     vim.cmd [[ command! LspReload :lua require'wb.lsp'.setup(true) ]]
 
-	local installed_servers = lsp_installer.get_installed_servers()
+    local installed_servers = lsp_installer.get_installed_servers()
 
-	for _, server in pairs(installed_servers) do
-		server:setup {
-			on_attach = common_on_attach,
+    for _, server in pairs(installed_servers) do
+        server:setup {
+            on_attach = common_on_attach,
             capabilities = capabilities.create {
                 with_snippet_support = server.name ~= 'eslintls'
             }
-		}
-	end
+        }
+    end
 
 end
 
