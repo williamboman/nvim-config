@@ -6,6 +6,8 @@ colorscheme aurora
 hi LineNr guifg=#888888
 
 hi rainbowcol1 guifg=#EBCB8B
+hi Search guibg=#B48EAD
+hi IncSearch guifg=#B48EAD
 
 hi GitSignsAdd guifg=#A3BE8C gui=none
 hi GitSignsChange guifg=#5E81AC gui=none
