@@ -47,20 +47,7 @@ M.setup = function ()
             scroll_strategy = nil,
             color_devicons = true,
 
-
             layout_strategy = 'horizontal',
-            layout_defaults = {
-                horizontal = {
-                    width_padding = 0.1,
-                    height_padding = 0.1,
-                    preview_width = 0.6,
-                },
-                vertical = {
-                    width_padding = 0.05,
-                    height_padding = 1,
-                    preview_height = 0.5,
-                }
-            },
 
             mappings = {
                 i = {
