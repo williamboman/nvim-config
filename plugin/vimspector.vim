@@ -3,13 +3,25 @@ function! VimspectorAddToWatch()
     call vimspector#AddWatch(word)
 endfunction
 
-function! JestStrategy(cmd)
+function! VimspectorJestStrategy(cmd)
     let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
     call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
 endfunction
 
-let g:test#custom_strategies = {'jest': function('JestStrategy')}
+function! VimspectorJestRegisterStrategy(cmd)
+    let testName = @t
+    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+endfunction
+
+let g:test#custom_strategies = {
+  \ 'jest': function('VimspectorJestStrategy'),
+  \ 'jest-from-register': function('VimspectorJestRegisterStrategy')
+  \ }
+
 nnoremap <leader>dd :TestNearest -strategy=jest<CR>
+
+" copies selection to the t register and runs VimspectorJestRegisterStrategy()
+vnoremap <leader>dd "ty:TestNearest -strategy=jest-from-register<CR>
 
 let g:vimspector_sign_priority = {
   \    'vimspectorBP':         11,
