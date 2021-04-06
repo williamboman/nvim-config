@@ -27,4 +27,8 @@ M.oldfiles = function ()
     builtin.oldfiles()
 end
 
+M.current_buffer_fuzzy_find = function ()
+    builtin.current_buffer_fuzzy_find()
+end
+
 return M

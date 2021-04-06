@@ -2,21 +2,22 @@ local actions = require('telescope.actions')
 
 local M = {}
 
+local function map_uwu(key, cmd)
+    for _, keymap in pairs({"<C-p>"..key, "<C-p>".."<C-"..key..">"}) do
+        vim.api.nvim_set_keymap('n', keymap, cmd, {noremap=true})
+    end
+end
+
 local function keymaps()
-    vim.api.nvim_set_keymap('n', '<C-p>f', "<cmd>lua require'wb.telescope.find_files'.find()<CR>", {noremap=false})
-    for _, map in pairs({ "<C-p>p", "<C-p><C-p>" }) do
-        vim.api.nvim_set_keymap('n', map, "<cmd>lua require'wb.telescope.find_files'.git_files()<CR>", {noremap=false})
-    end
+    map_uwu("f", "<cmd>lua require'wb.telescope.find_files'.find()<CR>")
+    map_uwu("p", "<cmd>lua require'wb.telescope.find_files'.git_files()<CR>")
+    map_uwu("l", "<cmd>lua require'wb.telescope.find_files'.current_buffer_fuzzy_find()<CR>")
+    map_uwu("q", "<cmd>lua require'wb.telescope.find_files'.live_grep()<CR>")
+    map_uwu("h", "<cmd>lua require'wb.telescope.find_files'.oldfiles()<CR>")
 
-    for _, map in pairs({ "<C-p>s", "<C-p><C-s>" }) do
-        vim.api.nvim_set_keymap('n', map, "<cmd>lua require'wb.telescope.git'.modified_files()<CR>", {noremap=false})
-    end
-
-    vim.api.nvim_set_keymap('n', '<C-p>q', "<cmd>lua require'wb.telescope.find_files'.live_grep()<CR>", {noremap=false})
-    vim.api.nvim_set_keymap('n', '<C-p>h', "<cmd>lua require'wb.telescope.find_files'.oldfiles()<CR>", {noremap=false})
-
-    vim.api.nvim_set_keymap('n', '<C-p>bc', "<cmd> lua require'wb.telescope.git'.bcommits()<CR>", {noremap=false})
-    vim.api.nvim_set_keymap('n', '<C-p>c', "<cmd> lua require'wb.telescope.git'.commits()<CR>", {noremap=false})
+    map_uwu("s", "<cmd>lua require'wb.telescope.git'.modified_files()<CR>")
+    map_uwu("b", "<cmd>lua require'wb.telescope.git'.bcommits()<CR>")
+    map_uwu("c", "<cmd>lua require'wb.telescope.git'.commits()<CR>")
 end
 
 M.setup = function ()
