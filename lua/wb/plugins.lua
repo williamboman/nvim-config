@@ -85,8 +85,7 @@ return require('packer').startup(function(use, use_rocks)
             setup = function ()
                 vim.g.peekaboo_compact = 0
             end },
-        { 'williamboman/nvim-tree.lua',
-            branch = 'event-api',
+        { 'kyazdani42/nvim-tree.lua',
             config = function ()
                 require 'wb.nvim-tree'.setup()
             end },
