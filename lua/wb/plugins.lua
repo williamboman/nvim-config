@@ -164,6 +164,8 @@ return require('packer').startup(function(use, use_rocks)
     }
 
     -- Telescope
+    -- 'nvim-telescope/telescope-fzy-native.nvim',
+    -- 'nvim-telescope/telescope-media-files.nvim',
     use {
         'williamboman/telescope.nvim',
         branch = 'show-client-in-lsp-code-actions',
@@ -174,8 +176,6 @@ return require('packer').startup(function(use, use_rocks)
         config = function ()
             require 'wb.telescope'.setup()
         end,
-        -- 'nvim-telescope/telescope-fzy-native.nvim',
-        -- 'nvim-telescope/telescope-media-files.nvim',
     }
 
     -- git
