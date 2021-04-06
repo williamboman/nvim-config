@@ -56,12 +56,14 @@ function M.setup(stop_active_clients)
     local installed_servers = lsp_installer.get_installed_servers()
 
     for _, server in pairs(installed_servers) do
-        server:setup {
+        local opts = {
             on_attach = common_on_attach,
             capabilities = capabilities.create {
                 with_snippet_support = server.name ~= 'eslintls'
             }
         }
+
+        server:setup(opts)
     end
 
 end

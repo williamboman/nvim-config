@@ -26,8 +26,10 @@ return require('packer').startup(function(use, use_rocks)
         'tpope/vim-repeat',
         'tpope/vim-commentary',
         'tpope/vim-surround',
-        'tpope/vim-sleuth',
         'tpope/vim-fugitive',
+        { 'tpope/vim-sleuth', setup = function ()
+            vim.g.sleuth_automatic = 0
+        end },
         { 'tpope/vim-dispatch',
             requires = {'radenling/vim-dispatch-neovim'} },
     }
@@ -111,7 +113,9 @@ return require('packer').startup(function(use, use_rocks)
     -- UI & Syntax
     use {
         'editorconfig/editorconfig-vim',
-        'sheerun/vim-polyglot',
+        { 'sheerun/vim-polyglot', setup = function ()
+            vim.g.polyglot_disabled = { "autoindent", "sensible" }
+        end },
         'christianchiarulli/nvcode-color-schemes.vim',
         'kyazdani42/nvim-web-devicons',
         -- { 'lukas-reineke/indent-blankline.nvim',
@@ -147,8 +151,12 @@ return require('packer').startup(function(use, use_rocks)
 
     -- LSP
     use {
-        'neovim/nvim-lspconfig',
-        { 'williamboman/nvim-lsp-installer', branch = 'main' },
+        { 'williamboman/nvim-lsp-installer',
+            branch = 'plenary.nvim',
+            requires = {
+                'neovim/nvim-lspconfig',
+                'nvim-lua/plenary.nvim',
+            } },
         { 'mfussenegger/nvim-jdtls', ft = { 'java' } },
         { 'onsails/lspkind-nvim',
             config = function ()
