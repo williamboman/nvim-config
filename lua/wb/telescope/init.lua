@@ -21,7 +21,7 @@ local function keymaps()
 end
 
 M.setup = function ()
-    -- require'telescope'.load_extension'fzy_native'
+    require'telescope'.load_extension'fzy_native'
 
     require('telescope').setup {
         defaults = {
@@ -66,12 +66,12 @@ M.setup = function ()
                 }
             }
         },
-        -- extensions = {
-        --     fzy_native = {
-        --         override_generic_sorter = false,
-        --         override_file_sorter = true,
-        --     }
-        -- }
+        extensions = {
+            fzy_native = {
+                override_generic_sorter = true,
+                override_file_sorter = true,
+            }
+        }
     }
 
     keymaps()

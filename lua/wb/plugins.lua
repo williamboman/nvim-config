@@ -164,15 +164,16 @@ return require('packer').startup(function(use, use_rocks)
     }
 
     -- Telescope
-    -- 'nvim-telescope/telescope-fzy-native.nvim',
-    -- 'nvim-telescope/telescope-media-files.nvim',
     use {
         'williamboman/telescope.nvim',
-        branch = 'show-client-in-lsp-code-actions',
+        branch = 'fix-multiple-clients',
         requires = {
             'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-fzy-native.nvim',
+            -- 'nvim-telescope/telescope-media-files.nvim',
         },
+        run = "cd deps/fzy-lua-native && make",
         config = function ()
             require 'wb.telescope'.setup()
         end,
