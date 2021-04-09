@@ -10,7 +10,7 @@ local function setup_handlers()
         vim.lsp.diagnostic.on_publish_diagnostics, {
             virtual_text = {
                 spacing = 5,
-                prefix = '--'
+                prefix = ''
             },
             signs = false -- rely on highlight styles instead, don't want to clobber signcolumn
         }

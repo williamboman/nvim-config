@@ -86,6 +86,12 @@ return require('packer').startup(function(use, use_rocks)
                 vim.g.peekaboo_compact = 0
             end },
         { 'kyazdani42/nvim-tree.lua',
+            setup = function ()
+               vim.g.nvim_tree_git_hl = 1
+               vim.g.nvim_tree_add_trailing = 1
+               vim.g.nvim_tree_lsp_diagnostics = 1
+               vim.g.nvim_tree_width = 40
+            end,
             config = function ()
                 require 'wb.nvim-tree'.setup()
             end },
@@ -173,7 +179,6 @@ return require('packer').startup(function(use, use_rocks)
             'nvim-telescope/telescope-fzy-native.nvim',
             -- 'nvim-telescope/telescope-media-files.nvim',
         },
-        run = "cd deps/fzy-lua-native && make",
         config = function ()
             require 'wb.telescope'.setup()
         end,
