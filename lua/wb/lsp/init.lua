@@ -18,8 +18,6 @@ local function setup_handlers()
 end
 
 local function common_on_attach(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     lsp_keymaps.buf_set_keymaps(bufnr, "lsp")
@@ -31,17 +29,6 @@ local function common_on_attach(client, bufnr)
     if client.resolved_capabilities.document_highlight then
         lsp_keymaps.buf_autocmd_document_highlight()
     end
-
-    local opts = { noremap=true, silent=true }
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap('n', '<leader>p', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap('n', '<leader>p', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
-    else
-        buf_set_keymap('n', '<leader>p', '<cmd>echohl WarningMsg | echo "Formatting not supported by LSP." | echohl None<CR>', opts)
-    end
-
 end
 
 function M.setup(stop_active_clients)

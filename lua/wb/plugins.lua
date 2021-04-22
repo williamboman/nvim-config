@@ -196,6 +196,14 @@ return require('packer').startup(function(use, use_rocks)
             end },
     }
 
+    -- Formatting/code style
+    use {
+        'mhartington/formatter.nvim',
+        config = function ()
+            require'wb.formatter'.setup()
+        end,
+    }
+
     -- Misc
     use { 'tweekmonster/startuptime.vim', cmd = {'StartupTime'} }
     use 'wakatime/vim-wakatime'
