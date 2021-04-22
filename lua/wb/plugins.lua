@@ -171,13 +171,11 @@ return require('packer').startup(function(use, use_rocks)
 
     -- Telescope
     use {
-        'williamboman/telescope.nvim',
-        branch = 'fix-multiple-clients',
+        'nvim-telescope/telescope.nvim',
         requires = {
             'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope-fzy-native.nvim',
-            -- 'nvim-telescope/telescope-media-files.nvim',
         },
         config = function ()
             require 'wb.telescope'.setup()
