@@ -157,7 +157,6 @@ return require('packer').startup(function(use, use_rocks)
     -- LSP
     use {
         { 'williamboman/nvim-lsp-installer',
-            branch = 'plenary.nvim',
             requires = {
                 'neovim/nvim-lspconfig',
                 'nvim-lua/plenary.nvim',
