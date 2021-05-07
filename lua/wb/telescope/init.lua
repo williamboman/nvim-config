@@ -12,7 +12,7 @@ local function keymaps()
     map_uwu("f", "<cmd>lua require'wb.telescope.find_files'.find()<CR>")
     map_uwu("p", "<cmd>lua require'wb.telescope.find_files'.git_files()<CR>")
     map_uwu("l", "<cmd>lua require'wb.telescope.find_files'.current_buffer_fuzzy_find()<CR>")
-    map_uwu("q", "<cmd>lua require'wb.telescope.find_files'.live_grep()<CR>")
+    map_uwu("q", "<cmd>lua require'wb.telescope.find_files'.grep()<CR>")
     map_uwu("h", "<cmd>lua require'wb.telescope.find_files'.oldfiles()<CR>")
 
     map_uwu("s", "<cmd>lua require'wb.telescope.git'.modified_files()<CR>")

@@ -19,8 +19,13 @@ M.git_files = function ()
     builtin.git_files()
 end
 
-M.live_grep = function ()
-    builtin.live_grep()
+M.grep = function ()
+    local search = vim.fn.input("Grep >")
+    if search then
+        builtin.grep_string({ only_sort_text = true, search = search })
+    else
+        builtin.live_grep()
+    end
 end
 
 M.oldfiles = function ()
