@@ -53,6 +53,10 @@ function M.setup(stop_active_clients)
         server:setup(opts)
     end
 
+    if stop_active_clients then
+        -- trigger the FileType autocmd to re-attach servers
+        vim.cmd [[ bufdo e ]]
+    end
 end
 
 return M
