@@ -33,6 +33,7 @@ M.setup = function ()
         ["<C-x>"]  =  tree_cb("split"),
         ["<C-t>"]  =  tree_cb("tabnew"),
         ["<S-t>"]  =  tree_cb("tabnew"),
+        ["t"]      =  tree_cb("tabnew"),
         ["<BS>"]   =  tree_cb("close_node"),
         ["X"]      =  tree_cb("close_node"),
         ["<Tab>"]  =  tree_cb("preview"),
