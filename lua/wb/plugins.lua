@@ -66,6 +66,7 @@ return require('packer').startup(function(use, use_rocks)
         'simnalamburt/vim-mundo',
         'airblade/vim-rooter',
         'hrsh7th/vim-vsnip',
+        'hrsh7th/vim-vsnip-integ',
         'Raimondi/delimitMate',
         'wellle/tmux-complete.vim',
         'psliwka/vim-smoothie',

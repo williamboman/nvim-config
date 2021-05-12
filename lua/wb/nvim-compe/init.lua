@@ -41,6 +41,7 @@ M.setup = function ()
             spell = true,
             tags = false,
             tmux = true,
+            vsnip = true,
         }
     }
 
