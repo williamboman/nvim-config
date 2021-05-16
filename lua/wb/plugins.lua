@@ -144,6 +144,7 @@ return require('packer').startup(function(use, use_rocks)
         'nvim-treesitter/playground',
         'p00f/nvim-ts-rainbow',
         'JoosepAlviste/nvim-ts-context-commentstring',
+        'romgrk/nvim-treesitter-context',
         'nvim-treesitter/nvim-treesitter-textobjects',
         { 'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',

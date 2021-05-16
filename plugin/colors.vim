@@ -1,8 +1,5 @@
 colorscheme aurora
 
-" =======================================
-" colorscheme overrides
-" =======================================
 hi LineNr guifg=#888888
 
 hi rainbowcol1 guifg=#EBCB8B
@@ -59,9 +56,8 @@ hi VimspectorProgramCounterLine guibg=#354154
 
 hi clear TelescopeMatching
 hi TelescopeMatching gui=underline guifg=#569CD6
-" =======================================
-" end
-" =======================================
+
+hi TreesitterContext gui=bold guifg=#354154
 
 " highlight yanked text
 au TextYankPost * silent! lua vim.highlight.on_yank { higroup="IncSearch", timeout=200 }
