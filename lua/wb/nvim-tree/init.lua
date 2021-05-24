@@ -54,10 +54,8 @@ M.setup = function ()
     vim.api.nvim_set_keymap('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', {noremap=true})
     vim.api.nvim_set_keymap('n', '<leader>a', '<cmd>NvimTreeFindFile<CR>', {noremap=true})
 
-    events.on_node_renamed(function (payload)
-        -- TODO: not do this when folder
-        require'nvim-lsp-installer.extras.tsserver'.rename_file(payload.old_name, payload.new_name)
-    end)
+    require'nvim-lsp-installer.adapters.nvim-tree'.connect()
+
 end
 
 return M
