@@ -159,7 +159,6 @@ return require('packer').startup(function(use, use_rocks)
         { 'williamboman/nvim-lsp-installer',
             requires = {
                 'neovim/nvim-lspconfig',
-                'nvim-lua/plenary.nvim',
             } },
         { 'mfussenegger/nvim-jdtls', ft = { 'java' } },
         { 'onsails/lspkind-nvim',
