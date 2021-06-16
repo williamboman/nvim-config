@@ -17,6 +17,7 @@ M.filetype = {
     css = {prettier},
     scss = {prettier},
     graphql = {prettier},
+    markdown = {prettier},
 }
 
 function M.setup()
