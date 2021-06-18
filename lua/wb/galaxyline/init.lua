@@ -1,11 +1,16 @@
 local M = {}
 
-local buffer_not_empty = function()
-    if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
-        return true
+local custom_condition = {
+    buffer_not_empty = function ()
+        if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
+            return true
+        end
+        return false
+    end,
+    wide_window_condition = function ()
+        return vim.fn.winwidth('%') >= 160 -- 160 is a somewhat random number. it felt nice.
     end
-    return false
-end
+}
 
 M.setup = function ()
     local gl = require('galaxyline')
@@ -126,7 +131,9 @@ M.setup = function ()
             provider = function()
                 return ' '
             end,
-            condition = condition.check_git_workspace,
+            condition = function ()
+                return condition.check_git_workspace() and custom_condition.wide_window_condition()
+            end,
             separator = ' ',
             separator_highlight = {'NONE', colors.bg},
             highlight = {colors.orange, colors.bg}
@@ -136,7 +143,9 @@ M.setup = function ()
     gls.left[4] = {
         GitBranch = {
             provider = 'GitBranch',
-            condition = condition.check_git_workspace,
+            condition = function ()
+                return condition.check_git_workspace() and custom_condition.wide_window_condition()
+            end,
             separator = ' ',
             separator_highlight = {'NONE', colors.bg},
             highlight = {colors.grey, colors.bg}
@@ -173,44 +182,32 @@ M.setup = function ()
     gls.left[8] ={
         FileIcon = {
             provider = 'FileIcon',
-            condition = buffer_not_empty,
+            condition = custom_condition.buffer_not_empty,
             highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.bg},
+            separator = ' ',
+            separator_highlight = {'NONE', colors.bg},
         },
     }
     gls.left[9] = {
         FileName = {
-            provider = 'FileName',
-            condition = buffer_not_empty,
-            highlight = {colors.fg, colors.bg, 'bold'},
-            separator = ' ',
-            separator_highlight = {'NONE', colors.bg},
-        }
-    }
-
-    local wide_window_condition = function ()
-        return buffer_not_empty() and vim.fn.winwidth('%') >= 160 -- 160 is a somewhat random number. it felt nice.
-    end
-
-    gls.left[10] = {
-        FilePath = {
             provider = {
                 function ()
-                    return ' '
+                    local h = vim.fn.expand("%:h")
+                    if h == "." then
+                        return ""
+                    end
+                    return h .. "/"
                 end,
-                function ()
-                    return vim.fn.expand('%:.')
-                end
-                },
-            condition = wide_window_condition,
-            highlight = {colors.grey, colors.bg},
-            separator = ' ',
-            separator_highlight = {'NONE', colors.bg},
+'FileName'
+            },
+            condition = custom_condition.buffer_not_empty,
+            highlight = {colors.fg, colors.bg, 'bold'},
         }
     }
-    gls.left[11] = {
+
+    gls.left[10] = {
         FileSize = {
             provider = 'FileSize',
-            condition = wide_window_condition,
             highlight = {colors.grey, colors.bg},
             separator = '  ',
             separator_highlight = {'NONE', colors.bg},
@@ -250,7 +247,9 @@ M.setup = function ()
     gls.right[7] = {
         BufferType = {
             provider = 'FileTypeName',
-            condition = condition.hide_in_width,
+            condition = function ()
+                return custom_condition.wide_window_condition() and custom_condition.buffer_not_empty()
+            end,
             separator = ' ',
             separator_highlight = {'NONE', colors.bg},
             highlight = {colors.grey, colors.bg}
@@ -267,7 +266,7 @@ M.setup = function ()
             condition = function()
                 local disabledFiletypes = {[' '] = true}
                 if disabledFiletypes[vim.bo.filetype] then return false end
-                return true
+                return true and custom_condition.wide_window_condition()
             end,
             highlight = {colors.grey, colors.bg},
         }
@@ -305,7 +304,7 @@ M.setup = function ()
             provider = function ()
                 return vim.fn.expand('%:h') .. '/'
             end,
-            condition = buffer_not_empty,
+            condition = custom_condition.buffer_not_empty,
             highlight = {colors.grey, colors.bg},
         },
     }
@@ -313,7 +312,7 @@ M.setup = function ()
     gls.short_line_left[3] = {
         SFileName = {
             provider = 'SFileName',
-            condition = buffer_not_empty,
+            condition = custom_condition.buffer_not_empty,
             highlight = {colors.fg, colors.bg, 'bold'},
             separator = '▲ ',
             separator_highlight = {colors.cyan, colors.bg},
