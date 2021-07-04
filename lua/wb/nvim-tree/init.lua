@@ -5,6 +5,7 @@ local M = {}
 
 M.setup = function ()
     vim.g.nvim_tree_disable_keybindings = true
+    vim.g.nvim_tree_disable_default_keybindings = true
     vim.g.nvim_tree_icons = {
         default = '',
         symlink = '',
@@ -26,29 +27,26 @@ M.setup = function ()
     }
 
     vim.g.nvim_tree_bindings = {
-        ["<CR>"]   =  tree_cb("edit"),
-        ["o"]      =  tree_cb("edit"),
-        ["<C-v>"]  =  tree_cb("vsplit"),
-        ["s"]      =  tree_cb("vsplit"),
-        ["<C-x>"]  =  tree_cb("split"),
-        ["<C-t>"]  =  tree_cb("tabnew"),
-        ["<S-t>"]  =  tree_cb("tabnew"),
-        ["t"]      =  tree_cb("tabnew"),
-        ["<BS>"]   =  tree_cb("close_node"),
-        ["X"]      =  tree_cb("close_node"),
-        ["<Tab>"]  =  tree_cb("preview"),
-        ["r"]      =  tree_cb("refresh"),
-        ["ma"]     =  tree_cb("create"),
-        ["md"]     =  tree_cb("remove"),
-        ["mm"]     =  tree_cb("rename"),
-        ["<C-r>"]  =  tree_cb("full_rename"),
-        ["x"]      =  tree_cb("cut"),
-        ["c"]      =  tree_cb("copy"),
-        ["p"]      =  tree_cb("paste"),
-        ["[c"]     =  tree_cb("prev_git_item"),
-        ["]c"]     =  tree_cb("next_git_item"),
-        ["-"]      =  tree_cb("dir_up"),
-        ["C"]      =  tree_cb("cd"),
+        { key = { "<CR>" }   , cb =  tree_cb("edit") },
+        { key = { "o" }      , cb =  tree_cb("edit") },
+        { key = { "<C-v>" }  , cb =  tree_cb("vsplit") },
+        { key = { "s" }      , cb =  tree_cb("vsplit") },
+        { key = { "<C-x>" }  , cb =  tree_cb("split") },
+        { key = { "t" }      , cb =  tree_cb("tabnew") },
+        { key = { "<BS>" }   , cb =  tree_cb("close_node") },
+        { key = { "X" }      , cb =  tree_cb("close_node") },
+        { key = { "<Tab>" }  , cb =  tree_cb("preview") },
+        { key = { "r" }      , cb =  tree_cb("refresh") },
+        { key = { "ma" }     , cb =  tree_cb("create") },
+        { key = { "md" }     , cb =  tree_cb("remove") },
+        { key = { "mm" }     , cb =  tree_cb("rename") },
+        { key = { "x" }      , cb =  tree_cb("cut") },
+        { key = { "c" }      , cb =  tree_cb("copy") },
+        { key = { "p" }      , cb =  tree_cb("paste") },
+        { key = { "[c" }     , cb =  tree_cb("prev_git_item") },
+        { key = { "]c" }     , cb =  tree_cb("next_git_item") },
+        { key = { "-" }      , cb =  tree_cb("dir_up") },
+        { key = { "C" }      , cb =  tree_cb("cd") },
     }
 
     vim.api.nvim_set_keymap('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', {noremap=true})
