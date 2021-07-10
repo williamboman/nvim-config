@@ -71,7 +71,6 @@ return require('packer').startup(function(use, use_rocks)
         'psliwka/vim-smoothie',
         { 't9md/vim-choosewin',
             config = function ()
-                vim.g.choosewin_overlay_enable = true
                 vim.api.nvim_set_keymap('n', '-', '<Plug>(choosewin)', {})
             end },
         { 'hrsh7th/nvim-compe',
