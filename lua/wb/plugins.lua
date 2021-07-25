@@ -187,6 +187,7 @@ return require('packer').startup(function(use, use_rocks)
     -- git
     use {
         'rhysd/git-messenger.vim',
+        'rhysd/committia.vim',
         { 'lewis6991/gitsigns.nvim',
             requires = {
                 'nvim-lua/plenary.nvim'
