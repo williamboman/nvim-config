@@ -20,13 +20,18 @@ M.filetype = {
     markdown = {prettier},
 }
 
+function _G.formatter()
+    vim.lsp.buf.formatting_seq_sync({}, 2000) -- 2000ms timeout, eslint is slow
+    vim.cmd [[:Format]]
+end
+
 function M.setup()
     require("formatter").setup({
         logging = false,
         filetype = M.filetype,
     })
 
-    vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>Format<CR>", {noremap=true, silent=true})
+    vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>call v:lua.formatter()<CR>", {noremap=true, silent=true})
 end
 
 return M
