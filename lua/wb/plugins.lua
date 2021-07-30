@@ -81,10 +81,6 @@ return require('packer').startup(function(use, use_rocks)
             setup = function ()
                 vim.g.clever_f_across_no_line = 1
             end },
-        { 'matze/vim-move',
-            setup = function ()
-                vim.g.move_key_modifier = 'C'
-            end },
         { 'junegunn/vim-peekaboo',
             setup = function ()
                 vim.g.peekaboo_compact = 0
