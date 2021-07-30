@@ -1,17 +1,15 @@
-nnoremap  ]q <cmd>cnext<CR>
-nnoremap  [q <cmd>cprev<CR>
-nnoremap  ]Q <cmd>lnext<CR>
-nnoremap  [Q <cmd>lprev<CR>
-nnoremap  <leader><leader> <cmd>up<CR>
-nnoremap  <leader>. <cmd>q<CR>
-nnoremap  <C-w>e <cmd>tab split<CR>
+nnoremap ]q <cmd>cnext<CR>
+nnoremap [q <cmd>cprev<CR>
+nnoremap ]Q <cmd>lnext<CR>
+nnoremap [Q <cmd>lprev<CR>
+nnoremap <leader><leader> <cmd>up<CR>
+nnoremap <leader>. <cmd>q<CR>
+nnoremap <C-w>e <cmd>tab split<CR>
 
 " i want to be able to leave terminal yes pls
-tnoremap  <Esc> <C-\\><C-n>
+tnoremap <Esc> <C-\><C-n>
 
 nnoremap Y y$
-nnoremap n nzzzv
-nnoremap N Nzzzv
 nnoremap J mzJ`z
 
 inoremap , ,<c-g>u
