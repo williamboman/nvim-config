@@ -118,6 +118,9 @@ return require('packer').startup(function(use, use_rocks)
     -- UI & Syntax
     use {
         'editorconfig/editorconfig-vim',
+        { 'rcarriga/nvim-notify', config = function ()
+            vim.notify = require("notify")
+        end },
         { 'sheerun/vim-polyglot', setup = function ()
             vim.g.polyglot_disabled = { "autoindent", "sensible" }
         end },
