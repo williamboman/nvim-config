@@ -14,7 +14,7 @@ function M.buf_autocmd_document_highlight()
 end
 
 _G.lsp_popup_opts = {
-    show_header = false
+    show_header = false,
 }
 
 -- @param bufnr (number)
@@ -23,7 +23,7 @@ function M.buf_set_keymaps(bufnr, type)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
-    local opts = {noremap = true, silent = true}
+    local opts = { noremap = true, silent = true }
 
     -- Code actions
     buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -51,7 +51,7 @@ function M.buf_set_keymaps(bufnr, type)
     buf_set_keymap("n", "<space>d", "<cmd>lua require'wb.telescope.lsp'.document_diagnostics()<CR>", opts)
     buf_set_keymap("n", "<space>s", "<cmd>lua require'wb.telescope.lsp'.document_symbols()<CR>", opts)
 
-    for _, mode in pairs({"n", "v"}) do
+    for _, mode in pairs { "n", "v" } do
         buf_set_keymap(
             mode,
             "[e",

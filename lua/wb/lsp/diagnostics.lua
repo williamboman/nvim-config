@@ -15,7 +15,7 @@ local padding = {
     pad_top = 1,
     pad_bottom = 1,
     pad_right = 3,
-    pad_left = 3
+    pad_left = 3,
 }
 
 --- Trims empty lines from input and pad left and right with spaces
@@ -114,13 +114,9 @@ local function open_floating_preview(contents, syntax)
     contents = trim_and_pad(contents, padding)
 
     -- Compute size of float needed to show (wrapped) lines
-    local width, height =
-        make_floating_popup_size(
-        contents,
-        {
-            max_width = 130
-        }
-    )
+    local width, height = make_floating_popup_size(contents, {
+        max_width = 130,
+    })
 
     local floating_bufnr = api.nvim_create_buf(false, true)
     if syntax then
@@ -128,15 +124,15 @@ local function open_floating_preview(contents, syntax)
     end
     local float_option = util.make_floating_popup_options(width, height)
     local floating_winnr = api.nvim_open_win(floating_bufnr, true, float_option)
-    api.nvim_command("noautocmd wincmd p")
+    api.nvim_command "noautocmd wincmd p"
     if syntax == "markdown" then
         api.nvim_win_set_option(floating_winnr, "conceallevel", 2)
     end
     api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
     api.nvim_buf_set_option(floating_bufnr, "modifiable", false)
     api.nvim_buf_set_option(floating_bufnr, "bufhidden", "wipe")
-    util.close_preview_autocmd({"CursorMoved", "CursorMovedI", "InsertEnter"}, floating_winnr)
-    floating_winbufnrs[vim.fn.bufnr("%")] = {floating_winnr, floating_bufnr}
+    util.close_preview_autocmd({ "CursorMoved", "CursorMovedI", "InsertEnter" }, floating_winnr)
+    floating_winbufnrs[vim.fn.bufnr "%"] = { floating_winnr, floating_bufnr }
     return floating_bufnr, floating_winnr
 end
 
@@ -144,7 +140,7 @@ local floating_severity_highlight_name = {
     [DiagnosticSeverity.Error] = "LspDiagnosticsFloatingError",
     [DiagnosticSeverity.Warning] = "LspDiagnosticsFloatingWarning",
     [DiagnosticSeverity.Information] = "LspDiagnosticsFloatingInformation",
-    [DiagnosticSeverity.Hint] = "LspDiagnosticsFloatingHint"
+    [DiagnosticSeverity.Hint] = "LspDiagnosticsFloatingHint",
 }
 
 --- Open a floating window with the diagnostics from {line_nr}
@@ -180,10 +176,10 @@ function M.show_line_diagnostics(bufnr, line_nr, client_id)
         local message_lines = vim.split(diagnostic.message, "\n", true)
 
         table.insert(lines, prefix .. message_lines[1])
-        table.insert(highlights, {#prefix, hiname})
+        table.insert(highlights, { #prefix, hiname })
         for j = 2, #message_lines do
             table.insert(lines, message_lines[j])
-            table.insert(highlights, {0, hiname})
+            table.insert(highlights, { 0, hiname })
         end
     end
 
@@ -197,10 +193,10 @@ function M.show_line_diagnostics(bufnr, line_nr, client_id)
     return popup_bufnr, winnr
 end
 
-api.nvim_command("autocmd BufEnter,WinEnter * call v:lua.lsp_diagnostic_on_buf_enter()")
+api.nvim_command "autocmd BufEnter,WinEnter * call v:lua.lsp_diagnostic_on_buf_enter()"
 
 function _G.lsp_diagnostic_on_buf_enter()
-    local bufnr = vim.fn.bufnr("%")
+    local bufnr = vim.fn.bufnr "%"
 
     for opener_bufnr, win_bufnr in pairs(floating_winbufnrs) do
         if not win_bufnr then
@@ -218,45 +214,31 @@ function _G.lsp_diagnostic_on_buf_enter()
 end
 
 function M.goto_next(opts)
-    opts =
-        vim.tbl_deep_extend(
-        "error",
-        {
-            enable_popup = false
-        },
-        opts or {}
-    )
+    opts = vim.tbl_deep_extend("error", {
+        enable_popup = false,
+    }, opts or {})
 
     vim.lsp.diagnostic.goto_next(opts)
 
     local win_id = opts.win_id or vim.api.nvim_get_current_win()
 
-    vim.schedule(
-        function()
-            M.show_line_diagnostics(vim.api.nvim_win_get_buf(win_id))
-        end
-    )
+    vim.schedule(function()
+        M.show_line_diagnostics(vim.api.nvim_win_get_buf(win_id))
+    end)
 end
 
 function M.goto_prev(opts)
-    opts =
-        vim.tbl_deep_extend(
-        "error",
-        {
-            enable_popup = false
-        },
-        opts or {}
-    )
+    opts = vim.tbl_deep_extend("error", {
+        enable_popup = false,
+    }, opts or {})
 
     vim.lsp.diagnostic.goto_prev(opts)
 
     local win_id = opts.win_id or vim.api.nvim_get_current_win()
 
-    vim.schedule(
-        function()
-            M.show_line_diagnostics(vim.api.nvim_win_get_buf(win_id))
-        end
-    )
+    vim.schedule(function()
+        M.show_line_diagnostics(vim.api.nvim_win_get_buf(win_id))
+    end)
 end
 
 return M

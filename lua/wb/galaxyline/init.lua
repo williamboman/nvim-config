@@ -2,18 +2,18 @@ local M = {}
 
 local custom_condition = {
     buffer_not_empty = function()
-        if vim.fn.empty(vim.fn.expand("%:t")) ~= 1 then
+        if vim.fn.empty(vim.fn.expand "%:t") ~= 1 then
             return true
         end
         return false
     end,
     wide_window_condition = function()
-        return vim.fn.winwidth("%") >= 160 -- 160 is a somewhat random number. it felt nice.
-    end
+        return vim.fn.winwidth "%" >= 160 -- 160 is a somewhat random number. it felt nice.
+    end,
 }
 
 M.setup = function()
-    local gl = require("galaxyline")
+    local gl = require "galaxyline"
     local colors = {
         bg = "#1B1F28",
         fg = "#E5E9F0",
@@ -32,14 +32,14 @@ M.setup = function()
         light_blue = "#88C0D0",
         red = "#BF616A",
         error_red = "#F44747",
-        info_yellow = "#FFCC66"
+        info_yellow = "#FFCC66",
     }
 
-    local condition = require("galaxyline.condition")
+    local condition = require "galaxyline.condition"
     local gls = gl.section
 
     -- filetypes in which galaxyline should display short version
-    gl.short_line_list = {"NvimTree", "vista", "dbui", "packer"}
+    gl.short_line_list = { "NvimTree", "vista", "dbui", "packer" }
 
     gls.left[1] = {
         ViMode = {
@@ -70,11 +70,11 @@ M.setup = function()
                     rm = "--MORE",
                     ["r?"] = ":CONFIRM",
                     ["!"] = "SHELL",
-                    t = "TERMINAL"
+                    t = "TERMINAL",
                 }
 
                 local byte_aliases = {
-                    [22] = "V-BLOCK" -- <C-v>
+                    [22] = "V-BLOCK", -- <C-v>
                 }
 
                 local mode_colors = {
@@ -93,7 +93,7 @@ M.setup = function()
                     ["COMMAND-LINE"] = colors.magenta,
                     ["EX"] = colors.blue,
                     SHELL = colors.cyan,
-                    TERMINAL = colors.cyan
+                    TERMINAL = colors.cyan,
                 }
 
                 local mode_alias = aliases[vim.fn.mode()] or byte_aliases[vim.fn.mode():byte()]
@@ -106,10 +106,10 @@ M.setup = function()
                 end
                 return "  " .. mode_alias .. " "
             end,
-            highlight = {colors.red, colors.bg},
-            separator_highlight = {"NONE", colors.bg},
-            separator = " "
-        }
+            highlight = { colors.red, colors.bg },
+            separator_highlight = { "NONE", colors.bg },
+            separator = " ",
+        },
     }
 
     gls.left[2] = {
@@ -120,10 +120,10 @@ M.setup = function()
             condition = function()
                 return vim.bo.readonly
             end,
-            highlight = {colors.orange, colors.bg},
-            separator_highlight = {"NONE", colors.bg},
-            separator = " "
-        }
+            highlight = { colors.orange, colors.bg },
+            separator_highlight = { "NONE", colors.bg },
+            separator = " ",
+        },
     }
 
     gls.left[3] = {
@@ -135,9 +135,9 @@ M.setup = function()
                 return condition.check_git_workspace() and custom_condition.wide_window_condition()
             end,
             separator = " ",
-            separator_highlight = {"NONE", colors.bg},
-            highlight = {colors.orange, colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+            highlight = { colors.orange, colors.bg },
+        },
     }
 
     gls.left[4] = {
@@ -147,9 +147,9 @@ M.setup = function()
                 return condition.check_git_workspace() and custom_condition.wide_window_condition()
             end,
             separator = " ",
-            separator_highlight = {"NONE", colors.bg},
-            highlight = {colors.grey, colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     gls.left[5] = {
@@ -157,94 +157,94 @@ M.setup = function()
             provider = "DiffAdd",
             condition = condition.hide_in_width,
             icon = "  ",
-            highlight = {colors.green, colors.bg}
-        }
+            highlight = { colors.green, colors.bg },
+        },
     }
     gls.left[6] = {
         DiffModified = {
             provider = "DiffModified",
             condition = condition.hide_in_width,
             icon = " 柳",
-            highlight = {colors.blue, colors.bg}
-        }
+            highlight = { colors.blue, colors.bg },
+        },
     }
     gls.left[7] = {
         DiffRemove = {
             provider = "DiffRemove",
             condition = condition.hide_in_width,
             icon = "  ",
-            highlight = {colors.red, colors.bg},
+            highlight = { colors.red, colors.bg },
             separator = " ",
-            separator_highlight = {"NONE", colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+        },
     }
 
     gls.left[8] = {
         FileIcon = {
             provider = "FileIcon",
             condition = custom_condition.buffer_not_empty,
-            highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg},
+            highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg },
             separator = " ",
-            separator_highlight = {"NONE", colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+        },
     }
     gls.left[9] = {
         FileName = {
             provider = {
                 function()
-                    local h = vim.fn.expand("%:h")
+                    local h = vim.fn.expand "%:h"
                     if h == "." then
                         return ""
                     end
                     return h .. "/"
                 end,
-                "FileName"
+                "FileName",
             },
             condition = custom_condition.buffer_not_empty,
-            highlight = {colors.fg, colors.bg, "bold"}
-        }
+            highlight = { colors.fg, colors.bg, "bold" },
+        },
     }
 
     gls.left[10] = {
         FileSize = {
             provider = "FileSize",
-            highlight = {colors.grey, colors.bg},
+            highlight = { colors.grey, colors.bg },
             separator = "  ",
-            separator_highlight = {"NONE", colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+        },
     }
 
     gls.right[1] = {
-        DiagnosticError = {provider = "DiagnosticError", icon = "  ", highlight = {colors.error_red, colors.bg}}
+        DiagnosticError = { provider = "DiagnosticError", icon = "  ", highlight = { colors.error_red, colors.bg } },
     }
     gls.right[2] = {
-        DiagnosticWarn = {provider = "DiagnosticWarn", icon = "  ", highlight = {colors.orange, colors.bg}}
+        DiagnosticWarn = { provider = "DiagnosticWarn", icon = "  ", highlight = { colors.orange, colors.bg } },
     }
 
     gls.right[3] = {
-        DiagnosticHint = {provider = "DiagnosticHint", icon = "  ", highlight = {colors.vivid_blue, colors.bg}}
+        DiagnosticHint = { provider = "DiagnosticHint", icon = "  ", highlight = { colors.vivid_blue, colors.bg } },
     }
 
     gls.right[4] = {
-        DiagnosticInfo = {provider = "DiagnosticInfo", icon = "  ", highlight = {colors.info_yellow, colors.bg}}
+        DiagnosticInfo = { provider = "DiagnosticInfo", icon = "  ", highlight = { colors.info_yellow, colors.bg } },
     }
 
     gls.right[5] = {
         LineInfo = {
             provider = "LineColumn",
             separator = " ",
-            separator_highlight = {"NONE", colors.bg},
-            highlight = {colors.grey, colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     gls.right[6] = {
         PerCent = {
             provider = "LinePercent",
             separator = " ",
-            separator_highlight = {"NONE", colors.bg},
-            highlight = {colors.grey, colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     gls.right[7] = {
@@ -254,9 +254,9 @@ M.setup = function()
                 return custom_condition.wide_window_condition() and custom_condition.buffer_not_empty()
             end,
             separator = " ",
-            separator_highlight = {"NONE", colors.bg},
-            highlight = {colors.grey, colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     gls.right[8] = {
@@ -267,14 +267,14 @@ M.setup = function()
                 return "(" .. count .. ")"
             end,
             condition = function()
-                local disabledFiletypes = {[" "] = true}
+                local disabledFiletypes = { [" "] = true }
                 if disabledFiletypes[vim.bo.filetype] then
                     return false
                 end
                 return true and custom_condition.wide_window_condition()
             end,
-            highlight = {colors.grey, colors.bg}
-        }
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     gls.right[9] = {
@@ -282,9 +282,9 @@ M.setup = function()
             provider = "FileEncode",
             condition = condition.hide_in_width,
             separator = " ",
-            separator_highlight = {"NONE", colors.bg},
-            highlight = {colors.grey, colors.bg}
-        }
+            separator_highlight = { "NONE", colors.bg },
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     local Space = {
@@ -292,45 +292,45 @@ M.setup = function()
             return " "
         end,
         separator = " ",
-        separator_highlight = {"NONE", colors.bg},
-        highlight = {"NONE", colors.bg}
+        separator_highlight = { "NONE", colors.bg },
+        highlight = { "NONE", colors.bg },
     }
 
     gls.right[10] = {
-        Space = Space
+        Space = Space,
     }
 
     gls.short_line_left[1] = {
-        Space = Space
+        Space = Space,
     }
 
     gls.short_line_left[2] = {
         RelPath = {
             provider = function()
-                return vim.fn.expand("%:h") .. "/"
+                return vim.fn.expand "%:h" .. "/"
             end,
             condition = custom_condition.buffer_not_empty,
-            highlight = {colors.grey, colors.bg}
-        }
+            highlight = { colors.grey, colors.bg },
+        },
     }
 
     gls.short_line_left[3] = {
         SFileName = {
             provider = "SFileName",
             condition = custom_condition.buffer_not_empty,
-            highlight = {colors.fg, colors.bg, "bold"},
+            highlight = { colors.fg, colors.bg, "bold" },
             separator = "▲ ",
-            separator_highlight = {colors.cyan, colors.bg}
-        }
+            separator_highlight = { colors.cyan, colors.bg },
+        },
     }
 
     gls.short_line_left[4] = {
         WinNr = {
-            highlight = {colors.cyan, colors.bg, "bold"},
+            highlight = { colors.cyan, colors.bg, "bold" },
             provider = function()
                 return string.format("%d", vim.fn.winnr())
-            end
-        }
+            end,
+        },
     }
 end
 

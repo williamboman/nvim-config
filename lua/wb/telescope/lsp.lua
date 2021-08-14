@@ -1,4 +1,4 @@
-local builtin = require("telescope.builtin")
+local builtin = require "telescope.builtin"
 
 local M = {}
 
@@ -27,7 +27,7 @@ M.references = function()
 end
 
 M.workspace_symbols = function()
-    local query = vim.fn.input("Query >")
+    local query = vim.fn.input "Query >"
     if query then
         vim.cmd("Telescope lsp_workspace_symbols query=" .. query)
     else

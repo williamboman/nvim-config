@@ -1,22 +1,18 @@
-local lsp_installer = require("nvim-lsp-installer")
+local lsp_installer = require "nvim-lsp-installer"
 
-local lsp_keymaps = require("wb.lsp.keymaps")
-local capabilities = require("wb.lsp.capabilities")
+local lsp_keymaps = require "wb.lsp.keymaps"
+local capabilities = require "wb.lsp.capabilities"
 
 local M = {}
 
 local function setup_handlers()
-    vim.lsp.handlers["textDocument/publishDiagnostics"] =
-        vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics,
-        {
-            virtual_text = {
-                spacing = 5,
-                prefix = ""
-            },
-            signs = false -- rely on highlight styles instead, don't want to clobber signcolumn
-        }
-    )
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = {
+            spacing = 5,
+            prefix = "",
+        },
+        signs = false, -- rely on highlight styles instead, don't want to clobber signcolumn
+    })
 end
 
 local function common_on_attach(client, bufnr)
@@ -48,13 +44,13 @@ function M.setup(stop_active_clients)
         local opts = {
             on_attach = common_on_attach,
             capabilities = capabilities.create {
-                with_snippet_support = server.name ~= "eslintls"
-            }
+                with_snippet_support = server.name ~= "eslintls",
+            },
         }
 
         if server.name == "eslintls" then
             opts.settings = {
-                format = { enable = true }
+                format = { enable = true },
             }
         end
 

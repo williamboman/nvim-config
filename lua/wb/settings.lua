@@ -1,7 +1,7 @@
 vim.g.nvcode_termcolors = 256
 vim.o.termguicolors = true
 vim.g.mapleader = ","
-vim.cmd([[syntax on]])
+vim.cmd [[syntax on]]
 vim.o.clipboard = "unnamedplus"
 vim.o.hlsearch = true
 vim.o.hidden = true
@@ -10,7 +10,7 @@ vim.o.scrolloff = 5
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath("cache") .. "/undo"
+vim.o.undodir = vim.fn.stdpath "cache" .. "/undo"
 vim.o.inccommand = "split"
 vim.o.laststatus = 2
 vim.o.cmdheight = 2

@@ -7,23 +7,23 @@ local function settings()
 end
 
 local function keymaps()
-    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
+    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
+    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
+    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
 
-    vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", {noremap = true, expr = true, silent = true})
+    vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, expr = true, silent = true })
     vim.api.nvim_set_keymap(
         "i",
         "<CR>",
         'compe#confirm({ "keys": "\\<Plug>delimitMateCR", "mode": "" })',
-        {noremap = true, expr = true, silent = true}
+        { noremap = true, expr = true, silent = true }
     )
-    vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", {noremap = true, expr = true, silent = true})
+    vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", { noremap = true, expr = true, silent = true })
 end
 
 M.setup = function()
-    require "compe".setup {
+    require("compe").setup {
         enabled = true,
         autocomplete = true,
         debug = false,
@@ -44,8 +44,8 @@ M.setup = function()
             spell = true,
             tags = false,
             tmux = true,
-            vsnip = true
-        }
+            vsnip = true,
+        },
     }
 
     settings()
@@ -57,8 +57,8 @@ local t = function(str)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col(".") - 1
-    if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+    local col = vim.fn.col "." - 1
+    if col == 0 or vim.fn.getline("."):sub(col, col):match "%s" then
         return true
     else
         return false
@@ -71,7 +71,7 @@ end
 _G.tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-n>"
-    elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    elseif vim.fn.call("vsnip#available", { 1 }) == 1 then
         return t "<Plug>(vsnip-expand-or-jump)"
     elseif check_back_space() then
         return t "<Tab>"
@@ -83,7 +83,7 @@ end
 _G.s_tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-p>"
-    elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    elseif vim.fn.call("vsnip#jumpable", { -1 }) == 1 then
         return t "<Plug>(vsnip-jump-prev)"
     else
         return t "<S-Tab>"
