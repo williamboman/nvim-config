@@ -1,8 +1,8 @@
 local M = {}
 
 local function settings()
-    vim.o.completeopt = 'menuone,noselect'
-    vim.o.shortmess = vim.o.shortmess .. 'c' -- Don't pass messages to |ins-completion-menu|
+    vim.o.completeopt = "menuone,noselect"
+    vim.o.shortmess = vim.o.shortmess .. "c" -- Don't pass messages to |ins-completion-menu|
     vim.o.pumheight = 15
 end
 
@@ -12,19 +12,23 @@ local function keymaps()
     vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
     vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-    vim.api.nvim_set_keymap("i",  "<C-Space>", "compe#complete()", {noremap = true, expr = true, silent = true})
-    vim.api.nvim_set_keymap("i",  "<CR>", 'compe#confirm({ "keys": "\\<Plug>delimitMateCR", "mode": "" })', {noremap = true, expr = true, silent = true})
-    vim.api.nvim_set_keymap("i",  "<C-e>", "compe#close('<C-e>')", {noremap = true, expr = true, silent = true})
+    vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", {noremap = true, expr = true, silent = true})
+    vim.api.nvim_set_keymap(
+        "i",
+        "<CR>",
+        'compe#confirm({ "keys": "\\<Plug>delimitMateCR", "mode": "" })',
+        {noremap = true, expr = true, silent = true}
+    )
+    vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", {noremap = true, expr = true, silent = true})
 end
 
-
-M.setup = function ()
-    require'compe'.setup {
+M.setup = function()
+    require "compe".setup {
         enabled = true,
         autocomplete = true,
         debug = false,
         min_length = 1,
-        preselect = 'enable',
+        preselect = "enable",
         throttle_time = 80,
         source_timeout = 200,
         incomplete_delay = 400,
@@ -32,7 +36,6 @@ M.setup = function ()
         max_kind_width = 100,
         max_menu_width = 100,
         documentation = true,
-
         source = {
             path = true,
             buffer = true,
@@ -41,7 +44,7 @@ M.setup = function ()
             spell = true,
             tags = false,
             tmux = true,
-            vsnip = true,
+            vsnip = true
         }
     }
 
@@ -54,8 +57,8 @@ local t = function(str)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    local col = vim.fn.col(".") - 1
+    if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
         return true
     else
         return false
@@ -73,7 +76,7 @@ _G.tab_complete = function()
     elseif check_back_space() then
         return t "<Tab>"
     else
-        return vim.fn['compe#complete']()
+        return vim.fn["compe#complete"]()
     end
 end
 
@@ -86,6 +89,5 @@ _G.s_tab_complete = function()
         return t "<S-Tab>"
     end
 end
-
 
 return M

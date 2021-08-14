@@ -3,7 +3,7 @@ local M = {}
 local function prettier()
     return {
         exe = "prettierd",
-        args = { vim.api.nvim_buf_get_name(0) },
+        args = {vim.api.nvim_buf_get_name(0)},
         stdin = true
     }
 end
@@ -17,7 +17,7 @@ M.filetype = {
     css = {prettier},
     scss = {prettier},
     graphql = {prettier},
-    markdown = {prettier},
+    markdown = {prettier}
 }
 
 function _G.formatter()
@@ -26,12 +26,14 @@ function _G.formatter()
 end
 
 function M.setup()
-    require("formatter").setup({
-        logging = false,
-        filetype = M.filetype,
-    })
+    require("formatter").setup(
+        {
+            logging = false,
+            filetype = M.filetype
+        }
+    )
 
-    vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>call v:lua.formatter()<CR>", {noremap=true, silent=true})
+    vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>call v:lua.formatter()<CR>", {noremap = true, silent = true})
 end
 
 return M

@@ -1,11 +1,11 @@
 local M = {}
 
-M.setup = function ()
-    require'nvim-treesitter.configs'.setup {
-        ensure_installed = 'all',
-        ignore_install = {'haskell'},
-        highlight = { enable = true },
-        indent = { enable = true, disable = {'python'} },
+M.setup = function()
+    require "nvim-treesitter.configs".setup {
+        ensure_installed = "all",
+        ignore_install = {"haskell"},
+        highlight = {enable = true},
+        indent = {enable = true, disable = {"python"}},
         playground = {
             enable = true,
             disable = {},
@@ -15,28 +15,27 @@ M.setup = function ()
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = '<S-Tab>',   -- normal mode
-                node_incremental = '<Tab>',   -- visual mode
-                node_decremental = '<S-Tab>', -- visual mode
-            },
+                init_selection = "<S-Tab>", -- normal mode
+                node_incremental = "<Tab>", -- visual mode
+                node_decremental = "<S-Tab>" -- visual mode
+            }
         },
-
         -- extensions
         textobjects = {
             select = {
                 enable = true,
                 keymaps = {
                     ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
+                    ["if"] = "@function.inner"
                 }
             }
         },
-        autotag = { enable = true },
-        rainbow = { enable = true },
+        autotag = {enable = true},
+        rainbow = {enable = true},
         context_commentstring = {
             enable = true,
             config = {
-                javascriptreact = { style_element = '{/*%s*/}' }
+                javascriptreact = {style_element = "{/*%s*/}"}
             }
         }
     }

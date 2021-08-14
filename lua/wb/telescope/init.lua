@@ -1,10 +1,10 @@
-local actions = require('telescope.actions')
+local actions = require("telescope.actions")
 
 local M = {}
 
 local function map_uwu(key, cmd)
-    for _, keymap in pairs({"<C-p>"..key, "<C-p>".."<C-"..key..">"}) do
-        vim.api.nvim_set_keymap('n', keymap, cmd, {noremap=true})
+    for _, keymap in pairs({"<C-p>" .. key, "<C-p>" .. "<C-" .. key .. ">"}) do
+        vim.api.nvim_set_keymap("n", keymap, cmd, {noremap = true})
     end
 end
 
@@ -23,36 +23,32 @@ local function keymaps()
     map_uwu("wd", "<cmd>lua require'wb.telescope.lsp'.workspace_diagnostics()<CR>")
 end
 
-M.setup = function ()
-    require'telescope'.load_extension'fzy_native'
+M.setup = function()
+    require "telescope".load_extension "fzy_native"
 
-    require('telescope').setup {
+    require("telescope").setup {
         defaults = {
             vimgrep_arguments = {
-                'rg',
-                '--hidden',
-                '--color=never',
-                '--no-heading',
-                '--with-filename',
-                '--line-number',
-                '--column',
-                '--smart-case',
+                "rg",
+                "--hidden",
+                "--color=never",
+                "--no-heading",
+                "--with-filename",
+                "--line-number",
+                "--column",
+                "--smart-case"
             },
-            file_sorter = require'telescope.sorters'.get_fzy_sorter,
-            prompt_prefix = ' ❯ ',
-            selection_caret = '❯ ',
-
-            file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-            grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-            qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
-
+            file_sorter = require "telescope.sorters".get_fzy_sorter,
+            prompt_prefix = " ❯ ",
+            selection_caret = "❯ ",
+            file_previewer = require "telescope.previewers".vim_buffer_cat.new,
+            grep_previewer = require "telescope.previewers".vim_buffer_vimgrep.new,
+            qflist_previewer = require "telescope.previewers".vim_buffer_qflist.new,
             selection_strategy = "reset",
             sorting_strategy = "descending",
             scroll_strategy = nil,
             color_devicons = true,
-
-            layout_strategy = 'horizontal',
-
+            layout_strategy = "horizontal",
             mappings = {
                 i = {
                     ["<C-j>"] = actions.move_selection_next,
@@ -60,19 +56,19 @@ M.setup = function ()
                     ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                     ["<Esc>"] = actions.close,
                     ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
-                    ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
+                    ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous
                 },
                 n = {
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
-                    ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                    ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist
                 }
             }
         },
         extensions = {
             fzy_native = {
                 override_generic_sorter = true,
-                override_file_sorter = true,
+                override_file_sorter = true
             }
         }
     }

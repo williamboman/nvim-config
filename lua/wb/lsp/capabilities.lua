@@ -1,7 +1,7 @@
 local M = {}
 
 local default_opts = {
-    with_snippet_support = true,
+    with_snippet_support = true
 }
 
 function M.create(opts)
@@ -11,9 +11,9 @@ function M.create(opts)
     if opts.with_snippet_support then
         capabilities.textDocument.completion.completionItem.resolveSupport = {
             properties = {
-                'documentation',
-                'detail',
-                'additionalTextEdits',
+                "documentation",
+                "detail",
+                "additionalTextEdits"
             }
         }
     end
