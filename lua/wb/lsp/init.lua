@@ -52,6 +52,12 @@ function M.setup(stop_active_clients)
             }
         }
 
+        if server.name == "eslintls" then
+            opts.settings = {
+                format = { enable = true }
+            }
+        end
+
         server:setup(opts)
     end
 

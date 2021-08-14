@@ -8,32 +8,37 @@ local function prettier()
     }
 end
 
-M.filetype = {
-    javascript = {prettier},
-    javascriptreact = {prettier},
-    typescript = {prettier},
-    typescriptreact = {prettier},
-    json = {prettier},
-    css = {prettier},
-    scss = {prettier},
-    graphql = {prettier},
-    markdown = {prettier}
-}
-
-function _G.formatter()
-    vim.lsp.buf.formatting_seq_sync({}, 2000) -- 2000ms timeout, eslint is slow
-    vim.cmd [[:Format]]
-end
-
 function M.setup()
+    -- 2000 timeout on formatting_seq_sync because eslint lsp is slow
+    vim.cmd [[command! MyFormat :Format|lua vim.lsp.buf.formatting_seq_sync({}, 2000)<CR>]]
+
     require("formatter").setup(
         {
             logging = false,
-            filetype = M.filetype
+            filetype = {
+                javascript = {prettier},
+                javascriptreact = {prettier},
+                typescript = {prettier},
+                typescriptreact = {prettier},
+                json = {prettier},
+                lua = {
+                    function()
+                        return {
+                            exe = "luafmt",
+                            args = {"--stdin"},
+                            stdin = true
+                        }
+                    end
+                },
+                css = {prettier},
+                scss = {prettier},
+                graphql = {prettier},
+                markdown = {prettier}
+            }
         }
     )
 
-    vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>call v:lua.formatter()<CR>", {noremap = true, silent = true})
+    vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>MyFormat<CR>", {noremap = true, silent = true})
 end
 
 return M
