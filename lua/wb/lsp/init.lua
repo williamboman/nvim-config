@@ -37,6 +37,7 @@ function M.setup(stop_active_clients)
     setup_handlers()
 
     vim.cmd [[ command! LspReload :lua require'wb.lsp'.setup(true) ]]
+    vim.cmd [[ command! LspLog tabnew|lua vim.cmd('e'..vim.lsp.get_log_path()) ]]
 
     local installed_servers = lsp_installer.get_installed_servers()
 

@@ -1,8 +1,6 @@
 require "wb.plugins"
 require "wb.settings"
 
-require "wb.keymaps"
-
 require("wb.lsp").setup()
 
 vim.cmd [[
