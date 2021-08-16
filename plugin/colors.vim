@@ -39,7 +39,9 @@ hi MatchParen guifg=#EBCB8B gui=bold,underline
 
 hi TabLine guibg=#1B1F28 guifg=#D8DEE9
 hi TabLineFill guibg=#1B1F28
-hi TabLineSel guibg=#88C0D0 guifg=#232731
+hi TabLineSel guibg=#88C0D0 guifg=#232731 gui=italic
+hi TabNum gui=bold guifg=#D8DEE9 guibg=#1B1F28
+hi TabNumSel gui=bold guifg=#8FBCBB guibg=#232731
 
 hi TSType guifg=#88C0D0
 hi TSTag guifg=#81A1C1
