@@ -160,8 +160,8 @@ return require("packer").startup(function(use, use_rocks)
                 local cool_notify = require "notify"
                 local oem_notify = vim.notify
                 vim.notify = function(...)
-                    oem_notify(...) -- nobody puts :messages in a corner
                     cool_notify(...)
+                    oem_notify(...) -- nobody puts :messages in a corner
                 end
             end,
         },
