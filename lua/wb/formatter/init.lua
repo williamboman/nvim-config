@@ -10,7 +10,7 @@ end
 
 function M.setup()
     -- 2000 timeout on formatting_seq_sync because eslint lsp is slow
-    vim.cmd [[command! MyFormat :Format|lua vim.lsp.buf.formatting_seq_sync({}, 2000)<CR>]]
+    vim.cmd [[ command! MyFormat :lua vim.lsp.buf.formatting_seq_sync({}, 2000); vim.cmd "Format" <CR> ]]
 
     require("formatter").setup {
         logging = false,
