@@ -9,7 +9,6 @@ nnoremap <C-w>e <cmd>tab split<CR>
 " i want to be able to leave terminal yes pls
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap Y y$
 nnoremap J mzJ`z
 
 inoremap , ,<c-g>u
