@@ -31,19 +31,11 @@ local function common_on_attach(client, bufnr)
     end
 end
 
-function M.setup(stop_active_clients)
-    if stop_active_clients then
-        vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
-    end
-
+function M.setup()
     setup_handlers()
-
-    vim.cmd [[ command! LspReload :lua require'wb.lsp'.setup(true) ]]
     vim.cmd [[ command! LspLog tabnew|lua vim.cmd('e'..vim.lsp.get_log_path()) ]]
 
-    local installed_servers = lsp_installer.get_installed_servers()
-
-    for _, server in pairs(installed_servers) do
+    lsp_installer.on_server_ready(function(server)
         local opts = {
             on_attach = common_on_attach,
             capabilities = capabilities.create {
@@ -58,12 +50,8 @@ function M.setup(stop_active_clients)
         end
 
         server:setup(opts)
-    end
-
-    if stop_active_clients then
-        -- trigger the FileType autocmd to re-attach servers
-        vim.cmd [[ bufdo e ]]
-    end
+        vim.cmd [[ do User LspAttachBuffers ]]
+    end)
 end
 
 return M
