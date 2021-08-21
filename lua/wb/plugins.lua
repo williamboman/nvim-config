@@ -13,7 +13,7 @@ end
 vim.cmd [[packadd packer.nvim]]
 
 function _G.packer_upgrade()
-    os.execute(("rm -rf %q"):format(install_path))
+    vim.fn.delete(install_path, "rf")
     install_packer()
 end
 
