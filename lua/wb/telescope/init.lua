@@ -24,7 +24,9 @@ local function keymaps()
 end
 
 M.setup = function()
-    require("telescope").load_extension "fzy_native"
+    if vim.fn.has("unix") == 1 then
+        require("telescope").load_extension "fzy_native"
+    end
 
     require("telescope").setup {
         defaults = {
@@ -65,12 +67,12 @@ M.setup = function()
                 },
             },
         },
-        extensions = {
-            fzy_native = {
+        extensions = vim.fn.has("unix") == 1 and {
+             fzy_native = {
                 override_generic_sorter = true,
                 override_file_sorter = true,
             },
-        },
+        } or {},
     }
 
     keymaps()

@@ -192,23 +192,25 @@ return require("packer").startup(function(use, use_rocks)
     }
 
     -- Treesitter
-    use {
-        "nvim-treesitter/playground",
-        "p00f/nvim-ts-rainbow",
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        {
-            "nvim-treesitter/nvim-treesitter",
-            run = ":TSUpdate",
-            config = function()
-                require("wb.nvim-treesitter").setup()
-            end,
-        },
-        {
-            "windwp/nvim-ts-autotag",
-            ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
-        },
-    }
+    if vim.fn.has("unix") == 1 then
+        use {
+            "nvim-treesitter/playground",
+            "p00f/nvim-ts-rainbow",
+            "JoosepAlviste/nvim-ts-context-commentstring",
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            {
+                "nvim-treesitter/nvim-treesitter",
+                run = ":TSUpdate",
+                config = function()
+                    require("wb.nvim-treesitter").setup()
+                end,
+            },
+            {
+                "windwp/nvim-ts-autotag",
+                ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+            },
+        }
+    end
 
     -- LSP
     use {
@@ -265,5 +267,5 @@ return require("packer").startup(function(use, use_rocks)
 
     -- Misc
     use { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } }
-    use "wakatime/vim-wakatime"
+    if vim.fn.has("win32") ~= 1 then use "wakatime/vim-wakatime" end
 end)
