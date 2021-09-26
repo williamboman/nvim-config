@@ -124,7 +124,7 @@ return require("packer").startup(function(use, use_rocks)
             end,
         },
         {
-            "glepnir/galaxyline.nvim",
+            "NTBBloodbath/galaxyline.nvim",
             branch = "main",
             config = function()
                 require("wb.galaxyline").setup()
@@ -220,6 +220,7 @@ return require("packer").startup(function(use, use_rocks)
                 "neovim/nvim-lspconfig",
             },
         },
+        "folke/lua-dev.nvim",
         -- { "mfussenegger/nvim-jdtls", ft = { "java" } },
         {
             "onsails/lspkind-nvim",

@@ -13,7 +13,7 @@ configs[server_name] = {
     },
 }
 
-local root_dir = server.get_server_root_path(server_name)
+local root_dir = server.get_server_root_path(server_name .. "_weirdness")
 
 local my_server = server.Server:new {
     name = server_name,

@@ -36,20 +36,28 @@ function M.setup()
     vim.cmd [[ command! LspLog tabnew|lua vim.cmd('e'..vim.lsp.get_log_path()) ]]
 
     lsp_installer.on_server_ready(function(server)
-        local opts = {
+        local default_opts = {
             on_attach = common_on_attach,
             capabilities = capabilities.create {
                 with_snippet_support = server.name ~= "eslintls",
             },
         }
 
-        if server.name == "eslintls" then
-            opts.settings = {
-                format = { enable = true },
-            }
-        end
+        local server_opts = {
+            ["eslintls"] = function()
+                default_opts.settings = {
+                    format = { enable = true },
+                }
+                return default_opts
+            end,
+            ["sumneko_lua"] = function()
+                return require("lua-dev").setup {
+                    lspconfig = { on_attach = common_on_attach, capabilities = capabilities.create() },
+                }
+            end,
+        }
 
-        server:setup(opts)
+        server:setup(server_opts[server.name] and server_opts[server.name]() or default_opts)
         vim.cmd [[ do User LspAttachBuffers ]]
     end)
 end

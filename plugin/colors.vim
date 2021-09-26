@@ -61,6 +61,8 @@ hi VimspectorProgramCounterLine guibg=#354154
 
 hi clear TelescopeMatching
 hi TelescopeMatching gui=underline guifg=#569CD6
+
+hi IndentBlanklineChar guifg=#2f2f2f
 " =======================================
 " end
 " =======================================
