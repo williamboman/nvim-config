@@ -9,9 +9,6 @@ local function prettier()
 end
 
 function M.setup()
-    -- 2000 timeout on formatting_seq_sync because eslint lsp is slow
-    vim.cmd [[ command! MyFormat :lua vim.lsp.buf.formatting_seq_sync({}, 2000); vim.cmd "Format" <CR> ]]
-
     require("formatter").setup {
         logging = false,
         filetype = {
@@ -36,7 +33,12 @@ function M.setup()
         },
     }
 
+    require("formatter.util").print = function() end
+
     vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>MyFormat<CR>", { noremap = true, silent = true })
+
+    -- 2000 timeout on formatting_seq_sync because eslint lsp is slow
+    vim.cmd [[ command! MyFormat :lua vim.lsp.buf.formatting_seq_sync({}, 2000); vim.cmd "Format" <CR> ]]
 end
 
 return M
