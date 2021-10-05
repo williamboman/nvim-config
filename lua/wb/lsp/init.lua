@@ -33,7 +33,7 @@ end
 
 function M.setup()
     setup_handlers()
-    vim.cmd [[ command! LspLog tabnew|lua vim.cmd('e'..vim.lsp.get_log_path()) ]]
+    vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
 
     lsp_installer.settings {
         log_level = vim.log.levels.DEBUG,
