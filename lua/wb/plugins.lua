@@ -1,12 +1,10 @@
-local fn = vim.fn
-
-local install_path = ("%s/site/pack/packer-lib/opt/packer.nvim"):format(fn.stdpath "data")
+local install_path = ("%s/site/pack/packer-lib/opt/packer.nvim"):format(vim.fn.stdpath "data")
 
 local function install_packer()
     vim.fn.termopen(("git clone https://github.com/wbthomason/packer.nvim %q"):format(install_path))
 end
 
-if fn.empty(fn.glob(install_path)) > 0 then
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     install_packer()
 end
 
@@ -70,7 +68,7 @@ return require("packer").startup(function(use, use_rocks)
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
         run = function()
-            fn["doge#install"]()
+            vim.fn["doge#install"]()
         end,
         setup = function()
             vim.g.doge_enable_mappings = 0
@@ -192,7 +190,7 @@ return require("packer").startup(function(use, use_rocks)
     }
 
     -- Treesitter
-    if vim.fn.has("unix") == 1 then
+    if vim.fn.has "unix" == 1 then
         use {
             "nvim-treesitter/playground",
             "p00f/nvim-ts-rainbow",
@@ -215,7 +213,9 @@ return require("packer").startup(function(use, use_rocks)
     -- LSP
     use {
         {
-            "williamboman/nvim-lsp-installer",
+            vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
+                    and "~/dev/github/nvim-lsp-installer"
+                or "williamboman/nvim-lsp-installer",
             requires = {
                 "neovim/nvim-lspconfig",
             },
@@ -268,5 +268,7 @@ return require("packer").startup(function(use, use_rocks)
 
     -- Misc
     use { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } }
-    if vim.fn.has("win32") ~= 1 then use "wakatime/vim-wakatime" end
+    if vim.fn.has "win32" ~= 1 then
+        use "wakatime/vim-wakatime"
+    end
 end)

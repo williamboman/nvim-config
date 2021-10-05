@@ -37,6 +37,13 @@ function M.setup()
 
     lsp_installer.settings {
         log_level = vim.log.levels.DEBUG,
+        ui = {
+            icons = {
+                server_installed = "",
+                server_pending = "",
+                server_uninstalled = "",
+            },
+        },
     }
 
     lsp_installer.on_server_ready(function(server)
