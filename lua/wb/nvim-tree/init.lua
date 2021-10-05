@@ -37,6 +37,7 @@ M.setup = function()
                     { key = { "s" }, cb = tree_cb "vsplit" },
                     { key = { "<C-x>" }, cb = tree_cb "split" },
                     { key = { "T" }, cb = tree_cb "tabnew" },
+                    { key = { "t" }, cb = tree_cb "tabnew" },
                     { key = { "<BS>" }, cb = tree_cb "close_node" },
                     { key = { "X" }, cb = tree_cb "close_node" },
                     { key = { "<Tab>" }, cb = tree_cb "preview" },

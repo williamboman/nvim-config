@@ -92,9 +92,32 @@ return require("packer").startup(function(use, use_rocks)
             end,
         },
         {
-            "hrsh7th/nvim-compe",
+            "ms-jpq/coq_nvim",
+            requires = {
+                { "ms-jpq/coq.artifacts", branch = "artifacts" },
+                { "ms-jpq/coq.thirdparty", branch = "3p" },
+            },
+            branch = "coq",
+            setup = function()
+                vim.g.coq_settings = {
+                    auto_start = true,
+                    ["display.pum.fast_close"] = false,
+                }
+            end,
             config = function()
-                require("wb.nvim-compe").setup()
+                require("wb.coq_nvim").setup()
+                local sources = {
+                    { src = "bc", short_name = "MATH", precision = 6 },
+                    { src = "repl", unsafe = { "rm", "sudo", "mv", "cp" } },
+                }
+                if vim.fn.executable "figlet" == 1 then
+                    table.insert(sources, { src = "figlet" })
+                end
+                if vim.fn.executable "cowsay" == 1 then
+                    table.insert(sources, { src = "cow" })
+                end
+                require "coq_3p"(sources)
+                require "wb.coq_3p.uuid"
             end,
         },
         {
@@ -117,6 +140,7 @@ return require("packer").startup(function(use, use_rocks)
                 vim.g.nvim_tree_lsp_diagnostics = 1
                 vim.g.nvim_tree_width = 40
             end,
+            after = "nvim-lsp-installer",
             config = function()
                 require("wb.nvim-tree").setup()
             end,
@@ -219,6 +243,10 @@ return require("packer").startup(function(use, use_rocks)
             requires = {
                 "neovim/nvim-lspconfig",
             },
+            after = "coq_nvim",
+            config = function()
+                require("wb.lsp").setup()
+            end,
         },
         "folke/lua-dev.nvim",
         -- { "mfussenegger/nvim-jdtls", ft = { "java" } },
