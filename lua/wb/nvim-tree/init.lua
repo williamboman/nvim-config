@@ -27,7 +27,9 @@ M.setup = function()
     vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>NvimTreeFindFile<CR>", { noremap = true })
 
     require("nvim-tree").setup {
+        lsp_diagnostics = true,
         view = {
+            width = 40,
             mappings = {
                 custom_only = true,
                 list = {

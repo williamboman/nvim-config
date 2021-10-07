@@ -137,8 +137,6 @@ return require("packer").startup(function(use, use_rocks)
             setup = function()
                 vim.g.nvim_tree_git_hl = 1
                 vim.g.nvim_tree_add_trailing = 1
-                vim.g.nvim_tree_lsp_diagnostics = 1
-                vim.g.nvim_tree_width = 40
             end,
             after = "nvim-lsp-installer",
             config = function()
