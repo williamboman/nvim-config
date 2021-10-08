@@ -24,33 +24,25 @@ local function keymaps()
 end
 
 M.setup = function()
-    if vim.fn.has("unix") == 1 then
+    if vim.fn.has "unix" == 1 then
         require("telescope").load_extension "fzy_native"
     end
 
     require("telescope").setup {
         defaults = {
-            vimgrep_arguments = {
-                "rg",
-                "--hidden",
-                "--color=never",
-                "--no-heading",
-                "--with-filename",
-                "--line-number",
-                "--column",
-                "--smart-case",
-            },
             file_sorter = require("telescope.sorters").get_fzy_sorter,
-            prompt_prefix = " ❯ ",
-            selection_caret = "❯ ",
+            generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
             file_previewer = require("telescope.previewers").vim_buffer_cat.new,
             grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
             qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+            prompt_prefix = " ❯ ",
+            selection_caret = "❯ ",
             selection_strategy = "reset",
             sorting_strategy = "descending",
             scroll_strategy = nil,
             color_devicons = true,
             layout_strategy = "horizontal",
+            set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
             mappings = {
                 i = {
                     ["<C-j>"] = actions.move_selection_next,
@@ -67,9 +59,9 @@ M.setup = function()
                 },
             },
         },
-        extensions = vim.fn.has("unix") == 1 and {
-             fzy_native = {
-                override_generic_sorter = true,
+        extensions = vim.fn.has "unix" == 1 and {
+            fzy_native = {
+                override_generic_sorter = false,
                 override_file_sorter = true,
             },
         } or {},
