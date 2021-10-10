@@ -105,7 +105,6 @@ return require("packer").startup(function(use, use_rocks)
                 }
             end,
             config = function()
-                require("wb.coq_nvim").setup()
                 local sources = {
                     { src = "bc", short_name = "MATH", precision = 6 },
                     { src = "repl", unsafe = { "rm", "sudo", "mv", "cp" } },
@@ -157,10 +156,11 @@ return require("packer").startup(function(use, use_rocks)
             end,
         },
         {
-            "voldikss/vim-floaterm",
+            "akinsho/toggleterm.nvim",
             config = function()
-                vim.api.nvim_set_keymap("n", "<C-t>", "<cmd>FloatermToggle<CR>", { noremap = true })
-                vim.api.nvim_set_keymap("t", "<C-t>", "<C-\\><C-n><cmd>FloatermToggle<CR>", { noremap = true })
+                require("toggleterm").setup {
+                    open_mapping = [[<C-t>]],
+                }
             end,
         },
         {

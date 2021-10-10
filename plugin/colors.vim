@@ -14,7 +14,6 @@ hi GitSignsChange guifg=#5E81AC gui=none
 hi GitSignsDelete guifg=#BF616A gui=none
 
 hi Comment guifg=#888888
-hi Pmenu guibg=#3A3E47
 
 hi LspDiagnosticsVirtualTextError guifg=#BF616A gui=italic
 hi LspDiagnosticsVirtualTextWarning guifg=#D7BA7D gui=italic
