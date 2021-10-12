@@ -80,11 +80,14 @@ return require("packer").startup(function(use, use_rocks)
     use {
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/vim-vsnip-integ",
-        "Raimondi/delimitMate",
         "wellle/tmux-complete.vim",
         "psliwka/vim-smoothie",
+        {
+            "windwp/nvim-autopairs",
+            config = function()
+                require("wb.nvim-autopairs").setup()
+            end,
+        },
         {
             "t9md/vim-choosewin",
             config = function()
@@ -100,23 +103,13 @@ return require("packer").startup(function(use, use_rocks)
             branch = "coq",
             setup = function()
                 vim.g.coq_settings = {
+                    keymap = { recommended = false }, -- for autopairs
                     auto_start = true,
                     ["display.pum.fast_close"] = false,
                 }
             end,
             config = function()
-                local sources = {
-                    { src = "bc", short_name = "MATH", precision = 6 },
-                    { src = "repl", unsafe = { "rm", "sudo", "mv", "cp" } },
-                }
-                if vim.fn.executable "figlet" == 1 then
-                    table.insert(sources, { src = "figlet" })
-                end
-                if vim.fn.executable "cowsay" == 1 then
-                    table.insert(sources, { src = "cow" })
-                end
-                require "coq_3p"(sources)
-                require "wb.coq_3p.uuid"
+                require("wb.coq_nvim").setup()
             end,
         },
         {
