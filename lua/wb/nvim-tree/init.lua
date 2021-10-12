@@ -27,7 +27,9 @@ M.setup = function()
     vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>NvimTreeFindFile<CR>", { noremap = true })
 
     require("nvim-tree").setup {
-        lsp_diagnostics = true,
+        diagnostics = {
+            enable = true,
+        },
         view = {
             width = 40,
             mappings = {
@@ -54,9 +56,9 @@ M.setup = function()
                     { key = { "]c" }, cb = tree_cb "next_git_item" },
                     { key = { "-" }, cb = tree_cb "dir_up" },
                     { key = { "C" }, cb = tree_cb "cd" },
-                }
-            }
-        }
+                },
+            },
+        },
     }
 
     require("nvim-lsp-installer.adapters.nvim-tree").connect()
