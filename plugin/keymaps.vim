@@ -23,3 +23,8 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 nnoremap <C-j> <esc>:m .+1<CR>==
 nnoremap <C-k> <esc>:m .-2<CR>==
+
+nnoremap <A-Up> :resize -2<CR>
+nnoremap <A-Right> :vertical resize +2<CR>
+nnoremap <A-Down> :resize +2<CR>
+nnoremap <A-Left> :vertical resize -2<CR>

@@ -39,9 +39,7 @@ M.setup = function()
             selection_caret = "❯ ",
             selection_strategy = "reset",
             sorting_strategy = "descending",
-            path_display = {
-                "smart",
-            },
+            path_display = { shorten = 5 },
             color_devicons = true,
             winblend = 7,
             set_env = { ["COLORTERM"] = "truecolor" },
