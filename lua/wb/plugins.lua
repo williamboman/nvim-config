@@ -21,7 +21,6 @@ return require("packer").startup(function(use, use_rocks)
     -- tpope
     use {
         "tpope/vim-repeat",
-        "tpope/vim-commentary",
         "tpope/vim-surround",
         "tpope/vim-fugitive",
         {
@@ -82,6 +81,12 @@ return require("packer").startup(function(use, use_rocks)
         "airblade/vim-rooter",
         "wellle/tmux-complete.vim",
         "psliwka/vim-smoothie",
+        {
+            "numToStr/Comment.nvim",
+            config = function()
+                require("Comment").setup()
+            end,
+        },
         {
             "windwp/nvim-autopairs",
             config = function()
