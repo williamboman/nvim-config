@@ -205,6 +205,7 @@ M.setup = function()
             separator = " ",
             condition = custom_condition.buffer_not_empty,
             highlight = { colors.fg, colors.bg, "bold" },
+            separator_highlight = { "NONE", colors.bg },
         },
     }
 
