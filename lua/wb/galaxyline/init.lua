@@ -198,8 +198,11 @@ M.setup = function()
                     end
                     return h .. "/"
                 end,
-                "FileName",
+                function()
+                    return vim.fn.expand "%:t"
+                end,
             },
+            separator = " ",
             condition = custom_condition.buffer_not_empty,
             highlight = { colors.fg, colors.bg, "bold" },
         },
