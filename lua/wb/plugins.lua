@@ -17,12 +17,13 @@ end
 
 vim.cmd [[command! PackerUpgrade :call v:lua.packer_upgrade()]]
 
-return require("packer").startup(function(use, use_rocks)
+local function spec(use, use_rocks)
     -- tpope
     use {
         "tpope/vim-repeat",
         "tpope/vim-surround",
         "tpope/vim-fugitive",
+        "tpope/vim-unimpaired",
         {
             "tpope/vim-sleuth",
             setup = function()
@@ -104,12 +105,18 @@ return require("packer").startup(function(use, use_rocks)
             requires = {
                 { "ms-jpq/coq.artifacts", branch = "artifacts" },
                 { "ms-jpq/coq.thirdparty", branch = "3p" },
+                {
+                    "onsails/lspkind-nvim",
+                    config = function()
+                        require("lspkind").init()
+                    end,
+                },
             },
             branch = "coq",
             setup = function()
                 vim.g.coq_settings = {
                     keymap = { recommended = false }, -- for autopairs
-                    auto_start = true,
+                    auto_start = "shut-up",
                     ["display.pum.fast_close"] = false,
                 }
             end,
@@ -173,17 +180,6 @@ return require("packer").startup(function(use, use_rocks)
     use {
         "editorconfig/editorconfig-vim",
         {
-            "rcarriga/nvim-notify",
-            config = function()
-                local cool_notify = require "notify"
-                local oem_notify = vim.notify
-                vim.notify = function(...)
-                    cool_notify(...)
-                    oem_notify(...) -- nobody puts :messages in a corner
-                end
-            end,
-        },
-        {
             "sheerun/vim-polyglot",
             setup = function()
                 vim.g.polyglot_disabled = { "autoindent", "sensible" }
@@ -231,27 +227,19 @@ return require("packer").startup(function(use, use_rocks)
     end
 
     -- LSP
+    local lsp_installer = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
+            and "~/dev/github/nvim-lsp-installer"
+        or "williamboman/nvim-lsp-installer"
     use {
-        {
-            vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
-                    and "~/dev/github/nvim-lsp-installer"
-                or "williamboman/nvim-lsp-installer",
-            requires = {
-                "neovim/nvim-lspconfig",
-            },
-            after = "coq_nvim",
-            config = function()
-                require("wb.lsp").setup()
-            end,
+        lsp_installer,
+        requires = {
+            "neovim/nvim-lspconfig",
+            "folke/lua-dev.nvim",
         },
-        "folke/lua-dev.nvim",
-        -- { "mfussenegger/nvim-jdtls", ft = { "java" } },
-        {
-            "onsails/lspkind-nvim",
-            config = function()
-                require("lspkind").init()
-            end,
-        },
+        after = "coq_nvim",
+        config = function()
+            require("wb.lsp").setup()
+        end,
     }
 
     -- Telescope
@@ -295,4 +283,13 @@ return require("packer").startup(function(use, use_rocks)
     if vim.fn.has "win32" ~= 1 then
         use "wakatime/vim-wakatime"
     end
-end)
+end
+
+require("packer").startup {
+    spec,
+    config = {
+        display = {
+            open_fn = require("packer.util").float,
+        },
+    },
+}
