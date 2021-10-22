@@ -60,8 +60,24 @@ M.setup = function()
             },
         },
     }
+    require("nvim-tree.events").on_node_renamed(function(payload)
+        local old_uri = vim.uri_from_fname(payload.old_name)
+        local new_uri = vim.uri_from_fname(payload.new_name)
 
-    require("nvim-lsp-installer.adapters.nvim-tree").connect()
+        for _, client in pairs(vim.lsp.get_active_clients()) do
+            if client.name == "tsserver" then
+                client.request("workspace/executeCommand", {
+                    command = "_typescript.applyRenameFile",
+                    arguments = {
+                        {
+                            sourceUri = old_uri,
+                            targetUri = new_uri,
+                        },
+                    },
+                })
+            end
+        end
+    end)
 end
 
 return M
