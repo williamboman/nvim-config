@@ -8,25 +8,15 @@ function M.buf_autocmd_document_highlight()
     augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold,CursorHoldI <buffer> call v:lua.my_document_highlight()
-        autocmd CursorMoved,CursorMovedI <buffer> call v:lua.my_clear_references()
+        autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
     augroup END
     ]],
         false
     )
 end
 
-local last_node_id
-
-function _G.my_clear_references()
-    -- this should be by bufnr
-    if ts_utils.get_node_at_cursor() ~= last_node_id then
-        vim.lsp.buf.clear_references()
-    end
-end
-
 function _G.my_document_highlight()
     local node = ts_utils.get_node_at_cursor()
-    last_node_id = node
     while node ~= nil do
         local node_type = node:type()
         if
@@ -55,7 +45,7 @@ function M.buf_set_keymaps(bufnr)
     local opts = { noremap = true, silent = true }
 
     -- Code actions
-    buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    buf_set_keymap("n", "<leader>r", "<cmd>call v:lua.my_lsp_rename()<CR>", opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua require'wb.telescope.lsp'.code_actions()<CR>", opts)
     buf_set_keymap("v", "<space>f", "<cmd><C-U>lua require'wb.telescope.lsp'.range_code_actions()<CR>", opts)
 

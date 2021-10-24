@@ -3,6 +3,7 @@ local lsp_installer = require "nvim-lsp-installer"
 local lsp_keymaps = require "wb.lsp.keymaps"
 local capabilities = require "wb.lsp.capabilities"
 
+require "wb.lsp.handlers"
 require "wb.lsp.custom-server"
 
 local M = {}
