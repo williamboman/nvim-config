@@ -5,7 +5,7 @@ vim.cmd [[syntax on]]
 vim.o.clipboard = "unnamedplus"
 vim.o.hlsearch = true
 vim.o.hidden = true
-vim.o.updatetime = 50
+vim.o.updatetime = 500
 vim.o.scrolloff = 5
 vim.o.swapfile = false
 vim.o.backup = false

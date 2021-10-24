@@ -20,7 +20,7 @@ end
 local function common_on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    lsp_keymaps.buf_set_keymaps(bufnr, "lsp")
+    lsp_keymaps.buf_set_keymaps(bufnr)
 
     if client.config.flags then
         client.config.flags.allow_incremental_sync = true

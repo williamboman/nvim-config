@@ -9,8 +9,6 @@ local DiagnosticSeverity = protocol.DiagnosticSeverity
 
 local M = {}
 
-local floating_winbufnrs = {}
-
 local padding = {
     pad_top = 1,
     pad_bottom = 1,
@@ -128,19 +126,19 @@ local function open_floating_preview(contents, syntax)
     if syntax == "markdown" then
         api.nvim_win_set_option(floating_winnr, "conceallevel", 2)
     end
+    api.nvim_win_set_option(floating_winnr, "winblend", 10)
     api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
     api.nvim_buf_set_option(floating_bufnr, "modifiable", false)
     api.nvim_buf_set_option(floating_bufnr, "bufhidden", "wipe")
     util.close_preview_autocmd({ "CursorMoved", "CursorMovedI", "InsertEnter" }, floating_winnr)
-    floating_winbufnrs[vim.fn.bufnr "%"] = { floating_winnr, floating_bufnr }
     return floating_bufnr, floating_winnr
 end
 
 local floating_severity_highlight_name = {
-    [DiagnosticSeverity.Error] = "LspDiagnosticsFloatingError",
-    [DiagnosticSeverity.Warning] = "LspDiagnosticsFloatingWarning",
-    [DiagnosticSeverity.Information] = "LspDiagnosticsFloatingInformation",
-    [DiagnosticSeverity.Hint] = "LspDiagnosticsFloatingHint",
+    [DiagnosticSeverity.Error] = "DiagnosticFloatingError",
+    [DiagnosticSeverity.Warning] = "DiagnosticFloatingWarn",
+    [DiagnosticSeverity.Information] = "DiagnosticFloatingInfo",
+    [DiagnosticSeverity.Hint] = "DiagnosticFloatingHint",
 }
 
 --- Open a floating window with the diagnostics from {line_nr}
@@ -186,31 +184,11 @@ function M.show_line_diagnostics(bufnr, line_nr, client_id)
     local popup_bufnr, winnr = open_floating_preview(lines, "plaintext")
     for i, hi in ipairs(highlights) do
         local prefixlen, hiname = unpack(hi)
-        -- Start highlight after the prefix
+        api.nvim_buf_add_highlight(popup_bufnr, -1, "Comment", i - 1 + padding.pad_top, padding.pad_left, padding.pad_left + prefixlen)
         api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i - 1 + padding.pad_top, prefixlen + padding.pad_left, -1)
     end
 
     return popup_bufnr, winnr
-end
-
-api.nvim_command "autocmd BufEnter,WinEnter * call v:lua.lsp_diagnostic_on_buf_enter()"
-
-function _G.lsp_diagnostic_on_buf_enter()
-    local bufnr = vim.fn.bufnr "%"
-
-    for opener_bufnr, win_bufnr in pairs(floating_winbufnrs) do
-        if not win_bufnr then
-            goto continue
-        end
-        local floating_winnr, floating_bufnr = unpack(win_bufnr)
-        if bufnr == opener_bufnr or bufnr == floating_bufnr then
-            -- When entering/exiting floating window, do nothing
-            goto continue
-        end
-        pcall(vim.api.nvim_win_close, floating_winnr, true)
-        floating_winbufnrs[opener_bufnr] = nil
-        ::continue::
-    end
 end
 
 function M.goto_next(opts)
@@ -218,7 +196,7 @@ function M.goto_next(opts)
         enable_popup = false,
     }, opts or {})
 
-    vim.lsp.diagnostic.goto_next(opts)
+    vim.diagnostic.goto_next(opts)
 
     local win_id = opts.win_id or vim.api.nvim_get_current_win()
 
@@ -232,7 +210,7 @@ function M.goto_prev(opts)
         enable_popup = false,
     }, opts or {})
 
-    vim.lsp.diagnostic.goto_prev(opts)
+    vim.diagnostic.goto_prev(opts)
 
     local win_id = opts.win_id or vim.api.nvim_get_current_win()
 

@@ -5,6 +5,8 @@ colorscheme aurora
 " =======================================
 hi LineNr guifg=#888888
 
+hi SpellBad gui=undercurl cterm=undercurl
+
 hi rainbowcol1 guifg=#EBCB8B
 hi Search guibg=#B48EAD
 hi IncSearch guifg=#B48EAD
@@ -15,24 +17,20 @@ hi GitSignsDelete guifg=#BF616A gui=none
 
 hi Comment guifg=#888888
 
-hi LspDiagnosticsVirtualTextError guifg=#BF616A gui=italic
-hi LspDiagnosticsVirtualTextWarning guifg=#D7BA7D gui=italic
-hi LspDiagnosticsVirtualTextInformation guifg=#B48EAD gui=italic
-hi LspDiagnosticsVirtualTextHint guifg=#B48EAD gui=italic
+hi DiagnosticVirtualTextError guifg=#BF616A gui=italic
+hi DiagnosticVirtualTextWarn guifg=#D7BA7D gui=italic
+hi DiagnosticVirtualTextInfo guifg=#B48EAD gui=italic
+hi DiagnosticVirtualTextHint guifg=#B48EAD gui=italic
 
-hi LspDiagnosticsUnderlineError guibg=#BF616A gui=underline,bold
-hi LspDiagnosticsUnderlineWarning gui=underline,bold
-hi LspDiagnosticsUnderlineInformation gui=underline
-hi LspDiagnosticsUnderlineHint gui=underline
+hi DiagnosticUnderlineError guisp=#BF616A gui=undercurl cterm=undercurl
+hi DiagnosticUnderlineWarn guisp=#D7BA7D gui=undercurl cterm=undercurl
+hi DiagnosticUnderlineInfo guisp=#B48EAD gui=undercurl cterm=undercurl
+hi DiagnosticUnderlineHint guisp=#B48EAD gui=undercurl cterm=undercurl
 
-hi LspDiagnosticsFloatingError guifg=#BF616A
-hi LspDiagnosticsFloatingWarning guifg=#D7BA7D
-hi LspDiagnosticsFloatingInformation guifg=#B48EAD
-hi LspDiagnosticsFloatingHint guifg=#B48EAD
-
-hi def link LspReferenceText CursorLine
-hi def link LspReferenceRead CursorLine
-hi def link LspReferenceWrite CursorLine
+hi DiagnosticFloatingError guifg=#BF616A
+hi DiagnosticFloatingWarn guifg=#D7BA7D
+hi DiagnosticFloatingInfo guifg=#B48EAD
+hi DiagnosticFloatingHint guifg=#B48EAD
 
 hi MatchParen guifg=#EBCB8B gui=bold,underline
 
@@ -59,7 +57,7 @@ hi VimspectorProgramCounterBreakpoint guifg=#569CD6
 hi VimspectorProgramCounterLine guibg=#354154
 
 hi clear TelescopeMatching
-hi TelescopeMatching gui=underline guifg=#569CD6
+hi TelescopeMatching gui=inverse guifg=#B48EAD
 
 hi IndentBlanklineChar guifg=#2f2f2f
 " =======================================

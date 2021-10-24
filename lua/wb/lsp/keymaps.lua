@@ -1,3 +1,5 @@
+local ts_utils = require "nvim-treesitter.ts_utils"
+
 local M = {}
 
 function M.buf_autocmd_document_highlight()
@@ -5,12 +7,40 @@ function M.buf_autocmd_document_highlight()
         [[
     augroup lsp_document_highlight
         autocmd! * <buffer>
-        autocmd CursorHold <buffer> silent! lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> silent! lua vim.lsp.buf.clear_references()
+        autocmd CursorHold,CursorHoldI <buffer> call v:lua.my_document_highlight()
+        autocmd CursorMoved,CursorMovedI <buffer> call v:lua.my_clear_references()
     augroup END
     ]],
         false
     )
+end
+
+local last_node_id
+
+function _G.my_clear_references()
+    -- this should be by bufnr
+    if ts_utils.get_node_at_cursor() ~= last_node_id then
+        vim.lsp.buf.clear_references()
+    end
+end
+
+function _G.my_document_highlight()
+    local node = ts_utils.get_node_at_cursor()
+    last_node_id = node
+    while node ~= nil do
+        local node_type = node:type()
+        if
+            node_type == "string"
+            or node_type == "string_fragment"
+            or node_type == "template_string"
+            or node_type == "document" -- for inline gql`` strings
+        then
+            -- who wants to highlight a string? i don't. yuck
+            return
+        end
+        node = node:parent()
+    end
+    vim.lsp.buf.document_highlight()
 end
 
 _G.lsp_popup_opts = {
