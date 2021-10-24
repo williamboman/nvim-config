@@ -192,6 +192,9 @@ M.setup = function()
         FileName = {
             provider = {
                 function()
+                    return (vim.bo.modifiable and vim.bo.modified) and " " or ""
+                end,
+                function()
                     local h = vim.fn.expand "%:h"
                     if h == "." then
                         return ""
