@@ -26,9 +26,13 @@ M.references = function()
     builtin.lsp_references()
 end
 
+M.implementations = function()
+    builtin.lsp_implementations()
+end
+
 M.workspace_symbols = function()
     local query = vim.fn.input "Query >"
-    if query then
+    if query ~= "" then
         vim.cmd("Telescope lsp_workspace_symbols query=" .. query)
     else
         builtin.lsp_workspace_symbols()
@@ -36,7 +40,27 @@ M.workspace_symbols = function()
 end
 
 M.document_symbols = function()
-    builtin.lsp_document_symbols()
+    local symbols = {
+        "&Variable",
+        "&Function",
+        "&Constant",
+        "C&lass",
+        "&Property",
+        "&Method",
+        "&Enum",
+        "&Interface",
+        "&Boolean",
+        "&Number",
+        "&String",
+        "&Array",
+        "C&onstructor",
+    }
+    local choice = vim.fn.confirm("Symbol type", table.concat(symbols, "\n"), -1)
+    local symbol_filter = nil
+    if choice ~= -1 then
+        symbol_filter = symbols[choice]:gsub("&", "")
+    end
+    builtin.lsp_document_symbols { symbols = symbol_filter }
 end
 
 return M

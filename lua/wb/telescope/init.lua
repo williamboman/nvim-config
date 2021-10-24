@@ -9,15 +9,18 @@ local function map_uwu(key, cmd)
 end
 
 local function keymaps()
+    map_uwu("r", "<cmd>Telescope resume<CR>")
+
     map_uwu("f", "<cmd>lua require'wb.telescope.find_files'.find()<CR>")
     map_uwu("p", "<cmd>lua require'wb.telescope.find_files'.git_files()<CR>")
+    map_uwu("a", "<cmd>lua require'wb.telescope.find_files'.file_browser()<CR>")
     map_uwu("l", "<cmd>lua require'wb.telescope.find_files'.current_buffer_fuzzy_find()<CR>")
     map_uwu("q", "<cmd>lua require'wb.telescope.find_files'.grep()<CR>")
+    map_uwu(".q", "<cmd>lua require'wb.telescope.find_files'.grep({use_buffer_cwd = true})<CR>")
     map_uwu("h", "<cmd>lua require'wb.telescope.find_files'.oldfiles()<CR>")
 
-    map_uwu("s", "<cmd>lua require'wb.telescope.git'.modified_files()<CR>")
-    map_uwu("b", "<cmd>lua require'wb.telescope.git'.bcommits()<CR>")
-    map_uwu("c", "<cmd>lua require'wb.telescope.git'.commits()<CR>")
+    map_uwu("s", "<cmd>lua require'wb.telescope.git'.status()<CR>")
+    map_uwu("S", "<cmd>lua require'wb.telescope.git'.stash()<CR>")
 
     map_uwu("ws", "<cmd>lua require'wb.telescope.lsp'.workspace_symbols()<CR>")
     map_uwu("wd", "<cmd>lua require'wb.telescope.lsp'.workspace_diagnostics()<CR>")
@@ -39,6 +42,20 @@ M.setup = function()
             selection_caret = "❯ ",
             selection_strategy = "reset",
             sorting_strategy = "descending",
+            layout_strategy = "flex",
+            layout_config = {
+                flex = {
+                    flip_columns = 161, -- half 27" monitor, scientifically calculated
+                },
+                horizontal = {
+                    preview_cutoff = 0,
+                    preview_width = 0.6,
+                },
+                vertical = {
+                    preview_cutoff = 0,
+                    preview_height = 0.65,
+                },
+            },
             path_display = { truncate = 3 },
             color_devicons = true,
             winblend = 7,

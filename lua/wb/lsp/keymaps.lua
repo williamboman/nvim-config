@@ -18,8 +18,7 @@ _G.lsp_popup_opts = {
 }
 
 -- @param bufnr (number)
--- @param type (string) 'jdtls' | 'lsp'
-function M.buf_set_keymaps(bufnr, type)
+function M.buf_set_keymaps(bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
@@ -27,20 +26,15 @@ function M.buf_set_keymaps(bufnr, type)
 
     -- Code actions
     buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    if type == "jdtls" then
-        buf_set_keymap("n", "<leader>qf", "<cmd>lua require'jdtls'.code_action()<CR>", opts)
-        buf_set_keymap("v", "<leader>f", "<cmd>lua require'jdtls'.code_action(true)<CR>", opts)
-        buf_set_keymap("n", "<leader>ev", "<cmd>lua require'jdtls'.extract_variable()<CR>", opts)
-        buf_set_keymap("v", "<C-m>", "<cmd>lua require'jdtls'.extract_method(true)<CR>", opts)
-    else
-        buf_set_keymap("n", "<space>f", "<cmd>lua require'wb.telescope.lsp'.code_actions()<CR>", opts)
-        buf_set_keymap("v", "<space>f", "<cmd><C-U>lua require'wb.telescope.lsp'.range_code_actions()<CR>", opts)
-    end
+    buf_set_keymap("n", "<space>f", "<cmd>lua require'wb.telescope.lsp'.code_actions()<CR>", opts)
+    buf_set_keymap("v", "<space>f", "<cmd><C-U>lua require'wb.telescope.lsp'.range_code_actions()<CR>", opts)
 
     -- Movement
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua require'wb.telescope.lsp'.definitions()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua require'wb.telescope.lsp'.references()<CR>", opts)
+    buf_set_keymap("n", "gI", "<cmd>lua require'wb.telescope.lsp'.implementations()<CR>", opts)
+    buf_set_keymap("n", "<space>s", "<cmd>lua require'wb.telescope.lsp'.document_symbols()<CR>", opts)
 
     -- Docs
     buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -49,7 +43,6 @@ function M.buf_set_keymaps(bufnr, type)
 
     -- Diagnostics
     buf_set_keymap("n", "<space>d", "<cmd>lua require'wb.telescope.lsp'.document_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "<space>s", "<cmd>lua require'wb.telescope.lsp'.document_symbols()<CR>", opts)
 
     for _, mode in pairs { "n", "v" } do
         buf_set_keymap(
