@@ -6,6 +6,10 @@ abbr lua-module
 
     return M
 
-snippet inspect
+snippet pinspect
 abbr print(vim.inspect(...))
     print(vim.inspect(${0}))
+
+snippet inspect
+abbr vim.inspect(...)
+    vim.inspect(${0})
