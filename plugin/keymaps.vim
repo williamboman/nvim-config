@@ -28,3 +28,5 @@ nnoremap <A-Up> :resize -2<CR>
 nnoremap <A-Right> :vertical resize +2<CR>
 nnoremap <A-Down> :resize +2<CR>
 nnoremap <A-Left> :vertical resize -2<CR>
+
+nnoremap <BS> :
