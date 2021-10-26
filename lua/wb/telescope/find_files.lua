@@ -27,6 +27,17 @@ M.file_browser = function()
     builtin.file_browser()
 end
 
+local vimgrep_arguments = {
+    "rg",
+    "--color=never",
+    "--no-heading",
+    "--with-filename",
+    "--line-number",
+    "--column",
+    "--smart-case",
+    "--hidden",
+}
+
 M.grep = function(opts)
     opts = opts or {}
     local search = vim.fn.input "Grep >"
@@ -42,16 +53,7 @@ M.grep = function(opts)
             search = search,
             use_regex = true,
             disable_coordinates = true,
-            vimgrep_arguments = {
-                "rg",
-                "--color=never",
-                "--no-heading",
-                "--with-filename",
-                "--line-number",
-                "--column",
-                "--smart-case",
-                "--hidden",
-            },
+            vimgrep_arguments = vimgrep_arguments,
             layout_strategy = "vertical",
             layout_config = {
                 prompt_position = "top",
@@ -63,6 +65,7 @@ M.grep = function(opts)
     else
         builtin.live_grep {
             cwd = cwd,
+            vimgrep_arguments = vimgrep_arguments,
             layout_strategy = "vertical",
             layout_config = {
                 prompt_position = "top",
