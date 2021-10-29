@@ -213,6 +213,16 @@ local function spec(use, use_rocks)
             "JoosepAlviste/nvim-ts-context-commentstring",
             "nvim-treesitter/nvim-treesitter-textobjects",
             {
+                "andymass/vim-matchup",
+                config = function()
+                    vim.g.matchup_matchparen_offscreen = {
+                        method = "popup",
+                        fullwidth = 1,
+                        highlight = "OffscreenMatchPopup",
+                    }
+                end,
+            },
+            {
                 "nvim-treesitter/nvim-treesitter",
                 run = ":TSUpdate",
                 config = function()

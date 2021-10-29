@@ -60,6 +60,8 @@ hi clear TelescopeMatching
 hi TelescopeMatching gui=inverse guifg=#B48EAD
 
 hi IndentBlanklineChar guifg=#2f2f2f
+
+hi OffscreenMatchPopup gui=underline guisp=#777777 guibg=#282c34
 " =======================================
 " end
 " =======================================

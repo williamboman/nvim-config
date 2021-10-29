@@ -38,6 +38,9 @@ M.setup = function()
                 javascriptreact = { style_element = "{/*%s*/}" },
             },
         },
+        matchup = {
+            enable = true,
+        },
     }
 end
 
