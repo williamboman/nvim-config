@@ -24,6 +24,7 @@ local function spec(use, use_rocks)
         "tpope/vim-surround",
         "tpope/vim-fugitive",
         "tpope/vim-unimpaired",
+        "github/copilot.vim",
         {
             "tpope/vim-sleuth",
             setup = function()
@@ -81,7 +82,15 @@ local function spec(use, use_rocks)
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
         "wellle/tmux-complete.vim",
-        "psliwka/vim-smoothie",
+        {
+            "psliwka/vim-smoothie",
+            setup = function()
+                -- Speed up cursor speed at the end of the animation.
+                vim.g.smoothie_speed_constant_factor = 50
+                -- Higher... fps?
+                vim.g.smoothie_update_interval = 5
+            end,
+        },
         {
             "numToStr/Comment.nvim",
             config = function()

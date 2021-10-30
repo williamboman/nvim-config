@@ -62,6 +62,8 @@ hi TelescopeMatching gui=inverse guifg=#B48EAD
 hi IndentBlanklineChar guifg=#2f2f2f
 
 hi OffscreenMatchPopup gui=underline guisp=#777777 guibg=#282c34
+
+highlight CopilotSuggestion gui=undercurl guisp=#777777
 " =======================================
 " end
 " =======================================
