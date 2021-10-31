@@ -254,6 +254,7 @@ local function spec(use, use_rocks)
         requires = {
             "neovim/nvim-lspconfig",
             "folke/lua-dev.nvim",
+            "b0o/SchemaStore.nvim",
         },
         after = "coq_nvim",
         config = function()

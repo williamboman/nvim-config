@@ -58,15 +58,39 @@ function M.setup()
 
         local server_opts = {
             ["eslintls"] = function()
-                default_opts.settings = {
-                    format = { enable = true },
-                }
-                return default_opts
+                return vim.tbl_deep_extend("force", default_opts, {
+                    settings = {
+                        format = {
+                            enable = true,
+                        },
+                    },
+                })
             end,
             ["sumneko_lua"] = function()
                 return require("lua-dev").setup {
-                    lspconfig = { on_attach = common_on_attach, capabilities = capabilities.create() },
+                    lspconfig = default_opts,
                 }
+            end,
+            ["yamlls"] = function()
+                return vim.tbl_deep_extend("force", default_opts, {
+                    settings = {
+                        yaml = {
+                            hover = true,
+                            completion = true,
+                            validate = true,
+                            schemas = require("schemastore").json.schemas(),
+                        },
+                    },
+                })
+            end,
+            ["jsonls"] = function()
+                return vim.tbl_deep_extend("force", default_opts, {
+                    settings = {
+                        json = {
+                            schemas = require("schemastore").json.schemas(),
+                        },
+                    },
+                })
             end,
         }
 
