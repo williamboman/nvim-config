@@ -157,10 +157,12 @@ local function spec(use, use_rocks)
             end,
         },
         {
-            "NTBBloodbath/galaxyline.nvim",
-            branch = "main",
+            "nvim-lualine/lualine.nvim",
+            requires = {
+                "arkav/lualine-lsp-progress",
+            },
             config = function()
-                require("wb.galaxyline").setup()
+                require("wb.lualine").setup()
             end,
         },
         {
