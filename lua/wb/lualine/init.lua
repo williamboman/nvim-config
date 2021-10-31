@@ -26,7 +26,16 @@ function M.setup()
         return "(" .. vim.tbl_count(vim.lsp.buf_get_clients(0)) .. ")"
     end
 
+    local auto_theme = require("lualine.themes.auto")
+
+    auto_theme.visual.a.bg = "#B48EAD"
+    auto_theme.visual.b.fg = "#B48EAD"
+
+    auto_theme.command.a.bg = "#88C0D0"
+    auto_theme.command.b.fg = "#88C0D0"
+
     require("lualine").setup {
+        options = { theme = auto_theme },
         sections = {
             lualine_b = { "branch", diff },
             lualine_c = {
