@@ -17,7 +17,7 @@ function M.create(opts)
             },
         }
     end
-    return require("cmp_nvim_lsp").update_capabilities(capabilities)
+    return capabilities
 end
 
 return M

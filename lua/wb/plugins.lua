@@ -99,7 +99,6 @@ local function spec(use, use_rocks)
         },
         {
             "windwp/nvim-autopairs",
-            event = "VimEnter",
             config = function()
                 require("wb.nvim-autopairs").setup()
             end,
@@ -111,15 +110,10 @@ local function spec(use, use_rocks)
             end,
         },
         {
-            "hrsh7th/nvim-cmp",
+            "ms-jpq/coq_nvim",
             requires = {
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-buffer",
-                { "andersevenrud/compe-tmux", branch = "cmp" },
-                "hrsh7th/cmp-calc",
-                "hrsh7th/cmp-path",
-                "L3MON4D3/LuaSnip",
-                "saadparwaiz1/cmp_luasnip",
+                { "ms-jpq/coq.artifacts", branch = "artifacts" },
+                { "ms-jpq/coq.thirdparty", branch = "3p" },
                 {
                     "onsails/lspkind-nvim",
                     config = function()
@@ -127,8 +121,16 @@ local function spec(use, use_rocks)
                     end,
                 },
             },
+            branch = "coq",
+            setup = function()
+                vim.g.coq_settings = {
+                    keymap = { recommended = false }, -- for autopairs
+                    auto_start = "shut-up",
+                    ["display.pum.fast_close"] = false,
+                }
+            end,
             config = function()
-                require("wb.cmp").setup()
+                require("wb.coq_nvim").setup()
             end,
         },
         {
@@ -149,6 +151,7 @@ local function spec(use, use_rocks)
                 vim.g.nvim_tree_git_hl = 1
                 vim.g.nvim_tree_add_trailing = 1
             end,
+            after = "nvim-lsp-installer",
             config = function()
                 require("wb.nvim-tree").setup()
             end,
@@ -255,6 +258,7 @@ local function spec(use, use_rocks)
             "folke/lua-dev.nvim",
             "b0o/SchemaStore.nvim",
         },
+        after = "coq_nvim",
         config = function()
             require("wb.lsp").setup()
         end,
