@@ -81,7 +81,6 @@ local function spec(use, use_rocks)
     use {
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
-        "wellle/tmux-complete.vim",
         {
             "psliwka/vim-smoothie",
             setup = function()
@@ -148,10 +147,10 @@ local function spec(use, use_rocks)
         {
             "kyazdani42/nvim-tree.lua",
             setup = function()
+                vim.g.nvim_tree_respect_buf_cwd = 1
                 vim.g.nvim_tree_git_hl = 1
                 vim.g.nvim_tree_add_trailing = 1
             end,
-            after = "nvim-lsp-installer",
             config = function()
                 require("wb.nvim-tree").setup()
             end,
@@ -177,12 +176,6 @@ local function spec(use, use_rocks)
                 require("toggleterm").setup {
                     open_mapping = [[<C-t>]],
                 }
-            end,
-        },
-        {
-            "haya14busa/incsearch.vim",
-            config = function()
-                require("wb.incsearch").setup()
             end,
         },
     }
@@ -268,7 +261,6 @@ local function spec(use, use_rocks)
     use {
         "nvim-telescope/telescope.nvim",
         requires = {
-            "nvim-lua/popup.nvim",
             "nvim-lua/plenary.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         },

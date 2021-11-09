@@ -26,7 +26,7 @@ function M.setup()
         return "(" .. vim.tbl_count(vim.lsp.buf_get_clients(0)) .. ")"
     end
 
-    local auto_theme = require("lualine.themes.auto")
+    local auto_theme = require "lualine.themes.auto"
 
     auto_theme.visual.a.bg = "#B48EAD"
     auto_theme.visual.b.fg = "#B48EAD"

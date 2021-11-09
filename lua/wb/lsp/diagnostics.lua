@@ -184,7 +184,14 @@ function M.show_line_diagnostics(bufnr, line_nr, client_id)
     local popup_bufnr, winnr = open_floating_preview(lines, "plaintext")
     for i, hi in ipairs(highlights) do
         local prefixlen, hiname = unpack(hi)
-        api.nvim_buf_add_highlight(popup_bufnr, -1, "Comment", i - 1 + padding.pad_top, padding.pad_left, padding.pad_left + prefixlen)
+        api.nvim_buf_add_highlight(
+            popup_bufnr,
+            -1,
+            "Comment",
+            i - 1 + padding.pad_top,
+            padding.pad_left,
+            padding.pad_left + prefixlen
+        )
         api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i - 1 + padding.pad_top, prefixlen + padding.pad_left, -1)
     end
 
