@@ -1,3 +1,4 @@
+local telescope = require("telescope")
 local builtin = require "telescope.builtin"
 
 local M = {}
@@ -86,6 +87,10 @@ M.current_buffer_fuzzy_find = function()
         layout_strategy = "vertical",
         preview_height = 0.4,
     }
+end
+
+M.project = function()
+    telescope.extensions.project.project {}
 end
 
 return M
