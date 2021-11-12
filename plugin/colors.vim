@@ -24,13 +24,13 @@ hi DiagnosticVirtualTextHint guifg=#B48EAD gui=italic
 
 hi DiagnosticUnderlineError guisp=#BF616A gui=undercurl cterm=undercurl
 hi DiagnosticUnderlineWarn guisp=#D7BA7D gui=undercurl cterm=undercurl
-hi DiagnosticUnderlineInfo guisp=#B48EAD gui=undercurl cterm=undercurl
-hi DiagnosticUnderlineHint guisp=#B48EAD gui=undercurl cterm=undercurl
+hi DiagnosticUnderlineInfo guisp=#676767 gui=undercurl cterm=undercurl
+hi DiagnosticUnderlineHint guisp=#676767 gui=undercurl cterm=undercurl
 
 hi DiagnosticFloatingError guifg=#BF616A
 hi DiagnosticFloatingWarn guifg=#D7BA7D
-hi DiagnosticFloatingInfo guifg=#B48EAD
-hi DiagnosticFloatingHint guifg=#B48EAD
+hi DiagnosticFloatingInfo guifg=#676767
+hi DiagnosticFloatingHint guifg=#676767
 
 hi MatchParen guifg=#EBCB8B gui=bold,underline
 
