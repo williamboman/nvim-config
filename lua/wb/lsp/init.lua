@@ -30,6 +30,13 @@ local function common_on_attach(client, bufnr)
     if client.resolved_capabilities.document_highlight then
         lsp_keymaps.buf_autocmd_document_highlight()
     end
+
+    require("lsp_signature").on_attach({
+        bind = true,
+        floating_window = false,
+        hint_prefix = "",
+        hint_scheme = "Comment",
+    }, bufnr)
 end
 
 function M.setup()

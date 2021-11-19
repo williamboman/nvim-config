@@ -250,6 +250,7 @@ local function spec(use, use_rocks)
             "neovim/nvim-lspconfig",
             "folke/lua-dev.nvim",
             "b0o/SchemaStore.nvim",
+            "ray-x/lsp_signature.nvim",
         },
         after = "coq_nvim",
         config = function()
