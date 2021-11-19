@@ -29,6 +29,7 @@ end
 
 M.setup = function()
     require("telescope").load_extension "fzf"
+    require("telescope").load_extension "ui-select"
 
     require("telescope").setup {
         defaults = {
@@ -78,6 +79,9 @@ M.setup = function()
                 override_generic_sorter = true,
                 override_file_sorter = true,
                 case_mode = "smart_case",
+            },
+            ["ui-select"] = {
+                require("telescope.themes").get_dropdown {},
             },
         },
     }

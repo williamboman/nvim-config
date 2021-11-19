@@ -263,6 +263,7 @@ local function spec(use, use_rocks)
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-project.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         },
         config = function()
