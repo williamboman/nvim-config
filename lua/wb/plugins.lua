@@ -187,6 +187,7 @@ local function spec(use, use_rocks)
             "sheerun/vim-polyglot",
             setup = function()
                 vim.g.polyglot_disabled = { "autoindent", "sensible" }
+                vim.g.polyglot_disabled = { "markdown" }
             end,
         },
         "christianchiarulli/nvcode-color-schemes.vim",
