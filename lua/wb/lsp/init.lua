@@ -102,11 +102,11 @@ function M.setup()
             ["jdtls"] = function()
                 -- Non-standard notification that can be used to display progress
                 local function create_language_status_handler()
-                    ---@param result {type:"Starting"|"Started"|"ServiceReady", message:string}
                     ---@type table<string, boolean>
                     local tokens = {}
                     ---@type table<string, boolean>
                     local ready_projects = {}
+                    ---@param result {type:"Starting"|"Started"|"ServiceReady", message:string}
                     return function(_, result, ctx)
                         local cwd = vim.loop.cwd()
                         if ready_projects[cwd] then
