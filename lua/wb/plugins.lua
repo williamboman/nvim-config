@@ -24,7 +24,14 @@ local function spec(use, use_rocks)
         "tpope/vim-surround",
         "tpope/vim-fugitive",
         "tpope/vim-unimpaired",
-        "github/copilot.vim",
+        {
+            "github/copilot.vim",
+            setup = function()
+                vim.g.copilot_filetypes = {
+                    ["TelescopePrompt"] = false,
+                }
+            end,
+        },
         {
             "tpope/vim-sleuth",
             setup = function()
