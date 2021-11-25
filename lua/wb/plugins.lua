@@ -258,6 +258,25 @@ local function spec(use, use_rocks)
             require("wb.lsp").setup()
         end,
     }
+    use {
+        "rmagatti/goto-preview",
+        config = function()
+            require("goto-preview").setup {
+                default_mappings = true,
+                opacity = 7,
+                post_open_hook = function(buf_handle, win_handle)
+                    vim.cmd(([[ autocmd WinLeave <buffer> ++once call nvim_win_close(%d, v:false)]]):format(win_handle))
+                    vim.api.nvim_buf_set_keymap(
+                        buf_handle,
+                        "n",
+                        "<Esc>",
+                        ("<cmd>call nvim_win_close(%d, v:false)<CR>"):format(win_handle),
+                        { noremap = true }
+                    )
+                end,
+            }
+        end,
+    }
 
     -- Telescope
     use {
