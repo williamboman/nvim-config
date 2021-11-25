@@ -74,6 +74,9 @@ M.setup = function()
             },
         },
         extensions = {
+            project = {
+                hidden_files = true,
+            },
             fzf = {
                 fuzzy = true,
                 override_generic_sorter = true,
