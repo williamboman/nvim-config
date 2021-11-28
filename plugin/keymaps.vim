@@ -30,3 +30,4 @@ nnoremap <A-Down> :resize +2<CR>
 nnoremap <A-Left> :vertical resize -2<CR>
 
 nnoremap <BS> :
+vnoremap <BS> :
