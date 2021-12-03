@@ -43,7 +43,7 @@ function M.setup()
             },
             lualine_x = {
                 "lsp_progress",
-                { "diagnostics", sources = { "nvim_lsp" } },
+                { "diagnostics", sources = { "nvim" } },
                 "encoding",
                 { "filetype", separator = { right = "" }, right_padding = 0 },
                 { attached_clients, separator = { left = "" }, left_padding = 0 },
