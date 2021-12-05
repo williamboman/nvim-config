@@ -29,8 +29,8 @@ hi DiagnosticUnderlineHint guisp=#676767 gui=undercurl cterm=undercurl
 
 hi DiagnosticFloatingError guifg=#BF616A
 hi DiagnosticFloatingWarn guifg=#D7BA7D
-hi DiagnosticFloatingInfo guifg=#676767
-hi DiagnosticFloatingHint guifg=#676767
+hi DiagnosticFloatingInfo guifg=#B48EAD
+hi DiagnosticFloatingHint guifg=#B48EAD
 
 hi MatchParen guifg=#EBCB8B gui=bold,underline
 
