@@ -17,6 +17,7 @@ function M.setup()
             typescript = { prettier },
             typescriptreact = { prettier },
             yaml = { prettier },
+            prisma = { prettier },
             json = { prettier },
             lua = {
                 function()
