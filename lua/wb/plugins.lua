@@ -190,6 +190,7 @@ local function spec(use, use_rocks)
     -- UI & Syntax
     use {
         "editorconfig/editorconfig-vim",
+        "stevearc/dressing.nvim",
         {
             "sheerun/vim-polyglot",
             setup = function()

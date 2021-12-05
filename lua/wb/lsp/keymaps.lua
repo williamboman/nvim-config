@@ -46,8 +46,8 @@ function M.buf_set_keymaps(bufnr)
 
     -- Code actions
     buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<space>f", "<cmd>lua require'wb.telescope.lsp'.code_actions()<CR>", opts)
-    buf_set_keymap("v", "<space>f", "<cmd><C-U>lua require'wb.telescope.lsp'.range_code_actions()<CR>", opts)
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap("v", "<space>f", "<cmd><C-U>lua vim.lsp.buf.range_code_action()<CR>", opts)
 
     -- Movement
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)

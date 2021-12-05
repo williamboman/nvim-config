@@ -2,14 +2,6 @@ local builtin = require "telescope.builtin"
 
 local M = {}
 
-M.code_actions = function()
-    builtin.lsp_code_actions()
-end
-
-M.range_code_actions = function()
-    builtin.lsp_range_code_actions()
-end
-
 M.document_diagnostics = function()
     builtin.lsp_document_diagnostics()
 end
@@ -41,26 +33,29 @@ end
 
 M.document_symbols = function()
     local symbols = {
-        "&Variable",
-        "&Function",
-        "&Constant",
-        "C&lass",
-        "&Property",
-        "&Method",
-        "&Enum",
-        "&Interface",
-        "&Boolean",
-        "&Number",
-        "&String",
-        "&Array",
-        "C&onstructor",
+        "All",
+        "Variable",
+        "Function",
+        "Constant",
+        "Class",
+        "Property",
+        "Method",
+        "Enum",
+        "Interface",
+        "Boolean",
+        "Number",
+        "String",
+        "Array",
+        "Constructor",
     }
-    local choice = vim.fn.confirm("Symbol type", table.concat(symbols, "\n"), -1)
-    local symbol_filter = nil
-    if choice ~= -1 then
-        symbol_filter = symbols[choice]:gsub("&", "")
-    end
-    builtin.lsp_document_symbols { symbols = symbol_filter }
+
+    vim.ui.select(symbols, { prompt = "Select which symbol" }, function(item)
+        if item == "All" then
+            builtin.lsp_document_symbols()
+        else
+            builtin.lsp_document_symbols { symbols = item }
+        end
+    end)
 end
 
 return M
