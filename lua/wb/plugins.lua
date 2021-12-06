@@ -335,6 +335,7 @@ end
 require("packer").startup {
     spec,
     config = {
+        compile_path = vim.fn.stdpath "config" .. "/lua/packer_compiled.lua",
         display = {
             open_fn = require("packer.util").float,
         },
