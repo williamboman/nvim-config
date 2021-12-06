@@ -18,6 +18,8 @@ end
 vim.cmd [[command! PackerUpgrade :call v:lua.packer_upgrade()]]
 
 local function spec(use, use_rocks)
+    use { "lewis6991/impatient.nvim" }
+
     -- tpope
     use {
         "tpope/vim-repeat",
