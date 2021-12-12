@@ -32,7 +32,7 @@ hi DiagnosticFloatingWarn guifg=#D7BA7D
 hi DiagnosticFloatingInfo guifg=#B48EAD
 hi DiagnosticFloatingHint guifg=#B48EAD
 
-hi MatchParen guifg=#EBCB8B gui=bold,underline
+hi MatchParen guifg=#EBCB8B gui=bold,undercurl guisp=#EBCB8B
 
 hi TabLine guibg=#1B1F28 guifg=#D8DEE9
 hi TabLineFill guibg=#1B1F28
@@ -61,7 +61,7 @@ hi TelescopeMatching gui=inverse guifg=#B48EAD
 
 hi IndentBlanklineChar guifg=#2f2f2f
 
-hi OffscreenMatchPopup gui=underline guisp=#777777 guibg=#282c34
+hi OffscreenMatchPopup guibg=#354154
 
 hi CopilotSuggestion gui=undercurl guisp=#777777
 

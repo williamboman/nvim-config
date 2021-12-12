@@ -174,7 +174,6 @@ function M.setup()
         server:setup(
             coq.lsp_ensure_capabilities(server_opts[server.name] and server_opts[server.name]() or default_opts)
         )
-        vim.cmd [[ do User LspAttachBuffers ]]
     end)
 end
 
