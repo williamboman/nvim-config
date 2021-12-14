@@ -3,11 +3,11 @@ local builtin = require "telescope.builtin"
 local M = {}
 
 M.document_diagnostics = function()
-    builtin.lsp_document_diagnostics()
+    builtin.diagnostics { bufnr = 0 }
 end
 
 M.workspace_diagnostics = function()
-    builtin.lsp_workspace_diagnostics()
+    builtin.diagnostics()
 end
 
 M.definitions = function()

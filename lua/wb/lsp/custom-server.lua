@@ -1,5 +1,5 @@
 local lspconfig = require "lspconfig"
-local configs = require "lspconfig/configs"
+local configs = require "lspconfig.configs"
 local lsp_installer = require "nvim-lsp-installer"
 local server = require "nvim-lsp-installer.server"
 local npm = require "nvim-lsp-installer.installers.npm"
