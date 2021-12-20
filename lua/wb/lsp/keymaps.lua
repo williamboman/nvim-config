@@ -68,19 +68,19 @@ function M.buf_set_keymaps(bufnr)
         buf_set_keymap(
             mode,
             "[e",
-            "<cmd>lua require'wb.lsp.diagnostics'.goto_prev({ severity_limit = 'Error' })<CR>",
+            "<cmd>lua vim.diagnostic.goto_prev({ severity_limit = 'Error' })<CR>",
             opts
         )
         buf_set_keymap(
             mode,
             "]e",
-            "<cmd>lua require'wb.lsp.diagnostics'.goto_next({ severity_limit = 'Error' })<CR>",
+            "<cmd>lua vim.diagnostic.goto_next({ severity_limit = 'Error' })<CR>",
             opts
         )
-        buf_set_keymap(mode, "[E", "<cmd>lua require'wb.lsp.diagnostics'.goto_prev()<CR>", opts)
-        buf_set_keymap(mode, "]E", "<cmd>lua require'wb.lsp.diagnostics'.goto_next()<CR>", opts)
+        buf_set_keymap(mode, "[E", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+        buf_set_keymap(mode, "]E", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     end
-    buf_set_keymap("n", "].", "<cmd>lua require'wb.lsp.diagnostics'.show_line_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "].", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 end
 
 return M

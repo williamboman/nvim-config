@@ -38,3 +38,10 @@ vim.cmd [[ set formatoptions-=t formatoptions-=o ]]
 if vim.fn.has "win32" == 1 then
     vim.o.shell = "powershell.exe"
 end
+
+vim.diagnostic.config {
+    float = {
+        header = false,
+        source = "always",
+    },
+}
