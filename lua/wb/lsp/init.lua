@@ -63,6 +63,14 @@ function M.setup()
             },
         }
 
+        if server.name == "rust_analyzer" then
+            require("rust-tools").setup {
+                server = vim.tbl_deep_extend("force", server:get_default_options(), default_opts),
+            }
+            server:attach_buffers()
+            return
+        end
+
         local server_opts = {
             ["eslintls"] = function()
                 return vim.tbl_deep_extend("force", default_opts, {

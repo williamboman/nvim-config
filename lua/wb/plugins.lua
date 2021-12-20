@@ -262,6 +262,7 @@ local function spec(use, use_rocks)
             "folke/lua-dev.nvim",
             "b0o/SchemaStore.nvim",
             "ray-x/lsp_signature.nvim",
+            "simrat39/rust-tools.nvim",
         },
         after = "coq_nvim",
         config = function()
