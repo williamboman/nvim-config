@@ -86,6 +86,28 @@ function M.setup()
                     lspconfig = default_opts,
                 }
             end,
+            ["tsserver"] = function()
+                local tsutils = require "nvim-lsp-ts-utils"
+                return vim.tbl_deep_extend("force", default_opts, {
+                    init_options = {
+                        hostInfo = "neovim",
+                        preferences = {
+                            includeInlayParameterNameHints = "none",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = false,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true,
+                        },
+                    },
+                    on_attach = function(client, bufnr)
+                        common_on_attach(client, bufnr)
+                        tsutils.setup {}
+                        tsutils.setup_client(client)
+                    end,
+                })
+            end,
             ["yamlls"] = function()
                 return vim.tbl_deep_extend("force", default_opts, {
                     settings = {

@@ -263,6 +263,7 @@ local function spec(use, use_rocks)
             "b0o/SchemaStore.nvim",
             "ray-x/lsp_signature.nvim",
             "simrat39/rust-tools.nvim",
+            "jose-elias-alvarez/nvim-lsp-ts-utils",
         },
         after = "coq_nvim",
         config = function()
