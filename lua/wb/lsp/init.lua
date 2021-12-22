@@ -83,7 +83,15 @@ function M.setup()
             end,
             ["sumneko_lua"] = function()
                 return require("lua-dev").setup {
-                    lspconfig = default_opts,
+                    lspconfig = vim.tbl_deep_extend("force", default_opts, {
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    globals = { "P" },
+                                },
+                            },
+                        },
+                    }),
                 }
             end,
             ["tsserver"] = function()
