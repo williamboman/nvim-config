@@ -31,3 +31,5 @@ nnoremap <A-Left> :vertical resize -2<CR>
 
 nnoremap <BS> :
 vnoremap <BS> :
+
+nmap <Esc> <cmd>noh<CR>
