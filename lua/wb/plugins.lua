@@ -309,6 +309,25 @@ local function spec(use, use_rocks)
         "rhysd/git-messenger.vim",
         "rhysd/committia.vim",
         {
+            "ruifm/gitlinker.nvim",
+            config = function()
+                require("gitlinker").setup()
+
+                vim.api.nvim_set_keymap(
+                    "n",
+                    "<leader>go",
+                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
+                    { silent = true }
+                )
+                vim.api.nvim_set_keymap(
+                    "v",
+                    "<leader>go",
+                    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
+                    { silent = true }
+                )
+            end,
+        },
+        {
             "lewis6991/gitsigns.nvim",
             requires = {
                 "nvim-lua/plenary.nvim",
