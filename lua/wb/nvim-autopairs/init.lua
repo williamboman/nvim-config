@@ -4,9 +4,7 @@ local npairs = require "nvim-autopairs"
 local M = {}
 
 function M.setup()
-    npairs.setup { map_bs = false }
-
-    vim.g.coq_settings = { keymap = { recommended = false } }
+    npairs.setup { map_bs = false, fast_wrap = {} }
 
     -- these mappings are coq recommended mappings unrelated to nvim-autopairs
     remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
