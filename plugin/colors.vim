@@ -68,6 +68,9 @@ hi CopilotSuggestion gui=undercurl guisp=#777777
 hi LualineGitAdd guifg=#A3BE8C guibg=#262a35
 hi LualineGitChange guifg=#5E81AC guibg=#262a35
 hi LualineGitDelete guifg=#BF616A guibg=#262a35
+
+hi TermCursor     cterm=reverse gui=reverse guifg=#515052 guibg=#AEAFAD
+hi TermCursorNC   guifg=#515052 guibg=#AEAFAD
 " =======================================
 " end
 " =======================================
