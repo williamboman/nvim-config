@@ -213,6 +213,17 @@ function M.setup()
             coq.lsp_ensure_capabilities(server_opts[server.name] and server_opts[server.name]() or default_opts)
         )
     end)
+
+    local null_ls = require "null-ls"
+    null_ls.setup {
+        sources = {
+            null_ls.builtins.formatting.prettierd,
+            null_ls.builtins.formatting.stylua,
+            null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.completion.spell,
+        },
+        on_attach = common_on_attach,
+    }
 end
 
 return M

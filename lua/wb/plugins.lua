@@ -17,7 +17,7 @@ end
 
 vim.cmd [[command! PackerUpgrade :call v:lua.packer_upgrade()]]
 
-local function spec(use, use_rocks)
+local function spec(use)
     use { "lewis6991/impatient.nvim" }
 
     -- tpope
@@ -266,6 +266,7 @@ local function spec(use, use_rocks)
             "b0o/SchemaStore.nvim",
             "ray-x/lsp_signature.nvim",
             "simrat39/rust-tools.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
             "jose-elias-alvarez/nvim-lsp-ts-utils",
         },
         after = "coq_nvim",
@@ -273,6 +274,7 @@ local function spec(use, use_rocks)
             require("wb.lsp").setup()
         end,
     }
+
     use {
         "rmagatti/goto-preview",
         config = function()
@@ -338,14 +340,6 @@ local function spec(use, use_rocks)
                 require("wb.gitsigns").setup()
             end,
         },
-    }
-
-    -- Formatting/code style
-    use {
-        "mhartington/formatter.nvim",
-        config = function()
-            require("wb.formatter").setup()
-        end,
     }
 
     -- Misc

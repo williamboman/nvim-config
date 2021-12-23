@@ -7,7 +7,7 @@ function P(...)
 end
 
 if not pcall(require, "impatient") then
-    print("Failed to load impatient.")
+    print "Failed to load impatient."
 end
 
 require "wb.settings"
