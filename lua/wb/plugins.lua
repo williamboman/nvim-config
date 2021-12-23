@@ -185,6 +185,9 @@ local function spec(use, use_rocks)
                 require("toggleterm").setup {
                     open_mapping = [[<C-t>]],
                 }
+                -- Remove WinEnter to allow moving a toggleterm to new tab
+                vim.cmd [[autocmd! ToggleTerminal WinEnter]]
+                vim.cmd [[iunmap <C-t>]]
             end,
         },
     }
