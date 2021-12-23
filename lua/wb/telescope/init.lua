@@ -29,7 +29,6 @@ end
 
 M.setup = function()
     require("telescope").load_extension "fzf"
-    require("telescope").load_extension "ui-select"
 
     require("telescope").setup {
         defaults = {
@@ -41,6 +40,17 @@ M.setup = function()
             prompt_prefix = " ❯ ",
             selection_caret = "❯ ",
             selection_strategy = "reset",
+            vimgrep_arguments = {
+                "rg",
+                "--color=never",
+                "--no-heading",
+                "--with-filename",
+                "--line-number",
+                "--column",
+                "--smart-case",
+                "--hidden",
+                "--glob=!.git/",
+            },
             sorting_strategy = "descending",
             layout_strategy = "flex",
             layout_config = {
@@ -62,6 +72,12 @@ M.setup = function()
             set_env = { ["COLORTERM"] = "truecolor" },
             mappings = {
                 i = {
+                    ["<C-w>"] = function ()
+                        vim.api.nvim_input "<c-s-w>"
+                    end,
+                    ["<C-u>"] = function ()
+                        vim.api.nvim_input "<c-s-u>"
+                    end,
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<C-p>"] = actions.cycle_history_prev,
@@ -82,9 +98,6 @@ M.setup = function()
                 override_generic_sorter = true,
                 override_file_sorter = true,
                 case_mode = "smart_case",
-            },
-            ["ui-select"] = {
-                require("telescope.themes").get_dropdown {},
             },
         },
     }
