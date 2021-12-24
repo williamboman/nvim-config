@@ -168,6 +168,12 @@ local function spec(use)
             "nvim-lualine/lualine.nvim",
             requires = {
                 "arkav/lualine-lsp-progress",
+                {
+                    "SmiteshP/nvim-gps",
+                    config = function()
+                        require("nvim-gps").setup()
+                    end,
+                },
             },
             config = function()
                 require("wb.lualine").setup()

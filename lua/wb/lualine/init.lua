@@ -1,6 +1,8 @@
 local M = {}
 
 function M.setup()
+    local gps = require "nvim-gps"
+
     local diff = {
         "diff",
         diff_color = {
@@ -40,6 +42,7 @@ function M.setup()
             lualine_b = { "branch", diff },
             lualine_c = {
                 filename(FilenamePath.relative_path),
+                { gps.get_location, cond = gps.is_available },
             },
             lualine_x = {
                 "lsp_progress",

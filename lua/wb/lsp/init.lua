@@ -110,6 +110,7 @@ function M.setup()
                         },
                     },
                     on_attach = function(client, bufnr)
+                        client.resolved_capabilities.document_formatting = false
                         common_on_attach(client, bufnr)
                         tsutils.setup {}
                         tsutils.setup_client(client)
