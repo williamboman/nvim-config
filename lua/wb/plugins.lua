@@ -200,8 +200,31 @@ local function spec(use)
 
     -- UI & Syntax
     use {
+        {
+            "rebelot/kanagawa.nvim",
+            config = function()
+                require("kanagawa").setup {
+                    overrides = {
+                        NvimTreeNormal = { bg = "#14141A" },
+                        Visual = { bg = "#4C566A" },
+                        Search = { fg = "#232731", bg = "#B48EAD" },
+                        IncSearch = { fg = "#B48EAD", bg = "#5C6370" },
+                    },
+                }
+                vim.cmd [[colorscheme kanagawa]]
+            end,
+        },
         "editorconfig/editorconfig-vim",
-        "stevearc/dressing.nvim",
+        {
+            "stevearc/dressing.nvim",
+            config = function()
+                require("dressing").setup {
+                    input = {
+                        winhighlight = "NormalFloat:DressingInputNormalFloat",
+                    },
+                }
+            end,
+        },
         {
             "sheerun/vim-polyglot",
             setup = function()
