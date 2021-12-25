@@ -31,6 +31,7 @@ local function spec(use)
             setup = function()
                 vim.g.copilot_filetypes = {
                     ["TelescopePrompt"] = false,
+                    ["DressingInput"] = false,
                 }
             end,
         },
@@ -205,10 +206,21 @@ local function spec(use)
             config = function()
                 require("kanagawa").setup {
                     overrides = {
+                        Comment = { fg = "#888181" },
                         NvimTreeNormal = { bg = "#14141A" },
                         Visual = { bg = "#4C566A" },
                         Search = { fg = "#232731", bg = "#B48EAD" },
                         IncSearch = { fg = "#B48EAD", bg = "#5C6370" },
+                        IndentBlanklineChar = { fg = "#2F2F40" },
+                        DressingInputText = { bg = "none" },
+                        FloatTitle = { style = "bold" },
+                        TelescopeMatching = { style = "underline", fg = "#7FB4CA", guisp = "#7FB4CA" },
+                        TelescopeTitle = { style = "bold", fg = "#C8C093" },
+                        TabLineFill = { bg = "#1F1F28" },
+                        TabLine = { style = "italic", bg = "#363646" },
+                        TabLineSel = { style = "bold", bg = "#1F1F28" },
+                        TabNumSel = { link = "TabLineSel" },
+                        TabNum = { link = "TabLine" },
                     },
                 }
                 vim.cmd [[colorscheme kanagawa]]
@@ -242,6 +254,12 @@ local function spec(use)
                 vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
                 vim.g.indent_blankline_char = "▏"
                 vim.cmd [[set colorcolumn=99999]]
+            end,
+            config = function()
+                require("indent_blankline").setup {
+                    show_current_context = true,
+                    show_current_context_start = true,
+                }
             end,
         },
         {
