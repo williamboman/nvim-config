@@ -212,6 +212,7 @@ local function spec(use)
                         Search = { fg = "#232731", bg = "#B48EAD" },
                         IncSearch = { fg = "#B48EAD", bg = "#5C6370" },
                         IndentBlanklineChar = { fg = "#2F2F40" },
+                        IndentBlanklineContextStart = { style = "bold" },
                         DressingInputText = { bg = "none" },
                         FloatTitle = { style = "bold" },
                         TelescopeMatching = { style = "underline", fg = "#7FB4CA", guisp = "#7FB4CA" },
