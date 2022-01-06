@@ -121,9 +121,10 @@ local function spec(use)
         {
             "hrsh7th/nvim-cmp",
             requires = {
+                "hrsh7th/cmp-copilot",
                 "hrsh7th/cmp-nvim-lsp",
                 "hrsh7th/cmp-buffer",
-                { "andersevenrud/compe-tmux", branch = "cmp" },
+                { "andersevenrud/cmp-tmux" },
                 "hrsh7th/cmp-calc",
                 "hrsh7th/cmp-path",
                 "L3MON4D3/LuaSnip",
