@@ -40,7 +40,7 @@ function M.setup()
             }),
             ["<C-Space>"] = mapping.complete(),
             ["<C-e>"] = mapping.close(),
-            ["<CR>"] = mapping.confirm { select = true },
+            ["<CR>"] = mapping.confirm { select = false },
             ["<Tab>"] = mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
