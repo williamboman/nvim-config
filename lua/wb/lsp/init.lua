@@ -60,6 +60,9 @@ function M.setup()
             capabilities = capabilities.create {
                 with_snippet_support = server.name ~= "eslintls",
             },
+            flags = {
+                debounce_text_changes = 150,
+            },
         }
 
         if server.name == "rust_analyzer" then
