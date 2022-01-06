@@ -1,4 +1,4 @@
 augroup sleuthcompat
     autocmd!
-    autocmd FileType * silent if len(findfile('.editorconfig', '.;')) == 0 | Sleuth | endif
+    autocmd FileType * if len(findfile('.editorconfig', '.;')) == 0 | silent! Sleuth | endif
 augroup END
