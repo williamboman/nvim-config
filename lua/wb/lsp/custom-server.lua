@@ -20,7 +20,8 @@ local my_server = server.Server:new {
     root_dir = root_dir,
     installer = npm.packages { "bash-language-server" },
     default_options = {
-        cmd = { npm.executable(root_dir, "bash-language-server"), "start" },
+        cmd = { "bash-language-server", "start" },
+        cmd_env = npm.env(root_dir),
     },
 }
 
