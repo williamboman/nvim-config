@@ -6,7 +6,7 @@ function M.setup()
     local cmp = require "cmp"
 
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
-    npairs.setup { check_ts = true, fast_wrap = true }
+    npairs.setup { check_ts = true, fast_wrap = {} }
 end
 
 return M
