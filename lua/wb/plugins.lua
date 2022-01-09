@@ -119,10 +119,15 @@ local function spec(use)
             end,
         },
         {
-            "ms-jpq/coq_nvim",
+            "hrsh7th/nvim-cmp",
             requires = {
-                { "ms-jpq/coq.artifacts", branch = "artifacts" },
-                { "ms-jpq/coq.thirdparty", branch = "3p" },
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-buffer",
+                { "andersevenrud/cmp-tmux" },
+                "hrsh7th/cmp-calc",
+                "hrsh7th/cmp-path",
+                "L3MON4D3/LuaSnip",
+                "saadparwaiz1/cmp_luasnip",
                 {
                     "onsails/lspkind-nvim",
                     config = function()
@@ -130,16 +135,8 @@ local function spec(use)
                     end,
                 },
             },
-            branch = "coq",
-            setup = function()
-                vim.g.coq_settings = {
-                    keymap = { recommended = false }, -- for autopairs
-                    auto_start = "shut-up",
-                    ["display.pum.fast_close"] = false,
-                }
-            end,
             config = function()
-                require("wb.coq_nvim").setup()
+                require("wb.cmp").setup()
             end,
         },
         {
@@ -320,7 +317,6 @@ local function spec(use)
             "jose-elias-alvarez/null-ls.nvim",
             "jose-elias-alvarez/nvim-lsp-ts-utils",
         },
-        after = "coq_nvim",
         config = function()
             require("wb.lsp").setup()
         end,
