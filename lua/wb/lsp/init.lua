@@ -39,10 +39,45 @@ local function common_on_attach(client, bufnr)
     }, bufnr)
 end
 
+function _G.install_preferred_lsp()
+    local servers = {
+        "bashls",
+        "clangd",
+        "cmake",
+        "cssls",
+        "dockerls",
+        "eslint",
+        "graphql",
+        "html",
+        "jdtls",
+        "jsonls",
+        "ltex",
+        "prismals",
+        "pyright",
+        "quick_lint_js",
+        "rust_analyzer",
+        "sqls",
+        "sumneko_lua",
+        "terraformls",
+        "tsserver",
+        "vimls",
+        "vuels",
+        "yamlls",
+    }
+
+    for _, server_name in ipairs(servers) do
+        local ok, server = lsp_installer.get_server(server_name)
+        if ok and not server:is_installed() then
+            lsp_installer.install(server.name)
+        end
+    end
+end
+
 function M.setup()
     setup_handlers()
     local coq = require "coq"
     vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
+    vim.cmd [[ command! LspInstallPreferred call v:lua.install_preferred_lsp() ]]
 
     lsp_installer.settings {
         log_level = vim.log.levels.DEBUG,
