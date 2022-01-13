@@ -75,6 +75,7 @@ end
 
 function M.setup()
     setup_handlers()
+    local coq = require "coq"
     vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
     vim.cmd [[ command! LspInstallPreferred call v:lua.install_preferred_lsp() ]]
 
@@ -247,7 +248,9 @@ function M.setup()
             end,
         }
 
-        server:setup(server_opts[server.name] and server_opts[server.name]() or default_opts)
+        server:setup(
+            coq.lsp_ensure_capabilities(server_opts[server.name] and server_opts[server.name]() or default_opts)
+        )
     end)
 
     local null_ls = require "null-ls"

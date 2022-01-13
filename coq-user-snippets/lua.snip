@@ -1,0 +1,15 @@
+snippet M
+abbr lua-module
+    local M = {}
+
+    $0
+
+    return M
+
+snippet pinspect
+abbr print(vim.inspect(...))
+    print(vim.inspect(${0}))
+
+snippet inspect
+abbr vim.inspect(...)
+    vim.inspect(${0})
