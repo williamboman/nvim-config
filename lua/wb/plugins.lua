@@ -89,6 +89,7 @@ local function spec(use)
 
     -- nvim extensions & decorators
     use {
+        "ggandor/lightspeed.nvim",
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
         {
@@ -140,12 +141,6 @@ local function spec(use)
             end,
             config = function()
                 require("wb.coq_nvim").setup()
-            end,
-        },
-        {
-            "rhysd/clever-f.vim",
-            setup = function()
-                vim.g.clever_f_across_no_line = 1
             end,
         },
         {
