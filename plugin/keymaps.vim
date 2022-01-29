@@ -5,6 +5,7 @@ nnoremap [Q <cmd>lprev<CR>
 nnoremap <leader><leader> <cmd>up<CR>
 nnoremap <leader>. <cmd>q<CR>
 nnoremap <C-w>e <cmd>tab split<CR>
+nnoremap <C-q> <cmd>bd<CR>
 
 " i want to be able to leave terminal yes pls
 tnoremap <Esc> <C-\><C-n>
