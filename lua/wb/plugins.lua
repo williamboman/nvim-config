@@ -93,15 +93,6 @@ local function spec(use)
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
         {
-            "psliwka/vim-smoothie",
-            setup = function()
-                -- Speed up cursor speed at the end of the animation.
-                vim.g.smoothie_speed_constant_factor = 50
-                -- Higher... fps?
-                vim.g.smoothie_update_interval = 5
-            end,
-        },
-        {
             "numToStr/Comment.nvim",
             config = function()
                 require("Comment").setup()
