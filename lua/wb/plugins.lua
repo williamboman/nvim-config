@@ -314,6 +314,7 @@ local function spec(use)
             "simrat39/rust-tools.nvim",
             "jose-elias-alvarez/null-ls.nvim",
             "jose-elias-alvarez/nvim-lsp-ts-utils",
+            "j-hui/fidget.nvim",
         },
         after = "coq_nvim",
         config = function()

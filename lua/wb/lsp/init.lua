@@ -270,6 +270,7 @@ function M.setup()
         },
         on_attach = common_on_attach,
     }
+    require("fidget").setup {} -- $/progress window
 end
 
 return M

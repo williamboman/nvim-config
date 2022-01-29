@@ -36,7 +36,6 @@ function M.setup()
                 { gps.get_location, cond = gps.is_available },
             },
             lualine_x = {
-                "lsp_progress",
                 { "diagnostics", sources = { "nvim_diagnostic" } },
                 "encoding",
                 { "filetype", separator = { right = "" }, right_padding = 0 },
