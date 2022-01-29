@@ -82,4 +82,8 @@ M.project = function()
     }
 end
 
+M.buffers = function()
+    builtin.buffers { layout_config = layout_config }
+end
+
 return M
