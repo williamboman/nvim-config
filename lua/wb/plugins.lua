@@ -185,11 +185,15 @@ local function spec(use)
             "akinsho/toggleterm.nvim",
             config = function()
                 require("toggleterm").setup {
-                    open_mapping = [[<C-t>]],
+                    insert_mappings = false,
+                    terminal_mappings = false,
+                    open_mapping = [[<space>t]],
                 }
                 -- Remove WinEnter to allow moving a toggleterm to new tab
                 vim.cmd [[autocmd! ToggleTerminal WinEnter]]
-                vim.cmd [[iunmap <C-t>]]
+                vim.cmd [[autocmd TermEnter term://*toggleterm#* inoremap <buffer> <C-q> <Esc><Cmd>ToggleTerm<CR>]]
+                vim.cmd [[autocmd TermEnter term://*toggleterm#* tnoremap <buffer> <C-q> <Esc><Cmd>ToggleTerm<CR>]]
+                vim.cmd [[autocmd TermEnter term://*toggleterm#* nnoremap <buffer> <C-q> <Esc><Cmd>ToggleTerm<CR>]]
             end,
         },
     }
