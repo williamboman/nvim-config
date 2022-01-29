@@ -110,6 +110,13 @@ function M.setup()
         end
 
         local server_opts = {
+            ["ltex"] = function()
+                return vim.tbl_deep_extend("force", default_opts, {
+                    flags = {
+                        debounce_text_changes = 2000,
+                    },
+                })
+            end,
             ["eslintls"] = function()
                 return vim.tbl_deep_extend("force", default_opts, {
                     settings = {
