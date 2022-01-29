@@ -3,7 +3,7 @@ local M = {}
 M.setup = function()
     require("nvim-treesitter.configs").setup {
         ensure_installed = "all",
-        ignore_install = { "haskell" },
+        ignore_install = { "haskell", "phpdoc" },
         highlight = { enable = true },
         indent = { enable = true, disable = { "python" } },
         playground = {
