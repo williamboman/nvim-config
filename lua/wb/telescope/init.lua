@@ -75,9 +75,6 @@ M.setup = function()
                     ["<C-w>"] = function ()
                         vim.api.nvim_input "<c-s-w>"
                     end,
-                    ["<C-u>"] = function ()
-                        vim.api.nvim_input "<c-s-u>"
-                    end,
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<C-p>"] = actions.cycle_history_prev,
