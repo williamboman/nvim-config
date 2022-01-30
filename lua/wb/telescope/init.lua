@@ -69,11 +69,13 @@ M.setup = function()
             },
             path_display = { truncate = 3 },
             color_devicons = true,
-            winblend = 7,
+            winblend = 5,
             set_env = { ["COLORTERM"] = "truecolor" },
+            border = {},
+            borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
             mappings = {
                 i = {
-                    ["<C-w>"] = function ()
+                    ["<C-w>"] = function()
                         vim.api.nvim_input "<c-s-w>"
                     end,
                     ["<C-j>"] = actions.move_selection_next,
