@@ -38,8 +38,8 @@ M.setup = function()
             file_previewer = require("telescope.previewers").vim_buffer_cat.new,
             grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
             qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-            prompt_prefix = " ❯ ",
-            selection_caret = "❯ ",
+            prompt_prefix = "  ",
+            selection_caret = "  ",
             selection_strategy = "reset",
             vimgrep_arguments = {
                 "rg",
