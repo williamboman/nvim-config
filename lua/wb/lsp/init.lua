@@ -207,7 +207,11 @@ function M.setup()
         },
         on_attach = common_on_attach,
     }
-    require("fidget").setup {} -- $/progress window
+    require("fidget").setup {
+        window = {
+            relative = "editor",
+        },
+    }
 end
 
 return M
