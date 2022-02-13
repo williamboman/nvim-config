@@ -2,7 +2,6 @@ local M = {}
 
 function M.setup()
     local sources = {
-        { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
         { src = "bc", short_name = "MATH", precision = 6 },
         { src = "repl", unsafe = { "rm", "sudo", "mv", "cp" } },
     }
