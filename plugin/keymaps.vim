@@ -33,4 +33,8 @@ nnoremap <A-Left> :vertical resize -2<CR>
 nnoremap <BS> :
 vnoremap <BS> :
 
+" search and highlight but dont jump
+nnoremap * :keepjumps normal! mi*`i<CR>
+nnoremap # :keepjumps normal! mi#`i<CR>
+
 nmap <Esc> <cmd>noh<CR>
