@@ -55,6 +55,7 @@ function M.buf_set_keymaps(bufnr)
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua require'wb.telescope.lsp'.definitions()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua require'wb.telescope.lsp'.references()<CR>", opts)
+    buf_set_keymap("n", "gbr", "<cmd>lua require'wb.telescope.lsp'.buffer_references()<CR>", opts)
     buf_set_keymap("n", "gI", "<cmd>lua require'wb.telescope.lsp'.implementations()<CR>", opts)
     buf_set_keymap("n", "<space>s", "<cmd>lua require'wb.telescope.lsp'.document_symbols()<CR>", opts)
 
