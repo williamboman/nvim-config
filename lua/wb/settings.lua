@@ -36,6 +36,8 @@ vim.o.backspace = "indent,eol,start"
 vim.o.diffopt = "filler,vertical"
 vim.o.wildmenu = true
 vim.cmd [[ set formatoptions-=t formatoptions-=o ]]
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 if vim.fn.has "win32" == 1 then
     vim.o.shell = "powershell.exe"
