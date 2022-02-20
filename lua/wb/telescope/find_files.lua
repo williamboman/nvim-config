@@ -13,15 +13,26 @@ local layout_config = {
     },
 }
 
-M.find = function()
-    builtin.find_files {
+M.find = function(opts)
+    opts = vim.tbl_extend("force", {
         layout_config = layout_config,
         hidden = true,
-    }
+    }, opts or {})
+    if opts.use_buffer_cwd then
+        opts.cwd = vim.fn.expand "%:p:h"
+    end
+    builtin.find_files(opts)
 end
 
-M.git_files = function()
-    builtin.git_files { layout_config = layout_config }
+M.git_files = function(opts)
+    opts = vim.tbl_extend("force", {
+        layout_config = layout_config,
+    }, opts or {})
+    if opts.use_buffer_cwd then
+        -- TODO: This doesn't seem to work?
+        opts.cwd = vim.fn.expand "%:p:h"
+    end
+    builtin.git_files(opts)
 end
 
 M.file_browser = function()
@@ -31,7 +42,7 @@ end
 M.grep = function(opts)
     opts = opts or {}
     local search = vim.fn.input "Grep >"
-    local cwd = opts.use_buffer_cwd and vim.fn.expand "%:h" or nil
+    local cwd = opts.use_buffer_cwd and vim.fn.expand "%:p:h" or nil
     if cwd == "" then
         -- we expanded to nothing - default to cwd
         cwd = vim.loop.cwd()
