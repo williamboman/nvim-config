@@ -324,6 +324,14 @@ local function spec(use)
     }
 
     use {
+        "narutoxy/dim.lua",
+        requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+        config = function()
+            require("dim").setup {}
+        end,
+    }
+
+    use {
         "rmagatti/goto-preview",
         config = function()
             require("goto-preview").setup {
