@@ -33,7 +33,6 @@ vim.o.ruler = true
 vim.o.showcmd = true
 vim.o.startofline = false
 vim.o.backspace = "indent,eol,start"
-vim.o.diffopt = "filler,vertical"
 vim.o.wildmenu = true
 vim.cmd [[ set formatoptions-=t formatoptions-=o ]]
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
