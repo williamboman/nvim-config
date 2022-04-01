@@ -5,7 +5,7 @@ M.setup = function()
         ensure_installed = "all",
         ignore_install = { "haskell", "phpdoc" },
         highlight = { enable = true },
-        indent = { enable = true, disable = { "python" } },
+        indent = { enable = true, disable = { "python", "yaml", "tsx" } },
         playground = {
             enable = true,
             disable = {},
