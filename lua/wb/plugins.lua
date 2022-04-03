@@ -141,14 +141,15 @@ local function spec(use)
             end,
         },
         {
-            "kyazdani42/nvim-tree.lua",
-            setup = function()
-                vim.g.nvim_tree_respect_buf_cwd = 1
-                vim.g.nvim_tree_git_hl = 1
-                vim.g.nvim_tree_add_trailing = 1
-            end,
+            "nvim-neo-tree/neo-tree.nvim",
+            branch = "v2.x",
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "kyazdani42/nvim-web-devicons",
+                "MunifTanjim/nui.nvim",
+            },
             config = function()
-                require("wb.nvim-tree").setup()
+                require("wb.neo-tree").setup()
             end,
         },
         {
@@ -198,13 +199,14 @@ local function spec(use)
                         Comment = { fg = "#888181" },
                         DressingInputText = { bg = "none" },
                         FloatTitle = { style = "bold" },
+                        NeoTreeGitUntracked = { link = "NeoTreeGitModified" },
                         IndentBlanklineChar = { fg = "#2F2F40" },
                         IndentBlanklineContextStart = { style = "bold" },
                         LualineGitAdd = { link = "GitSignsAdd" },
                         LualineGitChange = { link = "GitSignsAdd" },
                         LualineGitDelete = { link = "GitSignsDelete" },
-                        NvimTreeNormal = { bg = "#14141A" },
-                        NvimTreeNormalNC = { bg = "#14141A" },
+                        NeoTreeNormal = { bg = "#14141A" },
+                        NeoTreeNormalNC = { bg = "#14141A" },
                         TabLine = { style = "italic", bg = "#363646" },
                         TabLineFill = { bg = "#1F1F28" },
                         TabLineSel = { style = "bold", bg = "#1F1F28" },

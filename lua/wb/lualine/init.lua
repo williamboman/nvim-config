@@ -29,6 +29,9 @@ function M.setup()
     end
 
     require("lualine").setup {
+        options = {
+            disabled_filetypes = { "neo-tree" },
+        },
         sections = {
             lualine_b = { "branch", diff },
             lualine_c = {
@@ -45,7 +48,7 @@ function M.setup()
         inactive_sections = {
             lualine_c = { filename(FilenamePath.absolute_path) },
         },
-        extensions = { "nvim-tree", "quickfix", "toggleterm", "fugitive" },
+        extensions = { "quickfix", "toggleterm", "fugitive" },
     }
 end
 
