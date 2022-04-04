@@ -118,7 +118,7 @@ function M.setup()
         },
     }
 
-    vim.keymap.set("n", "<space>b", "<cmd>Neotree toggle show buffers right<cr>")
+    vim.keymap.set("n", "<leader>b", "<cmd>Neotree toggle show buffers right<cr>")
     vim.keymap.set("n", "<leader>a", "<cmd>Neotree reveal left<cr>")
     vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle left<cr>")
 end
