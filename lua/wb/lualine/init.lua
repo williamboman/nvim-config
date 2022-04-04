@@ -3,14 +3,6 @@ local M = {}
 function M.setup()
     local gps = require "nvim-gps"
 
-    local diff = {
-        "diff",
-        diff_color = {
-            added = "LualineGitAdd",
-            modified = "LualineGitChange",
-            removed = "LualineGitDelete",
-        },
-    }
     local FilenamePath = {
         filename_only = 0,
         relative_path = 1,
@@ -33,7 +25,7 @@ function M.setup()
             disabled_filetypes = { "neo-tree" },
         },
         sections = {
-            lualine_b = { "branch", diff },
+            lualine_b = { "branch", "diff" },
             lualine_c = {
                 filename(FilenamePath.relative_path),
                 { gps.get_location, cond = gps.is_available },
