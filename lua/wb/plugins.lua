@@ -402,9 +402,7 @@ local function spec(use)
 
     -- Misc
     use { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } }
-    if vim.fn.has "win32" ~= 1 then
-        use "wakatime/vim-wakatime"
-    end
+    use "wakatime/vim-wakatime"
 end
 
 require("packer").startup {
@@ -413,5 +411,6 @@ require("packer").startup {
         display = {
             open_fn = require("packer.util").float,
         },
+        max_jobs = vim.fn.has "win32" == 1 and 5 or nil,
     },
 }

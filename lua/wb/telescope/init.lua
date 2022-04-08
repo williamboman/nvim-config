@@ -32,7 +32,10 @@ local function keymaps()
 end
 
 M.setup = function()
-    require("telescope").load_extension "fzf"
+    local is_win = vim.fn.has("win32") == 1
+    if not is_win then
+        require("telescope").load_extension "fzf"
+    end
 
     require("telescope").setup {
         defaults = {
@@ -97,7 +100,7 @@ M.setup = function()
             project = {
                 hidden_files = true,
             },
-            fzf = {
+            fzf = is_win and {} or {
                 fuzzy = true,
                 override_generic_sorter = true,
                 override_file_sorter = true,
