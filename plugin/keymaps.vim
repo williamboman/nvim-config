@@ -2,8 +2,6 @@ nnoremap ]q <cmd>cnext<CR>
 nnoremap [q <cmd>cprev<CR>
 nnoremap ]Q <cmd>lnext<CR>
 nnoremap [Q <cmd>lprev<CR>
-nnoremap <leader><leader> <cmd>up<CR>
-nnoremap <leader>. <cmd>q<CR>
 nnoremap <C-w>e <cmd>tab split<CR>
 nnoremap <C-q> <cmd>bd<CR>
 
