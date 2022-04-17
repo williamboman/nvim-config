@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-    require("colorizer").setup({ "*" }, {
+    require("colorizer").setup({ "*", "!neo-tree" }, {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes
         RRGGBBAA = true, -- #RRGGBBAA hex codes
