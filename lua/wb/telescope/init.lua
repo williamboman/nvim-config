@@ -26,9 +26,6 @@ local function keymaps()
 
     map_uwu("s", "<cmd>lua require'wb.telescope.git'.status()<CR>")
     map_uwu("S", "<cmd>lua require'wb.telescope.git'.stash()<CR>")
-
-    map_uwu("ws", "<cmd>lua require'wb.telescope.lsp'.workspace_symbols()<CR>")
-    map_uwu("wd", "<cmd>lua require'wb.telescope.lsp'.workspace_diagnostics()<CR>")
 end
 
 M.setup = function()

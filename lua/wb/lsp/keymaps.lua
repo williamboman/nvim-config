@@ -67,6 +67,9 @@ function M.buf_set_keymaps(bufnr)
     -- Diagnostics
     buf_set_keymap("n", "<space>d", "<cmd>lua require'wb.telescope.lsp'.document_diagnostics()<CR>", opts)
 
+    buf_set_keymap("n", "<space>ws", "<cmd>lua require'wb.telescope.lsp'.workspace_symbols()<CR>", opts)
+    buf_set_keymap("n", "<space>wd", "<cmd>lua require'wb.telescope.lsp'.workspace_diagnostics()<CR>", opts)
+
     for _, mode in pairs { "n", "v" } do
         buf_set_keymap(mode, "[e", "<cmd>lua vim.diagnostic.goto_prev({ severity = 'Error' })<CR>", opts)
         buf_set_keymap(mode, "]e", "<cmd>lua vim.diagnostic.goto_next({ severity = 'Error' })<CR>", opts)
