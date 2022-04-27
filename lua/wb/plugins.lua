@@ -228,7 +228,13 @@ local function spec(use)
                 vim.cmd [[colorscheme kanagawa]]
             end,
         },
-        "editorconfig/editorconfig-vim",
+        {
+            "editorconfig/editorconfig-vim",
+            setup = function()
+                vim.g.EditorConfig_max_line_indicator = ""
+                vim.g.EditorConfig_preserve_formatoptions = 1
+            end,
+        },
         {
             "stevearc/dressing.nvim",
             config = function()
@@ -237,13 +243,6 @@ local function spec(use)
                         winhighlight = "NormalFloat:DressingInputNormalFloat",
                     },
                 }
-            end,
-        },
-        {
-            "sheerun/vim-polyglot",
-            setup = function()
-                vim.g.polyglot_disabled = { "autoindent", "sensible" }
-                vim.g.polyglot_disabled = { "markdown" }
             end,
         },
         "christianchiarulli/nvcode-color-schemes.vim",

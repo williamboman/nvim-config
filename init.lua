@@ -10,5 +10,10 @@ if not pcall(require, "impatient") then
     print "Failed to load impatient."
 end
 
-require "wb.settings"
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+vim.g.nvcode_termcolors = 256
+vim.g.mapleader = ","
+vim.o.termguicolors = true
+
 require "wb.plugins"

@@ -1,8 +1,3 @@
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
-vim.g.nvcode_termcolors = 256
-vim.o.termguicolors = true
-vim.g.mapleader = ","
 vim.cmd [[syntax on]]
 vim.o.clipboard = "unnamedplus"
 vim.o.hlsearch = true
@@ -34,8 +29,9 @@ vim.o.showcmd = true
 vim.o.startofline = false
 vim.o.backspace = "indent,eol,start"
 vim.o.wildmenu = true
-vim.cmd [[ set formatoptions-=t formatoptions-=o ]]
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.formatoptions:remove "t"
+vim.opt.formatoptions:remove "o"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 if vim.fn.has "win32" == 1 then
