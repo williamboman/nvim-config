@@ -74,7 +74,16 @@ function _G.install_preferred_lsp()
 end
 
 function M.setup()
-    require("nvim-lsp-installer").setup {}
+    require("nvim-lsp-installer").setup {
+        log_level = vim.log.levels.DEBUG,
+        ui = {
+            icons = {
+                server_installed = "",
+                server_pending = "",
+                server_uninstalled = "",
+            },
+        },
+    }
     local lspconfig = require "lspconfig"
     local coq = require "coq"
 
