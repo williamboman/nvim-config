@@ -74,128 +74,98 @@ function _G.install_preferred_lsp()
 end
 
 function M.setup()
-    setup_handlers()
+    require("nvim-lsp-installer").setup {}
+    local lspconfig = require "lspconfig"
     local coq = require "coq"
+
+    setup_handlers()
     vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
     vim.cmd [[ command! LspInstallPreferred call v:lua.install_preferred_lsp() ]]
 
-    lsp_installer.settings {
-        log_level = vim.log.levels.DEBUG,
-        ui = {
-            icons = {
-                server_installed = "",
-                server_pending = "",
-                server_uninstalled = "",
-            },
+    local default_opts = coq.lsp_ensure_capabilities {
+        on_attach = common_on_attach,
+        capabilities = capabilities.create {
+            with_snippet_support = true,
+        },
+        flags = {
+            debounce_text_changes = 150,
         },
     }
 
-    lsp_installer.on_server_ready(function(server)
-        local default_opts = {
-            on_attach = common_on_attach,
-            capabilities = capabilities.create {
-                with_snippet_support = server.name ~= "eslintls",
+    local function with_defaults(opts)
+        return vim.tbl_extend("force", default_opts, opts)
+    end
+
+    require("rust-tools").setup { server = default_opts }
+
+    lspconfig.ltex.setup(with_defaults {
+        flags = {
+            debounce_text_changes = 2000,
+        },
+    })
+
+    lspconfig.eslint.setup(with_defaults {
+        settings = {
+            format = { enable = true },
+        },
+    })
+
+    lspconfig.sumneko_lua.setup(require("lua-dev").setup(with_defaults {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { "P" },
+                },
             },
-            flags = {
-                debounce_text_changes = 150,
+        },
+    }))
+
+    local tsutils = require "nvim-lsp-ts-utils"
+    lspconfig.tsserver.setup(with_defaults {
+        init_options = {
+            hostInfo = "neovim",
+            preferences = {
+                includeInlayParameterNameHints = "none",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
             },
-        }
+        },
+        on_attach = function(client, bufnr)
+            client.resolved_capabilities.document_formatting = false
+            common_on_attach(client, bufnr)
+            tsutils.setup {}
+            tsutils.setup_client(client)
+        end,
+    })
 
-        if server.name == "rust_analyzer" then
-            require("rust-tools").setup {
-                server = vim.tbl_deep_extend("force", server:get_default_options(), default_opts),
-            }
-            server:attach_buffers()
-            return
-        end
+    lspconfig.yamlls.setup(with_defaults {
+        settings = {
+            yaml = {
+                hover = true,
+                completion = true,
+                validate = true,
+                schemas = require("schemastore").json.schemas(),
+            },
+        },
+    })
 
-        local server_opts = {
-            ["ltex"] = function()
-                return vim.tbl_deep_extend("force", default_opts, {
-                    flags = {
-                        debounce_text_changes = 2000,
-                    },
-                })
-            end,
-            ["eslintls"] = function()
-                return vim.tbl_deep_extend("force", default_opts, {
-                    settings = {
-                        format = {
-                            enable = true,
-                        },
-                    },
-                })
-            end,
-            ["sumneko_lua"] = function()
-                return require("lua-dev").setup {
-                    lspconfig = vim.tbl_deep_extend("force", default_opts, {
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "P" },
-                                },
-                            },
-                        },
-                    }),
-                }
-            end,
-            ["tsserver"] = function()
-                local tsutils = require "nvim-lsp-ts-utils"
-                return vim.tbl_deep_extend("force", default_opts, {
-                    init_options = {
-                        hostInfo = "neovim",
-                        preferences = {
-                            includeInlayParameterNameHints = "none",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                            includeInlayFunctionParameterTypeHints = false,
-                            includeInlayVariableTypeHints = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayEnumMemberValueHints = true,
-                        },
-                    },
-                    on_attach = function(client, bufnr)
-                        client.resolved_capabilities.document_formatting = false
-                        common_on_attach(client, bufnr)
-                        tsutils.setup {}
-                        tsutils.setup_client(client)
-                    end,
-                })
-            end,
-            ["yamlls"] = function()
-                return vim.tbl_deep_extend("force", default_opts, {
-                    settings = {
-                        yaml = {
-                            hover = true,
-                            completion = true,
-                            validate = true,
-                            schemas = require("schemastore").json.schemas(),
-                        },
-                    },
-                })
-            end,
-            ["jsonls"] = function()
-                return vim.tbl_deep_extend("force", default_opts, {
-                    settings = {
-                        json = {
-                            schemas = require("schemastore").json.schemas(),
-                        },
-                    },
-                })
-            end,
-            ["jdtls"] = function()
-                return vim.tbl_deep_extend("force", default_opts, {
-                    handlers = {
-                        ["language/status"] = require "wb.lsp.jdtls-progress"(),
-                    },
-                })
-            end,
-        }
+    lspconfig.jsonls.setup(with_defaults {
+        settings = {
+            json = {
+                schemas = require("schemastore").json.schemas(),
+            },
+        },
+    })
 
-        server:setup(
-            coq.lsp_ensure_capabilities(server_opts[server.name] and server_opts[server.name]() or default_opts)
-        )
-    end)
+    lspconfig.jdtls.setup(with_defaults {
+        handlers = {
+            ["language/status"] = require "wb.lsp.jdtls-progress"(),
+        },
+    })
 
     local null_ls = require "null-ls"
     null_ls.setup {
