@@ -72,6 +72,7 @@ function M.setup()
                 ["ma"] = "add",
                 ["md"] = "delete",
                 ["mr"] = "rename",
+                ["mm"] = "move",
                 ["y"] = "copy_to_clipboard",
                 ["x"] = "cut_to_clipboard",
                 ["p"] = "paste_from_clipboard",
@@ -83,6 +84,10 @@ function M.setup()
                 ["s"] = "",
                 ["<bs>"] = "",
                 ["."] = "",
+                ["a"] = "",
+                ["A"] = "",
+                ["d"] = "",
+                ["m"] = ""
             },
         },
         nesting_rules = {},
