@@ -39,42 +39,32 @@ local function common_on_attach(client, bufnr)
     }, bufnr)
 end
 
-function _G.install_preferred_lsp()
-    local servers = {
-        "bashls",
-        "clangd",
-        "cmake",
-        "cssls",
-        "dockerls",
-        "eslint",
-        "graphql",
-        "html",
-        "jdtls",
-        "jsonls",
-        "lemminx",
-        "ltex",
-        "prismals",
-        "pylsp",
-        "rust_analyzer",
-        "sumneko_lua",
-        "taplo",
-        "terraformls",
-        "tsserver",
-        "vimls",
-        "vuels",
-        "yamlls",
-    }
-
-    for _, server_name in ipairs(servers) do
-        local ok, server = lsp_installer.get_server(server_name)
-        if ok and not server:is_installed() then
-            lsp_installer.install(server.name)
-        end
-    end
-end
-
 function M.setup()
     require("nvim-lsp-installer").setup {
+        ensure_installed = {
+            "bashls",
+            "clangd",
+            "cmake",
+            "cssls",
+            "dockerls",
+            "eslint",
+            "graphql",
+            "html",
+            "jdtls",
+            "jsonls",
+            "lemminx",
+            "ltex",
+            "prismals",
+            "pylsp",
+            "rust_analyzer",
+            "sumneko_lua",
+            "taplo",
+            "terraformls",
+            "tsserver",
+            "vimls",
+            "vuels",
+            "yamlls",
+        },
         log_level = vim.log.levels.DEBUG,
         ui = {
             icons = {
@@ -89,7 +79,6 @@ function M.setup()
 
     setup_handlers()
     vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
-    vim.cmd [[ command! LspInstallPreferred call v:lua.install_preferred_lsp() ]]
 
     local default_opts = coq.lsp_ensure_capabilities {
         on_attach = common_on_attach,
@@ -105,6 +94,7 @@ function M.setup()
         return vim.tbl_extend("force", default_opts, opts)
     end
 
+    require("typescript").setup { server = default_opts }
     require("rust-tools").setup { server = default_opts }
 
     lspconfig.ltex.setup(with_defaults {
@@ -128,28 +118,6 @@ function M.setup()
             },
         },
     }))
-
-    local tsutils = require "nvim-lsp-ts-utils"
-    lspconfig.tsserver.setup(with_defaults {
-        init_options = {
-            hostInfo = "neovim",
-            preferences = {
-                includeInlayParameterNameHints = "none",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = false,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-            },
-        },
-        on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = false
-            common_on_attach(client, bufnr)
-            tsutils.setup {}
-            tsutils.setup_client(client)
-        end,
-    })
 
     lspconfig.yamlls.setup(with_defaults {
         settings = {

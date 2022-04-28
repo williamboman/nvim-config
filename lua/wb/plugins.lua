@@ -315,7 +315,7 @@ local function spec(use)
             "ray-x/lsp_signature.nvim",
             "simrat39/rust-tools.nvim",
             "jose-elias-alvarez/null-ls.nvim",
-            "jose-elias-alvarez/nvim-lsp-ts-utils",
+            "jose-elias-alvarez/typescript.nvim",
             "j-hui/fidget.nvim",
         },
         after = "coq_nvim",
