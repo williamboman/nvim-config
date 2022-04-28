@@ -180,6 +180,10 @@ local function spec(use)
                     insert_mappings = false,
                     terminal_mappings = false,
                     open_mapping = [[<space>t]],
+                    highlights = {
+                        CursorLineSign = { link = "DarkenedPanel" },
+                        Normal = { guibg = "#14141A" },
+                    },
                 }
                 -- Remove WinEnter to allow moving a toggleterm to new tab
                 vim.cmd [[autocmd! ToggleTerminal WinEnter]]
@@ -196,6 +200,7 @@ local function spec(use)
             config = function()
                 require("kanagawa").setup {
                     overrides = {
+                        WinSeparator = { fg = "#363646" },
                         Comment = { fg = "#888181" },
                         DressingInputText = { bg = "none" },
                         FloatTitle = { style = "bold" },
