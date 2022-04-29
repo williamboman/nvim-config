@@ -1,3 +1,5 @@
+local lsp_signature = require "lsp_signature"
+
 local lsp_keymaps = require "wb.lsp.keymaps"
 local capabilities = require "wb.lsp.capabilities"
 
@@ -29,7 +31,7 @@ local function common_on_attach(client, bufnr)
         lsp_keymaps.buf_autocmd_document_highlight(bufnr)
     end
 
-    require("lsp_signature").on_attach({
+    lsp_signature.on_attach({
         bind = true,
         floating_window = false,
         hint_prefix = "",
