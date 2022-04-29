@@ -1,5 +1,3 @@
-local lsp_installer = require "nvim-lsp-installer"
-
 local lsp_keymaps = require "wb.lsp.keymaps"
 local capabilities = require "wb.lsp.capabilities"
 
@@ -41,30 +39,7 @@ end
 
 function M.setup()
     require("nvim-lsp-installer").setup {
-        ensure_installed = {
-            "bashls",
-            "clangd",
-            "cmake",
-            "cssls",
-            "dockerls",
-            "eslint",
-            "graphql",
-            "html",
-            "jdtls",
-            "jsonls",
-            "lemminx",
-            "ltex",
-            "prismals",
-            "pylsp",
-            "rust_analyzer",
-            "sumneko_lua",
-            "taplo",
-            "terraformls",
-            "tsserver",
-            "vimls",
-            "vuels",
-            "yamlls",
-        },
+        automatic_installation = true,
         log_level = vim.log.levels.DEBUG,
         ui = {
             icons = {
@@ -75,74 +50,92 @@ function M.setup()
         },
     }
     local lspconfig = require "lspconfig"
+    local util = require "lspconfig.util"
     local coq = require "coq"
 
     setup_handlers()
     vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
 
-    local default_opts = coq.lsp_ensure_capabilities {
-        on_attach = common_on_attach,
-        capabilities = capabilities.create {
-            with_snippet_support = true,
+    util.on_setup = util.add_hook_after(util.on_setup, function(config)
+        if config.on_attach then
+            config.on_attach = util.add_hook_after(config.on_attach, common_on_attach)
+        else
+            config.on_attach = common_on_attach
+        end
+        config.capabilities = capabilities.create()
+        config.capabilities = coq.lsp_ensure_capabilities(config).capabilities
+    end)
+
+    local server_settings = {
+        ["ltex"] = {
+            flags = {
+                debounce_text_changes = 2000,
+            },
         },
-        flags = {
-            debounce_text_changes = 150,
+        ["eslint"] = {
+            settings = {
+                format = { enable = true },
+            },
         },
-    }
-
-    local function with_defaults(opts)
-        return vim.tbl_extend("force", default_opts, opts)
-    end
-
-    require("typescript").setup { server = default_opts }
-    require("rust-tools").setup { server = default_opts }
-
-    lspconfig.ltex.setup(with_defaults {
-        flags = {
-            debounce_text_changes = 2000,
+        ["jdtls"] = {
+            handlers = {
+                ["language/status"] = require "wb.lsp.jdtls-progress"(),
+            },
         },
-    })
-
-    lspconfig.eslint.setup(with_defaults {
-        settings = {
-            format = { enable = true },
-        },
-    })
-
-    lspconfig.sumneko_lua.setup(require("lua-dev").setup(with_defaults {
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "P" },
+        ["sumneko_lua"] = require("lua-dev").setup {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "P" },
+                    },
                 },
             },
         },
-    }))
-
-    lspconfig.yamlls.setup(with_defaults {
-        settings = {
-            yaml = {
-                hover = true,
-                completion = true,
-                validate = true,
-                schemas = require("schemastore").json.schemas(),
+        ["yamlls"] = {
+            settings = {
+                yaml = {
+                    hover = true,
+                    completion = true,
+                    validate = true,
+                    schemas = require("schemastore").json.schemas(),
+                },
             },
         },
-    })
-
-    lspconfig.jsonls.setup(with_defaults {
-        settings = {
-            json = {
-                schemas = require("schemastore").json.schemas(),
+        ["jsonls"] = {
+            settings = {
+                json = {
+                    schemas = require("schemastore").json.schemas(),
+                },
             },
         },
-    })
+    }
 
-    lspconfig.jdtls.setup(with_defaults {
-        handlers = {
-            ["language/status"] = require "wb.lsp.jdtls-progress"(),
-        },
-    })
+    require("typescript").setup {}
+    require("rust-tools").setup {}
+
+    for _, server in ipairs {
+        "bashls",
+        "clangd",
+        "cmake",
+        "cssls",
+        "dockerls",
+        "eslint",
+        "graphql",
+        "html",
+        "jdtls",
+        "jsonls",
+        "lemminx",
+        "ltex",
+        "prismals",
+        "pylsp",
+        "sumneko_lua",
+        "taplo",
+        "terraformls",
+        "vimls",
+        "yamlls",
+    } do
+        lspconfig[server].setup(server_settings[server] or {})
+    end
 
     local null_ls = require "null-ls"
     null_ls.setup {
@@ -151,7 +144,6 @@ function M.setup()
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.diagnostics.shellcheck,
         },
-        on_attach = common_on_attach,
     }
     require("fidget").setup {
         window = {
