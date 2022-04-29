@@ -202,8 +202,9 @@ local function spec(use)
                     overrides = {
                         WinSeparator = { fg = "#363646" },
                         Comment = { fg = "#888181" },
-                        DressingInputText = { bg = "none" },
-                        FloatTitle = { style = "bold" },
+                        FloatTitle = { fg = "#14141A", bg = "#957FB8", style ="bold"},
+                        DressingInputNormalFloat = { bg = "#14141A" },
+                        DressingInputFloatBorder = { fg = "#14141A", bg = "#14141A" },
                         NeoTreeGitUntracked = { link = "NeoTreeGitModified" },
                         IndentBlanklineChar = { fg = "#2F2F40" },
                         IndentBlanklineContextStart = { style = "bold" },
@@ -245,7 +246,9 @@ local function spec(use)
             config = function()
                 require("dressing").setup {
                     input = {
-                        winhighlight = "NormalFloat:DressingInputNormalFloat",
+                        winblend = 10,
+                        winhighlight = "Normal:DressingInputNormalFloat,NormalFloat:DressingInputNormalFloat,FloatBorder:DressingInputFloatBorder",
+                        border = "single",
                     },
                 }
             end,
