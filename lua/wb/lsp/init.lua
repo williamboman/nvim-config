@@ -25,8 +25,8 @@ local function common_on_attach(client, bufnr)
         client.config.flags.allow_incremental_sync = true
     end
 
-    if client.resolved_capabilities.document_highlight then
-        lsp_keymaps.buf_autocmd_document_highlight()
+    if client.supports_method "textDocument/documentHighlight" then
+        lsp_keymaps.buf_autocmd_document_highlight(bufnr)
     end
 
     require("lsp_signature").on_attach({
