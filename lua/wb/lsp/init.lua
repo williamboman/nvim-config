@@ -3,20 +3,7 @@ local lsp_signature = require "lsp_signature"
 local lsp_keymaps = require "wb.lsp.keymaps"
 local capabilities = require "wb.lsp.capabilities"
 
-require "wb.lsp.handlers"
-require "wb.lsp.custom-server"
-
 local M = {}
-
-local function setup_handlers()
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = {
-            spacing = 5,
-            prefix = "",
-        },
-        signs = false, -- rely on highlight styles instead, don't want to clobber signcolumn
-    })
-end
 
 local function common_on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -40,6 +27,9 @@ local function common_on_attach(client, bufnr)
 end
 
 function M.setup()
+    require "wb.lsp.handlers"
+    require "wb.lsp.custom-server"
+
     require("nvim-lsp-installer").setup {
         automatic_installation = true,
         log_level = vim.log.levels.DEBUG,
@@ -55,7 +45,6 @@ function M.setup()
     local util = require "lspconfig.util"
     local coq = require "coq"
 
-    setup_handlers()
     vim.cmd [[ command! LspLog exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()") ]]
 
     util.on_setup = util.add_hook_after(util.on_setup, function(config)
