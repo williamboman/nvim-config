@@ -27,7 +27,6 @@ local function common_on_attach(client, bufnr)
 end
 
 function M.setup()
-    require "wb.lsp.handlers"
     require "wb.lsp.custom-server"
 
     require("nvim-lsp-installer").setup {
