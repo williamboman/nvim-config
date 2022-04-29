@@ -1,4 +1,9 @@
-return function()
+local ok, lspconfig = pcall(require, "lspconfig")
+if not ok then
+    return
+end
+
+local function progress_handler()
     ---@type table<string, boolean>
     local tokens = {}
     ---@type table<string, boolean>
@@ -59,3 +64,9 @@ return function()
         end
     end
 end
+
+lspconfig.jdtls.setup {
+    handlers = {
+        ["language/status"] = progress_handler,
+    },
+}

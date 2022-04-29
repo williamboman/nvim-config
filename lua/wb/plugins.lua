@@ -202,7 +202,7 @@ local function spec(use)
                     overrides = {
                         WinSeparator = { fg = "#363646" },
                         Comment = { fg = "#888181" },
-                        FloatTitle = { fg = "#14141A", bg = "#957FB8", style ="bold"},
+                        FloatTitle = { fg = "#14141A", bg = "#957FB8", style = "bold" },
                         DressingInputNormalFloat = { bg = "#14141A" },
                         DressingInputFloatBorder = { fg = "#14141A", bg = "#14141A" },
                         NeoTreeGitUntracked = { link = "NeoTreeGitModified" },
@@ -316,20 +316,14 @@ local function spec(use)
         or "williamboman/nvim-lsp-installer"
     use {
         lsp_installer,
-        requires = {
-            "neovim/nvim-lspconfig",
-            "folke/lua-dev.nvim",
-            "b0o/SchemaStore.nvim",
-            "ray-x/lsp_signature.nvim",
-            "simrat39/rust-tools.nvim",
-            "jose-elias-alvarez/null-ls.nvim",
-            "jose-elias-alvarez/typescript.nvim",
-            "j-hui/fidget.nvim",
-        },
-        after = "coq_nvim",
-        config = function()
-            require("wb.lsp").setup()
-        end,
+        "neovim/nvim-lspconfig",
+        "folke/lua-dev.nvim",
+        "b0o/SchemaStore.nvim",
+        "ray-x/lsp_signature.nvim",
+        "simrat39/rust-tools.nvim",
+        "jose-elias-alvarez/null-ls.nvim",
+        "jose-elias-alvarez/typescript.nvim",
+        "j-hui/fidget.nvim",
     }
 
     use {
