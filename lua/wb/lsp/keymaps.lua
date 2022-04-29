@@ -1,21 +1,10 @@
 local ts_utils = require "nvim-treesitter.ts_utils"
 
+local telescope_lsp = require "wb.telescope.lsp"
+
 local M = {}
 
-function M.buf_autocmd_document_highlight()
-    vim.api.nvim_exec(
-        [[
-    augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold,CursorHoldI <buffer> call v:lua.my_document_highlight()
-        autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]],
-        false
-    )
-end
-
-function _G.my_document_highlight()
+local function highlight_references()
     local node = ts_utils.get_node_at_cursor()
     while node ~= nil do
         local node_type = node:type()
@@ -33,50 +22,63 @@ function _G.my_document_highlight()
     vim.lsp.buf.document_highlight()
 end
 
-_G.lsp_popup_opts = {
-    show_header = false,
-}
+---@param bufnr number
+function M.buf_autocmd_document_highlight(bufnr)
+    local group = vim.api.nvim_create_augroup("lsp_document_highlight", {})
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = bufnr,
+        group = group,
+        callback = highlight_references,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        buffer = bufnr,
+        group = group,
+        callback = vim.lsp.buf.clear_references,
+    })
+end
 
--- @param bufnr (number)
+-- @param bufnr number
 function M.buf_set_keymaps(bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
+    local function buf_set_keymap(mode, lhs, rhs)
+        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
     end
-    local opts = { noremap = true, silent = true }
 
-    buf_set_keymap("n", "<leader>p", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<leader>p", vim.lsp.buf.formatting)
 
     -- Code actions
-    buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    buf_set_keymap("v", "<space>f", "<cmd><C-U>lua vim.lsp.buf.range_code_action()<CR>", opts)
+    buf_set_keymap("n", "<leader>r", vim.lsp.buf.rename)
+    buf_set_keymap("n", "<space>f", vim.lsp.buf.code_action)
 
     -- Movement
-    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<cmd>lua require'wb.telescope.lsp'.definitions()<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>lua require'wb.telescope.lsp'.references()<CR>", opts)
-    buf_set_keymap("n", "gbr", "<cmd>lua require'wb.telescope.lsp'.buffer_references()<CR>", opts)
-    buf_set_keymap("n", "gI", "<cmd>lua require'wb.telescope.lsp'.implementations()<CR>", opts)
-    buf_set_keymap("n", "<space>s", "<cmd>lua require'wb.telescope.lsp'.document_symbols()<CR>", opts)
+    buf_set_keymap("n", "gD", vim.lsp.buf.declaration)
+    buf_set_keymap("n", "gd", telescope_lsp.definitions)
+    buf_set_keymap("n", "gr", telescope_lsp.references)
+    buf_set_keymap("n", "gbr", telescope_lsp.buffer_references)
+    buf_set_keymap("n", "gI", telescope_lsp.implementations)
+    buf_set_keymap("n", "<space>s", telescope_lsp.document_symbols)
 
     -- Docs
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "<leader>t", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap("n", "K", vim.lsp.buf.hover)
+    buf_set_keymap("n", "<leader>t", vim.lsp.buf.signature_help)
+    buf_set_keymap("i", "<C-k>", vim.lsp.buf.signature_help)
 
     -- Diagnostics
-    buf_set_keymap("n", "<space>d", "<cmd>lua require'wb.telescope.lsp'.document_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "<space>d", telescope_lsp.document_diagnostics)
 
-    buf_set_keymap("n", "<space>ws", "<cmd>lua require'wb.telescope.lsp'.workspace_symbols()<CR>", opts)
-    buf_set_keymap("n", "<space>wd", "<cmd>lua require'wb.telescope.lsp'.workspace_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "<space>ws", telescope_lsp.workspace_symbols)
+    buf_set_keymap("n", "<space>wd", telescope_lsp.workspace_diagnostics)
 
     for _, mode in pairs { "n", "v" } do
-        buf_set_keymap(mode, "[e", "<cmd>lua vim.diagnostic.goto_prev({ severity = 'Error' })<CR>", opts)
-        buf_set_keymap(mode, "]e", "<cmd>lua vim.diagnostic.goto_next({ severity = 'Error' })<CR>", opts)
-        buf_set_keymap(mode, "[E", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-        buf_set_keymap(mode, "]E", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+        buf_set_keymap(mode, "[e", function()
+            vim.diagnostic.goto_prev { severity = "Error" }
+        end)
+        buf_set_keymap(mode, "]e", function()
+            vim.diagnostic.goto_next { severity = "Error" }
+        end)
+        buf_set_keymap(mode, "[E", vim.diagnostic.goto_prev)
+        buf_set_keymap(mode, "]E", vim.diagnostic.goto_next)
     end
-    buf_set_keymap("n", "].", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    buf_set_keymap("n", "].", vim.diagnostic.open_float)
 end
 
 return M
