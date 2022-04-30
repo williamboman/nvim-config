@@ -86,6 +86,14 @@ local function buf_autocmd_codelens(bufnr)
     })
 end
 
+local function goto_prev_error()
+    vim.diagnostic.goto_prev { severity = "Error" }
+end
+
+local function goto_next_error()
+    vim.diagnostic.goto_next { severity = "Error" }
+end
+
 ---@param client table
 ---@param bufnr number
 local function buf_set_keymaps(client, bufnr)
@@ -123,12 +131,8 @@ local function buf_set_keymaps(client, bufnr)
     buf_set_keymap("n", "<space>wd", telescope_lsp.workspace_diagnostics)
 
     for _, mode in pairs { "n", "v" } do
-        buf_set_keymap(mode, "[e", function()
-            vim.diagnostic.goto_prev { severity = "Error" }
-        end)
-        buf_set_keymap(mode, "]e", function()
-            vim.diagnostic.goto_next { severity = "Error" }
-        end)
+        buf_set_keymap(mode, "[e", goto_prev_error)
+        buf_set_keymap(mode, "]e", goto_next_error)
         buf_set_keymap(mode, "[E", vim.diagnostic.goto_prev)
         buf_set_keymap(mode, "]E", vim.diagnostic.goto_next)
     end
