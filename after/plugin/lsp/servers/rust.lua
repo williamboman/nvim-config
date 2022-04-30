@@ -4,4 +4,3 @@ if not ok then
 end
 
 rust_tools.setup {}
-
