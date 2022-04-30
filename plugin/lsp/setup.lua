@@ -76,8 +76,19 @@ local function buf_autocmd_document_highlight(bufnr)
     })
 end
 
--- @param bufnr number
-local function buf_set_keymaps(bufnr)
+---@param bufnr number
+local function buf_autocmd_codelens(bufnr)
+    local group = vim.api.nvim_create_augroup("lsp_document_codelens", {})
+    vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost", "CursorHold" }, {
+        buffer = bufnr,
+        group = group,
+        callback = vim.lsp.codelens.refresh,
+    })
+end
+
+---@param client table
+---@param bufnr number
+local function buf_set_keymaps(client, bufnr)
     local function buf_set_keymap(mode, lhs, rhs)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
     end
@@ -87,6 +98,10 @@ local function buf_set_keymaps(bufnr)
     -- Code actions
     buf_set_keymap("n", "<leader>r", vim.lsp.buf.rename)
     buf_set_keymap("n", "<space>f", vim.lsp.buf.code_action)
+
+    if client.supports_method "textDocument/codeLens" then
+        buf_set_keymap("n", "<leader>l", vim.lsp.codelens.run)
+    end
 
     -- Movement
     buf_set_keymap("n", "gD", vim.lsp.buf.declaration)
@@ -123,7 +138,7 @@ end
 local function common_on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    buf_set_keymaps(bufnr)
+    buf_set_keymaps(client, bufnr)
 
     if client.config.flags then
         client.config.flags.allow_incremental_sync = true
@@ -131,6 +146,11 @@ local function common_on_attach(client, bufnr)
 
     if client.supports_method "textDocument/documentHighlight" then
         buf_autocmd_document_highlight(bufnr)
+    end
+
+    if client.supports_method "textDocument/codeLens" then
+        buf_autocmd_codelens(bufnr)
+        vim.schedule(vim.lsp.codelens.refresh)
     end
 
     lsp_signature.on_attach({
