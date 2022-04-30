@@ -94,6 +94,29 @@ local function goto_next_error()
     vim.diagnostic.goto_next { severity = "Error" }
 end
 
+-- Finds and runs the closest codelens (searches upwards only)
+local function find_and_run_codelens()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local lenses = vim.lsp.codelens.get(bufnr)
+
+    lenses = vim.tbl_filter(function(lense)
+        return lense.range.start.line < row
+    end, lenses)
+
+    if #lenses == 0 then
+        return vim.notify "Could not find codelens to run."
+    end
+
+    table.sort(lenses, function(a, b)
+        return a.range.start.line < b.range.start.line
+    end)
+
+    vim.api.nvim_win_set_cursor(0, { lenses[1].range.start.line + 1, 0 })
+    vim.lsp.codelens.run()
+    vim.api.nvim_win_set_cursor(0, { row, col }) -- restore cursor, TODO: also restore position
+end
+
 ---@param client table
 ---@param bufnr number
 local function buf_set_keymaps(client, bufnr)
@@ -107,9 +130,7 @@ local function buf_set_keymaps(client, bufnr)
     buf_set_keymap("n", "<leader>r", vim.lsp.buf.rename)
     buf_set_keymap("n", "<space>f", vim.lsp.buf.code_action)
 
-    if client.supports_method "textDocument/codeLens" then
-        buf_set_keymap("n", "<leader>l", vim.lsp.codelens.run)
-    end
+    buf_set_keymap("n", "<leader>l", find_and_run_codelens)
 
     -- Movement
     buf_set_keymap("n", "gD", vim.lsp.buf.declaration)
