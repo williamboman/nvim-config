@@ -35,3 +35,13 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     },
     signs = false, -- rely on highlight styles instead, don't want to clobber signcolumn
 })
+
+local codeLens = vim.lsp.handlers["textDocument/codeLens"]
+
+vim.lsp.handlers["textDocument/codeLens"] = function(err, ...)
+    if err then
+        -- silence errors
+        return
+    end
+    codeLens(nil, ...)
+end
