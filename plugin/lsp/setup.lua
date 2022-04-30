@@ -109,7 +109,7 @@ local function find_and_run_codelens()
     end
 
     table.sort(lenses, function(a, b)
-        return a.range.start.line < b.range.start.line
+        return a.range.start.line > b.range.start.line
     end)
 
     vim.api.nvim_win_set_cursor(0, { lenses[1].range.start.line + 1, 0 })
@@ -117,9 +117,8 @@ local function find_and_run_codelens()
     vim.api.nvim_win_set_cursor(0, { row, col }) -- restore cursor, TODO: also restore position
 end
 
----@param client table
 ---@param bufnr number
-local function buf_set_keymaps(client, bufnr)
+local function buf_set_keymaps(bufnr)
     local function buf_set_keymap(mode, lhs, rhs)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
     end
@@ -163,7 +162,7 @@ end
 local function common_on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    buf_set_keymaps(client, bufnr)
+    buf_set_keymaps(bufnr)
 
     if client.config.flags then
         client.config.flags.allow_incremental_sync = true
