@@ -179,6 +179,7 @@ local function spec(use)
                 require("toggleterm").setup {
                     insert_mappings = false,
                     terminal_mappings = false,
+                    start_in_insert = false,
                     open_mapping = [[<space>t]],
                     highlights = {
                         CursorLineSign = { link = "DarkenedPanel" },
