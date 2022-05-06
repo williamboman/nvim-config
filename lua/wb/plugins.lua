@@ -105,10 +105,8 @@ local function spec(use)
             end,
         },
         {
-            "t9md/vim-choosewin",
-            config = function()
-                vim.api.nvim_set_keymap("n", "-", "<Plug>(choosewin)", {})
-            end,
+            "s1n7ax/nvim-window-picker",
+            tag = "v1.*",
         },
         {
             "ms-jpq/coq_nvim",
