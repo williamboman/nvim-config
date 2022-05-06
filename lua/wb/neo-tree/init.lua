@@ -7,6 +7,7 @@ function M.setup()
         use_popups_for_input = false,
         enable_git_status = true,
         enable_diagnostics = true,
+        use_default_mappings = false,
         default_component_configs = {
             indent = {
                 indent_size = 2,

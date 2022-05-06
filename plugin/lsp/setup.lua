@@ -62,6 +62,13 @@ local function highlight_references()
     vim.lsp.buf.document_highlight()
 end
 
+--- @return fun() @function that calls the provided fn, but with no args
+local function w(fn)
+    return function()
+        return fn()
+    end
+end
+
 ---@param bufnr number
 local function buf_autocmd_document_highlight(bufnr)
     local group = vim.api.nvim_create_augroup("lsp_document_highlight", {})
@@ -73,7 +80,7 @@ local function buf_autocmd_document_highlight(bufnr)
     vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = bufnr,
         group = group,
-        callback = vim.lsp.buf.clear_references,
+        callback = w(vim.lsp.buf.clear_references),
     })
 end
 
@@ -83,7 +90,7 @@ local function buf_autocmd_codelens(bufnr)
     vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost", "CursorHold" }, {
         buffer = bufnr,
         group = group,
-        callback = vim.lsp.codelens.refresh,
+        callback = w(vim.lsp.codelens.refresh),
     })
 end
 
