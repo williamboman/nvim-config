@@ -92,6 +92,7 @@ local function spec(use)
         "ggandor/lightspeed.nvim",
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
+        "mizlan/iswap.nvim",
         {
             "numToStr/Comment.nvim",
             config = function()
