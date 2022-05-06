@@ -4,8 +4,6 @@ if not ok then
 end
 
 window_picker.setup {
-    autoselect_one = false,
-    include_current_win = true,
     filter_rules = {
         -- filter using buffer options
         bo = {
@@ -19,7 +17,10 @@ window_picker.setup {
 }
 
 vim.keymap.set("n", "-", function()
-    local window = window_picker.pick_window()
+    local window = window_picker.pick_window {
+        autoselect_one = false,
+        include_current_win = true,
+    }
     if window then
         vim.api.nvim_set_current_win(window)
     end
