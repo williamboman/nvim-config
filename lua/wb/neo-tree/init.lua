@@ -93,7 +93,7 @@ function M.setup()
                 ["a"] = "",
                 ["A"] = "",
                 ["d"] = "",
-                ["m"] = ""
+                ["m"] = "",
             },
         },
         nesting_rules = {},
@@ -128,6 +128,10 @@ function M.setup()
             },
         },
     }
+
+    require("neo-tree.ui.inputs").confirm = function(message, callback)
+        callback(vim.fn.confirm(message, "&Yes\n&No") == 1)
+    end
 
     vim.keymap.set("n", "<leader>b", "<cmd>Neotree toggle show buffers right<cr>")
     vim.keymap.set("n", "<leader>a", "<cmd>Neotree reveal left<cr>")
