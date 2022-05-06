@@ -75,7 +75,7 @@ function M.setup()
                 ["md"] = "delete",
                 ["mr"] = "rename",
                 ["mm"] = "move",
-                ["y"] = "copy_to_clipboard",
+                ["c"] = "copy_to_clipboard",
                 ["x"] = "cut_to_clipboard",
                 ["p"] = "paste_from_clipboard",
                 ["q"] = "close_window",
@@ -94,6 +94,9 @@ function M.setup()
                 ["A"] = "",
                 ["d"] = "",
                 ["m"] = "",
+            },
+            mapping_options = {
+                nowait = true,
             },
         },
         nesting_rules = {},
