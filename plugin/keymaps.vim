@@ -36,3 +36,5 @@ nnoremap * :keepjumps normal! mi*`i<CR>
 nnoremap # :keepjumps normal! mi#`i<CR>
 
 nmap <Esc> <cmd>noh<CR>
+
+nnoremap <C-Space> <C-^>
