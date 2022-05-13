@@ -13,7 +13,7 @@ vim.api.nvim_create_user_command("LspLog", [[exe 'tabnew ' .. luaeval("vim.lsp.g
 
 require("nvim-lsp-installer").setup {
     ensure_installed = { "sumneko_lua", "jsonls", "yamlls" },
-    automatic_installation = vim.fn.hostname == "Williams-MacBook-Air.local",
+    automatic_installation = vim.fn.hostname() == "Williams-MacBook-Air.local",
     log_level = vim.log.levels.DEBUG,
     ui = {
         icons = {
@@ -94,14 +94,6 @@ local function buf_autocmd_codelens(bufnr)
     })
 end
 
-local function goto_prev_error()
-    vim.diagnostic.goto_prev { severity = "Error" }
-end
-
-local function goto_next_error()
-    vim.diagnostic.goto_next { severity = "Error" }
-end
-
 -- Finds and runs the closest codelens (searches upwards only)
 local function find_and_run_codelens()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -157,14 +149,6 @@ local function buf_set_keymaps(bufnr)
 
     buf_set_keymap("n", "<space>ws", telescope_lsp.workspace_symbols)
     buf_set_keymap("n", "<space>wd", telescope_lsp.workspace_diagnostics)
-
-    for _, mode in pairs { "n", "v" } do
-        buf_set_keymap(mode, "[e", goto_prev_error)
-        buf_set_keymap(mode, "]e", goto_next_error)
-        buf_set_keymap(mode, "[E", vim.diagnostic.goto_prev)
-        buf_set_keymap(mode, "]E", vim.diagnostic.goto_next)
-    end
-    buf_set_keymap("n", "].", vim.diagnostic.open_float)
 end
 
 local function common_on_attach(client, bufnr)
