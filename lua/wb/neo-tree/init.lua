@@ -68,7 +68,6 @@ function M.setup()
                 ["C"] = "set_root",
                 ["H"] = "toggle_hidden",
                 ["r"] = "refresh",
-                ["/"] = "fuzzy_finder",
                 ["f"] = "filter_on_submit",
                 ["<c-f>"] = "clear_filter",
                 ["ma"] = "add",
@@ -94,6 +93,7 @@ function M.setup()
                 ["A"] = "",
                 ["d"] = "",
                 ["m"] = "",
+                ["/"] = "",
             },
             mapping_options = {
                 nowait = true,
