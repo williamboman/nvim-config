@@ -177,6 +177,9 @@ local function spec(use)
             config = function()
                 require("toggleterm").setup {
                     insert_mappings = false,
+                    env = {
+                        MANPAGER = "less -X",
+                    },
                     terminal_mappings = false,
                     start_in_insert = false,
                     open_mapping = [[<space>t]],
