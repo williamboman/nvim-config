@@ -205,6 +205,10 @@ local function spec(use)
                 require("kanagawa").setup {
                     overrides = {
                         WinSeparator = { fg = "#363646" },
+                        WinBarActive = { fg = "#1F1F28", bg = "#2A2A37", style = "inverse" },
+                        WinBarTextActive = { fg = "#7FB4CA", bg = "#2A2A37" },
+                        WinBarInactive = { fg = "#1F1F28", bg = "#2A2A37", style = "inverse" },
+                        WinBarTextInactive = { fg = "#7a7a7b", bg = "#2A2A37" },
                         Comment = { fg = "#888181" },
                         FloatTitle = { fg = "#14141A", bg = "#957FB8", style = "bold" },
                         DressingInputNormalFloat = { bg = "#14141A" },
