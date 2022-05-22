@@ -29,3 +29,5 @@ do
     end
     keymap("n", "<M-d>", toggle_diagnostics)
 end
+
+keymap("n", "<space>d", require("telescope.builtin").diagnostics)
