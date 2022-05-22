@@ -29,7 +29,7 @@ local function keymaps()
 end
 
 M.setup = function()
-    local is_win = vim.fn.has("win32") == 1
+    local is_win = vim.fn.has "win32" == 1
     if not is_win then
         require("telescope").load_extension "fzf"
     end
@@ -95,7 +95,7 @@ M.setup = function()
         },
         extensions = {
             project = {
-                hidden_files = true,
+                hidden_files = false,
             },
             fzf = is_win and {} or {
                 fuzzy = true,
