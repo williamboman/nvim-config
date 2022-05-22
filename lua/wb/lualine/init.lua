@@ -9,13 +9,6 @@ function M.setup()
         absolute_path = 2,
     }
 
-    local function filename(path)
-        return {
-            "filename",
-            path = path,
-        }
-    end
-
     local function attached_clients()
         return "(" .. vim.tbl_count(vim.lsp.buf_get_clients(0)) .. ")"
     end
@@ -27,7 +20,6 @@ function M.setup()
         sections = {
             lualine_b = { "branch", "diff" },
             lualine_c = {
-                filename(FilenamePath.relative_path),
                 { gps.get_location, cond = gps.is_available },
             },
             lualine_x = {
@@ -37,9 +29,7 @@ function M.setup()
                 { attached_clients, separator = { left = "" }, left_padding = 0 },
             },
         },
-        inactive_sections = {
-            lualine_c = { filename(FilenamePath.absolute_path) },
-        },
+        inactive_sections = {},
         extensions = { "quickfix", "toggleterm", "fugitive" },
     }
 end
