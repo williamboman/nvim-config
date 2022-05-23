@@ -16,6 +16,7 @@ require("nvim-lsp-installer").setup {
     automatic_installation = vim.fn.hostname() == "Williams-MacBook-Air.local",
     log_level = vim.log.levels.DEBUG,
     ui = {
+        check_outdated_servers_on_open = false,
         icons = {
             server_installed = "",
             server_pending = "",
