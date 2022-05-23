@@ -11,17 +11,16 @@ function! MyTabLine()
         let bufmodified = getbufvar(bufnr, "&mod")
         let buftype = getbufvar(bufnr, "buftype")
 
+        let result .= "%#TabLineFill# "
+        let result .= (index == curtabpagenr ? "%#TabLineSelSpacing#" : "%#TabLineSpacing#")
+        let result .= ""
+
         let result .= "%" .. index .. "T"
         let result .= (index == curtabpagenr ? "%1*" : "%2*")
 
-        " tab index
-        let result .= (index == curtabpagenr ? "%#TabNumSel#" : "%#TabNum#")
-        if index == 1
-            let result .= " " " add some extra padding before first tab
-        endif
-        let result .= " " .. index .. ":"
-
         let result .= (index == curtabpagenr ? "%#TabLineSel#" : "%#TabLine#")
+        " tab index
+        let result .= " " .. index
 
         " buf name
         if buftype == "nofile" && file =~ "\/."
@@ -42,6 +41,9 @@ function! MyTabLine()
         if bufmodified == 1
             let result .= "[+] "
         endif
+
+        let result .= (index == curtabpagenr ? "%#TabLineSelSpacing#" : "%#TabLineSpacing#")
+        let result .= ""
 
         let index = index + 1
     endwhile
