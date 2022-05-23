@@ -335,10 +335,10 @@ local function spec(use)
     }
 
     use {
-        "narutoxy/dim.lua",
-        requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+        "zbirenbaum/neodim",
+        requires = { "nvim-treesitter/nvim-treesitter" },
         config = function()
-            require("dim").setup {}
+            require("neodim").setup()
         end,
     }
 
