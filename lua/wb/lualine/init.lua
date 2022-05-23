@@ -24,6 +24,7 @@ function M.setup()
             },
             lualine_x = {
                 { "diagnostics", sources = { "nvim_diagnostic" } },
+                "filesize",
                 "encoding",
                 { "filetype", separator = { right = "" }, right_padding = 0 },
                 { attached_clients, separator = { left = "" }, left_padding = 0 },
