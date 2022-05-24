@@ -142,8 +142,8 @@ local function buf_set_keymaps(bufnr)
 
     -- Docs
     buf_set_keymap("n", "K", vim.lsp.buf.hover)
-    buf_set_keymap("n", "<leader>t", vim.lsp.buf.signature_help)
-    buf_set_keymap("i", "<C-k>", vim.lsp.buf.signature_help)
+    buf_set_keymap("n", "<M-p>", vim.lsp.buf.signature_help)
+    buf_set_keymap("i", "<M-p>", vim.lsp.buf.signature_help)
 
     buf_set_keymap("n", "<space>ws", telescope_lsp.workspace_symbols)
     buf_set_keymap("n", "<space>wd", telescope_lsp.workspace_diagnostics)

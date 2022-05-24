@@ -1,9 +1,8 @@
-local remap = vim.api.nvim_set_keymap
-local npairs = require "nvim-autopairs"
-
 local M = {}
 
 function M.setup()
+    local remap = vim.api.nvim_set_keymap
+    local npairs = require "nvim-autopairs"
     npairs.setup { map_bs = false, map_cr = false, fast_wrap = {} }
 
     -- these mappings are coq recommended mappings unrelated to nvim-autopairs

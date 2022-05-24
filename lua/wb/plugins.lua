@@ -93,6 +93,7 @@ local function spec(use)
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
         "mizlan/iswap.nvim",
+        "linty-org/readline.nvim",
         {
             "numToStr/Comment.nvim",
             config = function()
@@ -124,7 +125,7 @@ local function spec(use)
             branch = "coq",
             setup = function()
                 vim.g.coq_settings = {
-                    keymap = { recommended = false }, -- for autopairs
+                    keymap = { recommended = false, bigger_preview = "<c-o>" }, -- disable recommended for interop with autopairs
                     auto_start = "shut-up",
                     ["display.pum.fast_close"] = false,
                 }
