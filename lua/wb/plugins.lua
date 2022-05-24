@@ -33,6 +33,12 @@ local function spec(use)
                     ["TelescopePrompt"] = false,
                     ["DressingInput"] = false,
                 }
+                vim.g.copilot_no_tab_map = true
+                vim.keymap.set("i", "<C-y>", [[copilot#Accept("\<CR>")]], {
+                    silent = true,
+                    script = true,
+                    expr = true,
+                })
             end,
         },
         {
@@ -111,10 +117,15 @@ local function spec(use)
             tag = "v1.*",
         },
         {
-            "ms-jpq/coq_nvim",
+            "hrsh7th/nvim-cmp",
             requires = {
-                { "ms-jpq/coq.artifacts", branch = "artifacts" },
-                { "ms-jpq/coq.thirdparty", branch = "3p" },
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-buffer",
+                "hrsh7th/cmp-calc",
+                "hrsh7th/cmp-path",
+                "andersevenrud/cmp-tmux",
+                "saadparwaiz1/cmp_luasnip",
+                "L3MON4D3/LuaSnip",
                 {
                     "onsails/lspkind-nvim",
                     config = function()
@@ -122,16 +133,8 @@ local function spec(use)
                     end,
                 },
             },
-            branch = "coq",
-            setup = function()
-                vim.g.coq_settings = {
-                    keymap = { recommended = false, bigger_preview = "<c-o>" }, -- disable recommended for interop with autopairs
-                    auto_start = "shut-up",
-                    ["display.pum.fast_close"] = false,
-                }
-            end,
             config = function()
-                require("wb.coq_nvim").setup()
+                require("wb.cmp").setup()
             end,
         },
         {

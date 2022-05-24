@@ -25,6 +25,8 @@ require("nvim-lsp-installer").setup {
     },
 }
 
+local cmp_lsp = require "cmp_nvim_lsp"
+
 ---@param opts table|nil
 local function create_capabilities(opts)
     local default_opts = {
@@ -42,7 +44,7 @@ local function create_capabilities(opts)
             },
         }
     end
-    return capabilities
+    return cmp_lsp.update_capabilities(capabilities)
 end
 
 local function highlight_references()
@@ -182,7 +184,6 @@ util.on_setup = util.add_hook_after(util.on_setup, function(config)
         config.on_attach = common_on_attach
     end
     config.capabilities = create_capabilities()
-    config.capabilities = coq.lsp_ensure_capabilities(config).capabilities
 end)
 
 null_ls.setup {
