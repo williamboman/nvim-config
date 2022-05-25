@@ -2,6 +2,7 @@ local M = {}
 
 function M.setup()
     local cmp = require "cmp"
+    local types = require "cmp.types"
     local luasnip = require "luasnip"
     local mapping = cmp.mapping
 
@@ -22,15 +23,17 @@ function M.setup()
             end,
         },
         mapping = {
-            -- TODO add mapping for sending docs to preview buffer
             ["<C-d>"] = mapping(mapping.scroll_docs(8), { "i" }),
             ["<C-u>"] = mapping(mapping.scroll_docs(-8), { "i" }),
+            ["<C-o>"] = mapping.open_docs_preview(),
             ["<C-Space>"] = mapping.complete(),
             ["<C-e>"] = mapping.abort(),
             ["<CR>"] = mapping.confirm { select = false },
+            ["<C-n>"] = mapping.select_next_item { behavior = types.cmp.SelectBehavior.Select },
+            ["<C-p>"] = mapping.select_prev_item { behavior = types.cmp.SelectBehavior.Select },
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_next_item()
+                    cmp.select_next_item { behavior = types.cmp.SelectBehavior.Select }
                 elseif luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
                 elseif has_words_before() then
@@ -41,7 +44,7 @@ function M.setup()
             end, { "i", "s" }),
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_prev_item()
+                    cmp.select_prev_item { behavior = types.cmp.SelectBehavior.Select }
                 elseif luasnip.jumpable(-1) then
                     luasnip.jump(-1)
                 else

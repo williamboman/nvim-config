@@ -33,6 +33,7 @@ vim.opt.formatoptions:remove "t"
 vim.opt.formatoptions:remove "o"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 vim.opt.laststatus = 3
+vim.o.completeopt = "menu,menuone,noselect"
 
 if vim.fn.has "win32" == 1 then
     vim.o.shell = "powershell.exe"
