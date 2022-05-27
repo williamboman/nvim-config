@@ -125,7 +125,13 @@ local function spec(use)
                 "hrsh7th/cmp-path",
                 "andersevenrud/cmp-tmux",
                 "saadparwaiz1/cmp_luasnip",
-                "L3MON4D3/LuaSnip",
+                {
+                    "L3MON4D3/LuaSnip",
+                    requires = { "rafamadriz/friendly-snippets" },
+                    config = function()
+                        require("luasnip.loaders.from_vscode").lazy_load()
+                    end,
+                },
                 {
                     "onsails/lspkind-nvim",
                     config = function()
@@ -209,6 +215,7 @@ local function spec(use)
                 require("kanagawa").setup {
                     overrides = {
                         WinSeparator = { fg = "#363646" },
+                        NeoTreeWinSeparator = { fg = "#16161D", bg = "#16161D" },
                         WinBarActive = { fg = "#1F1F28", bg = "#2A2A37", style = "inverse" },
                         WinBarTextActive = { fg = "#7FB4CA", bg = "#2A2A37", style = "bold" },
                         WinBarInactive = { fg = "#1F1F28", bg = "#2A2A37", style = "inverse" },

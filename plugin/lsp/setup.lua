@@ -12,7 +12,6 @@ local telescope_lsp = require "wb.telescope.lsp"
 vim.api.nvim_create_user_command("LspLog", [[exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()")]], {})
 
 require("nvim-lsp-installer").setup {
-    ensure_installed = { "sumneko_lua", "jsonls", "yamlls" },
     automatic_installation = vim.fn.hostname() == "Williams-MacBook-Air.local",
     log_level = vim.log.levels.DEBUG,
     ui = {
