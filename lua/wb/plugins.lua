@@ -117,7 +117,9 @@ local function spec(use)
             tag = "v1.*",
         },
         {
-            "hrsh7th/nvim-cmp",
+            -- "hrsh7th/nvim-cmp",
+            "williamboman/nvim-cmp",
+            branch = "feat/docs-preview-window",
             requires = {
                 "hrsh7th/cmp-nvim-lsp",
                 "hrsh7th/cmp-buffer",
@@ -125,6 +127,7 @@ local function spec(use)
                 "hrsh7th/cmp-path",
                 "andersevenrud/cmp-tmux",
                 "saadparwaiz1/cmp_luasnip",
+                "petertriho/cmp-git",
                 {
                     "L3MON4D3/LuaSnip",
                     requires = { "rafamadriz/friendly-snippets" },

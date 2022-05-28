@@ -56,10 +56,15 @@ function M.setup()
             { name = "nvim_lsp" },
             { name = "luasnip" },
             { name = "buffer" },
+            { name = "git" },
             { name = "path" },
             { name = "calc" },
             { name = "tmux" },
         },
+    }
+
+    require("cmp_git").setup {
+        enableRemoteUrlRewrites = true,
     }
 end
 
