@@ -40,6 +40,7 @@ if vim.fn.has "win32" == 1 then
 end
 
 vim.diagnostic.config {
+    signs = false, -- rely on highlight styles instead, don't want to clobber signcolumn
     float = {
         header = false,
         source = "always",

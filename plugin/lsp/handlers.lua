@@ -33,5 +33,4 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
         spacing = 5,
         prefix = "",
     },
-    signs = false, -- rely on highlight styles instead, don't want to clobber signcolumn
 })
