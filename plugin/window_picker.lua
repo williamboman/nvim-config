@@ -14,6 +14,13 @@ window_picker.setup {
             buftype = {},
         },
     },
+
+    -- if you have include_current_win == true, then current_win_hl_color will
+    -- be highlighted using this background color
+    current_win_hl_color = "#2D4F67",
+
+    -- all the windows except the curren window will be highlighted using this color
+    other_win_hl_color = "#76946A",
 }
 
 vim.keymap.set("n", "-", function()
