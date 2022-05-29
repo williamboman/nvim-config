@@ -3,12 +3,6 @@ local M = {}
 function M.setup()
     local gps = require "nvim-gps"
 
-    local FilenamePath = {
-        filename_only = 0,
-        relative_path = 1,
-        absolute_path = 2,
-    }
-
     local function attached_clients()
         return "(" .. vim.tbl_count(vim.lsp.buf_get_clients(0)) .. ")"
     end

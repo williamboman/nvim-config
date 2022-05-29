@@ -12,10 +12,17 @@ function MyWinbar()
     local actual_curwin = tonumber(vim.g.actual_curwin)
     local curwin = vim.api.nvim_get_current_win()
 
+    local sw = vim.o.sw
+    local et = vim.o.et and "et" or "noet"
+    local tw = vim.o.tw
+    local fo = vim.o.fo
+
+    local text_settings = ("sw=%s %s tw=%s fo=%s "):format(sw, et, tw, fo)
+
     if actual_curwin == curwin then
-        return "%#WinBarActive#%#WinBarTextActive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarActive#"
+        return "%#WinBarActive#%#WinBarTextActive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarActive#%=%#WinBarActiveMuted#" .. text_settings
     else
-        return "%#WinBarInactive#%#WinBarTextInactive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarInactive#"
+        return "%#WinBarInactive#%#WinBarTextInactive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarInactive#%=%#WinBarInactiveMuted#" .. text_settings
     end
 end
 
