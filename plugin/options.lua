@@ -7,7 +7,6 @@ vim.o.scrolloff = 5
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath "cache" .. "/undo"
 vim.o.inccommand = "split"
 vim.o.cmdheight = 2
 vim.o.splitbelow = true
