@@ -25,13 +25,19 @@ function M.setup()
         mapping = {
             ["<C-d>"] = mapping(mapping.scroll_docs(8), { "i" }),
             ["<C-u>"] = mapping(mapping.scroll_docs(-8), { "i" }),
-            ["<C-k>"] = mapping.open_docs_preview(),
+            ["<C-k>"] = mapping(function(fallback)
+                if cmp.open_docs_preview() then
+                    cmp.close()
+                else
+                    fallback()
+                end
+            end),
             ["<C-Space>"] = mapping.complete(),
             ["<C-e>"] = mapping.abort(),
             ["<CR>"] = mapping.confirm { select = false },
             ["<C-n>"] = mapping.select_next_item { behavior = types.cmp.SelectBehavior.Select },
             ["<C-p>"] = mapping.select_prev_item { behavior = types.cmp.SelectBehavior.Select },
-            ["<Tab>"] = cmp.mapping(function(fallback)
+            ["<Tab>"] = mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item { behavior = types.cmp.SelectBehavior.Select }
                 elseif luasnip.expand_or_jumpable() then
@@ -42,7 +48,7 @@ function M.setup()
                     fallback()
                 end
             end, { "i", "s" }),
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
+            ["<S-Tab>"] = mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item { behavior = types.cmp.SelectBehavior.Select }
                 elseif luasnip.jumpable(-1) then

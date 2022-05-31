@@ -136,9 +136,10 @@ local function hover()
     local existing_float_win = vim.b.lsp_floating_preview
     if existing_float_win and vim.api.nvim_win_is_valid(existing_float_win) then
         vim.b.lsp_floating_preview = nil
-        local preview_bufer = vim.api.nvim_win_get_buf(existing_float_win)
+        local preview_buffer = vim.api.nvim_win_get_buf(existing_float_win)
         local pwin = get_preview_window()
-        vim.api.nvim_win_set_buf(pwin, preview_bufer)
+        vim.api.nvim_win_set_buf(pwin, preview_buffer)
+        vim.api.nvim_win_close(existing_float_win, true)
     else
         vim.lsp.buf.hover()
     end
