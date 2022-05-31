@@ -25,7 +25,7 @@ function M.setup()
         mapping = {
             ["<C-d>"] = mapping(mapping.scroll_docs(8), { "i" }),
             ["<C-u>"] = mapping(mapping.scroll_docs(-8), { "i" }),
-            ["<C-o>"] = mapping.open_docs_preview(),
+            ["<C-k>"] = mapping.open_docs_preview(),
             ["<C-Space>"] = mapping.complete(),
             ["<C-e>"] = mapping.abort(),
             ["<CR>"] = mapping.confirm { select = false },
