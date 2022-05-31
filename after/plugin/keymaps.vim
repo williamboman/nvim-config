@@ -38,3 +38,7 @@ nnoremap # :keepjumps normal! mi#`i<CR>
 nmap <Esc> <cmd>noh<CR>
 
 nnoremap <C-Space> <C-^>
+
+" Use the text that has already been typed as the prefix for searching through commands
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
