@@ -95,7 +95,7 @@ local function spec(use)
 
     -- nvim extensions & decorators
     use {
-        "ggandor/lightspeed.nvim",
+        "ggandor/leap.nvim",
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
         "mizlan/iswap.nvim",
