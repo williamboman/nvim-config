@@ -10,11 +10,16 @@ rust_tools.setup {
     },
 }
 
-local inlay_fix
-inlay_fix = vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
     pattern = "*.rs",
     callback = function()
         vim.cmd [[RustSetInlayHints]]
-        vim.api.nvim_del_autocmd(inlay_fix)
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = "rust",
+    callback = function()
+        vim.cmd [[RustSetInlayHints]]
     end,
 })
