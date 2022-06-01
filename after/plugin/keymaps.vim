@@ -40,5 +40,5 @@ nmap <Esc> <cmd>noh<CR>
 nnoremap <C-Space> <C-^>
 
 " Use the text that has already been typed as the prefix for searching through commands
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
+cnoremap <expr> <C-p> pumvisible() ? "<C-p>" : "<Up>"
+cnoremap <expr> <C-n> pumvisible() ? "<C-n>" : "<Down>"
