@@ -8,18 +8,12 @@ rust_tools.setup {
         executor = require("rust-tools/executors").toggleterm,
         hover_actions = { border = "solid" },
     },
+    server = {
+        on_attach = function(_, bufnr)
+            vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+                buffer = bufnr,
+                command = "RustSetInlayHints",
+            })
+        end,
+    },
 }
-
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
-    pattern = "*.rs",
-    callback = function()
-        vim.cmd [[RustSetInlayHints]]
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = "rust",
-    callback = function()
-        vim.cmd [[RustSetInlayHints]]
-    end,
-})
