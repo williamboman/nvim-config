@@ -7,12 +7,16 @@ function M.setup()
         return "(" .. vim.tbl_count(vim.lsp.buf_get_clients(0)) .. ")"
     end
 
+    local function cwd()
+        return vim.fn.fnamemodify(vim.loop.cwd(), ":~")
+    end
+
     require("lualine").setup {
         options = {
             disabled_filetypes = { "neo-tree" },
         },
         sections = {
-            lualine_b = { "branch", "diff" },
+            lualine_b = { "branch", "diff", cwd },
             lualine_c = {
                 { gps.get_location, cond = gps.is_available },
             },
