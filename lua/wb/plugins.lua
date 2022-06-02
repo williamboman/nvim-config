@@ -81,18 +81,6 @@ local function spec(use)
         },
     }
 
-    use {
-        "kkoomen/vim-doge",
-        cmd = { "DogeGenerate" },
-        run = function()
-            vim.fn["doge#install"]()
-        end,
-        setup = function()
-            vim.g.doge_enable_mappings = 0
-            vim.g.doge_comment_jump_modes = { "n" }
-        end,
-    }
-
     -- nvim extensions & decorators
     use {
         "ggandor/leap.nvim",
