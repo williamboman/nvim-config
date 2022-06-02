@@ -60,12 +60,12 @@ function M.setup()
         },
         sources = {
             { name = "nvim_lsp" },
-            { name = "luasnip" },
             { name = "buffer" },
-            { name = "git" },
             { name = "path" },
-            { name = "calc" },
+            { name = "luasnip" },
             { name = "tmux" },
+            { name = "git" },
+            { name = "calc" },
         },
     }
 
