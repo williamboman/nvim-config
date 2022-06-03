@@ -114,7 +114,7 @@ local function find_and_run_codelens()
         return a.range.start.line > b.range.start.line
     end)
 
-    vim.api.nvim_win_set_cursor(0, { lenses[1].range.start.line + 1, 0 })
+    vim.api.nvim_win_set_cursor(0, { lenses[1].range.start.line + 1, lenses[1].range.start.character })
     vim.lsp.codelens.run()
     vim.api.nvim_win_set_cursor(0, { row, col }) -- restore cursor, TODO: also restore position
 end
