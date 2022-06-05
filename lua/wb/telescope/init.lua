@@ -1,31 +1,42 @@
 local actions = require "telescope.actions"
 local layout_actions = require "telescope.actions.layout"
+local files = require "wb.telescope.find_files"
+local git = require "wb.telescope.git"
 
 local M = {}
 
-local function map_uwu(key, cmd)
-    for _, keymap in pairs { "<C-p>" .. key, "<C-p>" .. "<C-" .. key .. ">" } do
-        vim.api.nvim_set_keymap("n", keymap, cmd, { noremap = true })
+---@param lhs string
+---@param rhs string|fun()
+local function map_uwu(lhs, rhs)
+    for _, keymap in pairs { "<C-p>" .. lhs, "<C-p>" .. "<C-" .. lhs .. ">" } do
+        vim.keymap.set("n", keymap, rhs)
     end
 end
 
 local function keymaps()
     map_uwu("r", "<cmd>Telescope resume<CR>")
 
-    map_uwu("f", "<cmd>lua require'wb.telescope.find_files'.find()<CR>")
-    map_uwu(".f", "<cmd>lua require'wb.telescope.find_files'.find({use_buffer_cwd = true})<CR>")
-    map_uwu("p", "<cmd>lua require'wb.telescope.find_files'.git_files()<CR>")
-    map_uwu(".p", "<cmd>lua require'wb.telescope.find_files'.git_files({use_buffer_cwd = true})<CR>")
-    map_uwu("a", "<cmd>lua require'wb.telescope.find_files'.file_browser()<CR>")
-    map_uwu("l", "<cmd>lua require'wb.telescope.find_files'.current_buffer_fuzzy_find()<CR>")
-    map_uwu("o", "<cmd>lua require'wb.telescope.find_files'.project()<CR>")
-    map_uwu("q", "<cmd>lua require'wb.telescope.find_files'.grep()<CR>")
-    map_uwu(".q", "<cmd>lua require'wb.telescope.find_files'.grep({use_buffer_cwd = true})<CR>")
-    map_uwu("h", "<cmd>lua require'wb.telescope.find_files'.oldfiles()<CR>")
-    map_uwu("b", "<cmd>lua require'wb.telescope.find_files'.buffers()<CR>")
+    map_uwu("f", files.find)
+    map_uwu(".f", function()
+        files.find { use_buffer_cwd = true }
+    end)
+    map_uwu("p", files.git_files)
+    vim.keymap.set("n", "<space>p", files.git_files)
+    map_uwu(".p", function()
+        files.git_files { use_buffer_cwd = true }
+    end)
+    map_uwu("a", files.file_browser)
+    map_uwu("l", files.current_buffer_fuzzy_find)
+    map_uwu("o", files.project)
+    map_uwu("q", files.grep)
+    map_uwu(".q", function()
+        files.grep { use_buffer_cwd = true }
+    end)
+    map_uwu("h", files.oldfiles)
+    map_uwu("b", files.buffers)
 
-    map_uwu("s", "<cmd>lua require'wb.telescope.git'.status()<CR>")
-    map_uwu("S", "<cmd>lua require'wb.telescope.git'.stash()<CR>")
+    map_uwu("s", git.status)
+    map_uwu("S", git.stash)
 end
 
 M.setup = function()
