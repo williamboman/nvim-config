@@ -45,4 +45,6 @@ cnoremap <expr> <C-n> pumvisible() ? "<C-n>" : "<Down>"
 
 " keep my registers out your god damn paste
 xnoremap p P
-xnoremap P p
+
+nnoremap Q "_
+xnoremap Q "_
