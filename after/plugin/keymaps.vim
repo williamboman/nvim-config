@@ -42,3 +42,7 @@ nnoremap <C-Space> <C-^>
 " Use the text that has already been typed as the prefix for searching through commands
 cnoremap <expr> <C-p> pumvisible() ? "<C-p>" : "<Up>"
 cnoremap <expr> <C-n> pumvisible() ? "<C-n>" : "<Down>"
+
+" keep my registers out your god damn paste
+xnoremap p P
+xnoremap P p
