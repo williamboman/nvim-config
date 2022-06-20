@@ -66,6 +66,7 @@ local function progress_handler()
 end
 
 lspconfig.jdtls.setup {
+    use_lombok_agent = true,
     handlers = {
         ["language/status"] = progress_handler,
     },
