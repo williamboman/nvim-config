@@ -27,21 +27,6 @@ local function spec(use)
         "tpope/vim-fugitive",
         "tpope/vim-unimpaired",
         {
-            "github/copilot.vim",
-            setup = function()
-                vim.g.copilot_filetypes = {
-                    ["TelescopePrompt"] = false,
-                    ["DressingInput"] = false,
-                }
-                vim.g.copilot_no_tab_map = true
-                vim.keymap.set("i", "<C-y>", [[copilot#Accept("\<CR>")]], {
-                    silent = true,
-                    script = true,
-                    expr = true,
-                })
-            end,
-        },
-        {
             "tpope/vim-sleuth",
             setup = function()
                 vim.g.sleuth_automatic = 0
