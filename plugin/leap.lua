@@ -5,6 +5,6 @@ if not ok then
 end
 
 leap.setup {
-    case_insensitive = false,
+    case_sensitive = true,
 }
 leap.set_default_keymaps()
