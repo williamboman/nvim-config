@@ -68,6 +68,7 @@ local function spec(use)
 
     -- nvim extensions & decorators
     use {
+        "lewis6991/satellite.nvim",
         "ggandor/leap.nvim",
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
