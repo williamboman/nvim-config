@@ -4,6 +4,4 @@ if not ok then
     return
 end
 
-require("satellite").setup {
-    winblend = 5
-}
+require("satellite").setup {}
