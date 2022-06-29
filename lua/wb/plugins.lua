@@ -184,8 +184,10 @@ local function spec(use)
 
     -- UI & Syntax
     use {
+        "projekt0n/github-nvim-theme",
         {
             "rebelot/kanagawa.nvim",
+            commit = "a6db77965a27ca893ea693d69cc3c152c000a627",
             config = function()
                 require("kanagawa").setup {
                     overrides = {
@@ -227,7 +229,6 @@ local function spec(use)
                         Visual = { bg = "#4C566A" },
                     },
                 }
-                vim.cmd [[colorscheme kanagawa]]
             end,
         },
         {
