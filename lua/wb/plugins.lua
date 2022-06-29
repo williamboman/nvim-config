@@ -178,8 +178,6 @@ local function spec(use)
 
                 -- Remove WinEnter to allow moving a toggleterm to new tab
                 vim.cmd [[autocmd! ToggleTermCommands WinEnter]]
-                vim.cmd [[autocmd TermEnter term://*toggleterm#* tnoremap <buffer> <C-t> <Esc><Cmd>ToggleTerm<CR>]]
-                vim.cmd [[autocmd TermEnter term://*toggleterm#* nnoremap <buffer> <C-t> <Esc><Cmd>ToggleTerm<CR>]]
             end,
         },
     }
