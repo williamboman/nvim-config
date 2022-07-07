@@ -7,4 +7,7 @@ if vim.fn.has "mac" == 1 then
     else
         vim.cmd [[colorscheme github_light_default]]
     end
+else
+    -- Dark mode
+    vim.cmd [[colorscheme kanagawa]]
 end
