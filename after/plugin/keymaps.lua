@@ -30,4 +30,6 @@ do
     keymap("n", "<M-d>", toggle_diagnostics)
 end
 
-keymap("n", "<space>d", require("telescope.builtin").diagnostics)
+keymap("n", "<space>d", function()
+    require("telescope.builtin").diagnostics { bufnr = 0 }
+end)
