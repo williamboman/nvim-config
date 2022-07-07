@@ -327,7 +327,14 @@ local function spec(use)
         "zbirenbaum/neodim",
         requires = { "nvim-treesitter/nvim-treesitter" },
         config = function()
-            require("neodim").setup()
+            require("neodim").setup {
+                alpha = 0.6,
+                hide = {
+                    virtual_text = false,
+                    signs = true,
+                    underline = false,
+                },
+            }
         end,
     }
 
