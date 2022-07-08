@@ -12,18 +12,6 @@ local telescope_lsp = require "wb.telescope.lsp"
 
 vim.api.nvim_create_user_command("LspLog", [[exe 'tabnew ' .. luaeval("vim.lsp.get_log_path()")]], {})
 
-require("mason").setup {
-    max_concurrent_installers = 10,
-    -- log_level = vim.log.levels.TRACE,
-    ui = {
-        icons = {
-            package_installed = "",
-            package_pending = "",
-            package_uninstalled = "",
-        },
-    },
-}
-
 local cmp_lsp = require "cmp_nvim_lsp"
 
 ---@param opts table|nil
