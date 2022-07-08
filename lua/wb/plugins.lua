@@ -68,6 +68,7 @@ local function spec(use)
 
     -- nvim extensions & decorators
     use {
+        "Maan2003/lsp_lines.nvim",
         "lewis6991/satellite.nvim",
         "ggandor/leap.nvim",
         "simnalamburt/vim-mundo",
@@ -308,8 +309,7 @@ local function spec(use)
     end
 
     -- LSP
-    local mason = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
-            and "~/dev/github/mason.nvim"
+    local mason = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local" and "~/dev/github/mason.nvim"
         or "williamboman/mason.nvim"
     use {
         mason,

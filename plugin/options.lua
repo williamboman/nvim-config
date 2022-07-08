@@ -38,14 +38,6 @@ if vim.fn.has "win32" == 1 then
     vim.o.shell = "powershell.exe"
 end
 
-vim.diagnostic.config {
-    signs = false, -- rely on highlight styles instead, don't want to clobber signcolumn
-    float = {
-        header = false,
-        source = "always",
-    },
-}
-
 -- Fixate cmdheight to 2
 vim.api.nvim_create_autocmd({ "WinScrolled" }, {
     pattern = "*",

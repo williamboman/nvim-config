@@ -17,19 +17,6 @@ end
 
 keymap("n", "].", vim.diagnostic.open_float)
 
-do
-    local showing_diagnostics = true
-    local function toggle_diagnostics()
-        if showing_diagnostics then
-            vim.diagnostic.hide()
-        else
-            vim.diagnostic.show()
-        end
-        showing_diagnostics = not showing_diagnostics
-    end
-    keymap("n", "<M-d>", toggle_diagnostics)
-end
-
 keymap("n", "<space>d", function()
     require("telescope.builtin").diagnostics { bufnr = 0 }
 end)
