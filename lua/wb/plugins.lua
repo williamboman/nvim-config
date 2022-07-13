@@ -308,9 +308,13 @@ local function spec(use)
         }
     end
 
+    local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
+
     -- LSP
-    local mason = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local" and "~/dev/github/mason.nvim"
-        or "williamboman/mason.nvim"
+    local mason = is_macbook and "~/dev/github/mason.nvim" or "williamboman/mason.nvim"
+    if is_macbook and vim.env.LSP_INSTALLER then
+        use { "~/dev/github/nvim-lsp-installer" }
+    end
     use {
         mason,
         "neovim/nvim-lspconfig",
