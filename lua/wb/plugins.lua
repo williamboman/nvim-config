@@ -268,7 +268,7 @@ local function spec(use)
         "folke/lua-dev.nvim",
         "b0o/SchemaStore.nvim",
         "ray-x/lsp_signature.nvim",
-        "simrat39/rust-tools.nvim",
+        { "simrat39/rust-tools.nvim", branch = "modularize_and_inlay_rewrite" },
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "j-hui/fidget.nvim",
