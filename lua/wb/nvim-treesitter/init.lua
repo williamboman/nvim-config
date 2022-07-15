@@ -30,7 +30,10 @@ M.setup = function()
                 },
             },
         },
-        autotag = { enable = true },
+        autotag = {
+            enable = true,
+            filetypes = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+        },
         rainbow = { enable = true },
         context_commentstring = {
             enable = true,
@@ -41,6 +44,10 @@ M.setup = function()
         matchup = {
             enable = true,
         },
+    }
+
+    require("treesitter-context").setup {
+        enable = true,
     }
 end
 

@@ -66,7 +66,7 @@ local function spec(use)
         },
     }
 
-    -- nvim extensions & decorators
+    -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
     use {
         "Maan2003/lsp_lines.nvim",
         "lewis6991/satellite.nvim",
@@ -75,6 +75,16 @@ local function spec(use)
         "airblade/vim-rooter",
         "mizlan/iswap.nvim",
         "linty-org/readline.nvim",
+        {
+            "andymass/vim-matchup",
+            setup = function()
+                vim.g.matchup_matchparen_offscreen = {
+                    method = "popup",
+                    fullwidth = 1,
+                    highlight = "OffscreenMatchPopup",
+                }
+            end,
+        },
         {
             "numToStr/Comment.nvim",
             config = function()
@@ -141,15 +151,6 @@ local function spec(use)
         },
         {
             "nvim-lualine/lualine.nvim",
-            requires = {
-                "arkav/lualine-lsp-progress",
-                {
-                    "SmiteshP/nvim-gps",
-                    config = function()
-                        require("nvim-gps").setup()
-                    end,
-                },
-            },
             config = function()
                 require("wb.lualine").setup()
             end,
@@ -181,57 +182,6 @@ local function spec(use)
                 vim.cmd [[autocmd! ToggleTermCommands WinEnter]]
             end,
         },
-    }
-
-    -- UI & Syntax
-    use {
-        "projekt0n/github-nvim-theme",
-        {
-            "rebelot/kanagawa.nvim",
-            commit = "a6db77965a27ca893ea693d69cc3c152c000a627",
-            config = function()
-                require("kanagawa").setup {
-                    overrides = {
-                        WinSeparator = { fg = "#363646" },
-                        NeoTreeWinSeparator = { fg = "#16161D", bg = "#16161D" },
-                        WinBarActive = { fg = "#2A2A37", bg = "#1F1F28" },
-                        WinBarActiveMuted = { fg = "#666666" },
-                        WinBarInactiveMuted = { fg = "#444444" },
-                        WinBarTextActive = { fg = "#7FB4CA", bg = "#2A2A37", style = "bold" },
-                        WinBarInactive = { fg = "#2A2A37", bg = "#1F1F28" },
-                        WinBarTextInactive = { fg = "#7a7a7b", bg = "#2A2A37" },
-                        Comment = { fg = "#888181" },
-                        FloatTitle = { fg = "#14141A", bg = "#957FB8", style = "bold" },
-                        DressingInputNormalFloat = { bg = "#14141A" },
-                        DressingInputFloatBorder = { fg = "#14141A", bg = "#14141A" },
-                        NeoTreeGitUntracked = { link = "NeoTreeGitModified" },
-                        IndentBlanklineChar = { fg = "#2F2F40" },
-                        IndentBlanklineContextStart = { style = "bold" },
-                        LualineGitAdd = { link = "GitSignsAdd" },
-                        LualineGitChange = { link = "GitSignsAdd" },
-                        LualineGitDelete = { link = "GitSignsDelete" },
-                        NeoTreeNormal = { bg = "#14141A" },
-                        NeoTreeNormalNC = { bg = "#14141A" },
-                        TabLine = { fg = "#7a7a7b", bg = "#363646" },
-                        TabLineFill = { bg = "#1F1F28" },
-                        TabLineSel = { fg = "#957FB8", bg = "#2A2A37", style = "bold" },
-                        TabLineSelSpacing = { fg = "#1F1F28", bg = "#2A2A37", style = "inverse" },
-                        TabLineSpacing = { fg = "#1F1F28", bg = "#363646", style = "inverse" },
-                        TelescopeBorder = { fg = "#1a1a22", bg = "#1a1a22" },
-                        TelescopeMatching = { style = "underline", fg = "#7FB4CA", guisp = "#7FB4CA" },
-                        TelescopeNormal = { bg = "#1a1a22" },
-                        TelescopePreviewTitle = { fg = "#1a1a22", bg = "#7FB4CA" },
-                        TelescopePromptBorder = { fg = "#2A2A37", bg = "#2A2A37" },
-                        TelescopePromptNormal = { fg = "#DCD7BA", bg = "#2A2A37" },
-                        TelescopePromptPrefix = { fg = "#957FB8", bg = "#2A2A37" },
-                        TelescopePromptTitle = { fg = "#1a1a22", bg = "#957FB8" },
-                        TelescopeResultsTitle = { fg = "#1a1a22", bg = "#1a1a22" },
-                        TelescopeTitle = { style = "bold", fg = "#C8C093" },
-                        Visual = { bg = "#4C566A" },
-                    },
-                }
-            end,
-        },
         {
             "editorconfig/editorconfig-vim",
             setup = function()
@@ -250,6 +200,15 @@ local function spec(use)
                     },
                 }
             end,
+        },
+    }
+
+    -- UI
+    use {
+        "projekt0n/github-nvim-theme",
+        {
+            "rebelot/kanagawa.nvim",
+            commit = "a6db77965a27ca893ea693d69cc3c152c000a627",
         },
         "christianchiarulli/nvcode-color-schemes.vim",
         "kyazdani42/nvim-web-devicons",
@@ -280,31 +239,19 @@ local function spec(use)
     -- Treesitter
     if vim.fn.has "unix" == 1 then
         use {
-            "nvim-treesitter/playground",
-            "p00f/nvim-ts-rainbow",
-            "JoosepAlviste/nvim-ts-context-commentstring",
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            {
-                "andymass/vim-matchup",
-                config = function()
-                    vim.g.matchup_matchparen_offscreen = {
-                        method = "popup",
-                        fullwidth = 1,
-                        highlight = "OffscreenMatchPopup",
-                    }
-                end,
-            },
-            {
-                "nvim-treesitter/nvim-treesitter",
-                run = ":TSUpdate",
-                config = function()
-                    require("wb.nvim-treesitter").setup()
-                end,
-            },
-            {
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+            requires = {
+                "nvim-treesitter/playground",
+                "nvim-treesitter/nvim-treesitter-context",
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                "p00f/nvim-ts-rainbow",
+                "JoosepAlviste/nvim-ts-context-commentstring",
                 "windwp/nvim-ts-autotag",
-                ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
             },
+            config = function()
+                require("wb.nvim-treesitter").setup()
+            end,
         }
     end
 
