@@ -214,15 +214,12 @@ local function spec(use)
         "kyazdani42/nvim-web-devicons",
         {
             "lukas-reineke/indent-blankline.nvim",
-            setup = function()
-                vim.g.indent_blankline_use_treesitter = true
-                vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
-                vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
-                vim.g.indent_blankline_char = "▏"
-                vim.cmd [[set colorcolumn=99999]]
-            end,
             config = function()
                 require("indent_blankline").setup {
+                    char = "▏",
+                    use_treesitter_scope = true,
+                    buftype_exclude = { "terminal", "nofile" },
+                    filetype_exclude = { "help", "packer" },
                     show_current_context = true,
                     show_current_context_start = true,
                 }
