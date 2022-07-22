@@ -68,7 +68,7 @@ local function spec(use)
 
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
     use {
-        "Maan2003/lsp_lines.nvim",
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         "lewis6991/satellite.nvim",
         "ggandor/leap.nvim",
         "simnalamburt/vim-mundo",
