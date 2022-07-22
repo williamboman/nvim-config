@@ -259,11 +259,10 @@ local function spec(use)
 
     -- LSP
     local mason = is_macbook and "~/dev/github/mason.nvim" or "williamboman/mason.nvim"
-    if is_macbook and vim.env.LSP_INSTALLER then
-        use { "~/dev/github/nvim-lsp-installer" }
-    end
+    local mason_lspconfig = is_macbook and "~/dev/github/mason-lspconfig.nvim" or "williamboman/mason-lspconfig.nvim"
     use {
         mason,
+        mason_lspconfig,
         "neovim/nvim-lspconfig",
         "folke/lua-dev.nvim",
         "b0o/SchemaStore.nvim",
