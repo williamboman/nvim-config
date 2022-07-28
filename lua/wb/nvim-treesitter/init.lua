@@ -45,10 +45,6 @@ M.setup = function()
             enable = true,
         },
     }
-
-    require("treesitter-context").setup {
-        enable = true,
-    }
 end
 
 return M
