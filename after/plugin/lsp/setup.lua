@@ -123,6 +123,7 @@ require("mason-lspconfig").setup_handlers {
     ["rust_analyzer"] = function()
         require("rust-tools").setup {
             tools = {
+                autoSetHints = false,
                 executor = require("rust-tools/executors").toggleterm,
                 hover_actions = { border = "solid" },
             },
@@ -132,6 +133,18 @@ require("mason-lspconfig").setup_handlers {
         lspconfig.sumneko_lua.setup(require("lua-dev").setup {
             settings = {
                 Lua = {
+                    format = {
+                        enable = false
+                    },
+                    hint = {
+                        enable = true,
+                        arrayIndex = "Disable", -- "Enable", "Auto", "Disable"
+                        await = true,
+                        paramName = "Disable", -- "All", "Literal", "Disable"
+                        paramType = false,
+                        semicolon = "Disable", -- "All", "SameLine", "Disable"
+                        setType = true,
+                    },
                     diagnostics = {
                         globals = { "P" },
                     },
