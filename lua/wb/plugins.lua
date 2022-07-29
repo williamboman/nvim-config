@@ -268,6 +268,7 @@ local function spec(use)
         "jose-elias-alvarez/typescript.nvim",
         { "lvimuser/lsp-inlayhints.nvim", branch = "readme" },
         "j-hui/fidget.nvim",
+        "SmiteshP/nvim-navic"
     }
 
     use {
@@ -330,13 +331,15 @@ local function spec(use)
                 vim.api.nvim_set_keymap(
                     "n",
                     "<leader>go",
-                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
+                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<CR>'
+                    ,
                     { silent = true }
                 )
                 vim.api.nvim_set_keymap(
                     "v",
                     "<leader>go",
-                    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
+                    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<CR>'
+                    ,
                     { silent = true }
                 )
             end,

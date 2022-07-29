@@ -1,13 +1,13 @@
 local ts_utils = require "nvim-treesitter.ts_utils"
 local lsp_signature = require "lsp_signature"
 local telescope_lsp = require "wb.telescope.lsp"
+local navic = require("nvim-navic")
 
 local function highlight_references()
     local node = ts_utils.get_node_at_cursor()
     while node ~= nil do
         local node_type = node:type()
-        if
-            node_type == "string"
+        if node_type == "string"
             or node_type == "string_fragment"
             or node_type == "template_string"
             or node_type == "document" -- for inline gql`` strings
@@ -156,4 +156,8 @@ return function(client, bufnr)
         hint_prefix = "",
         hint_scheme = "Comment",
     }, bufnr)
+
+    if client.supports_method "textDocument/documentSymbol" then
+        navic.attach(client, bufnr)
+    end
 end
