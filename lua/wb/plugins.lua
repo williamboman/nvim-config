@@ -266,9 +266,9 @@ local function spec(use)
         { "simrat39/rust-tools.nvim", branch = "modularize_and_inlay_rewrite" },
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
-        { "lvimuser/lsp-inlayhints.nvim", branch = "readme" },
+        "lvimuser/lsp-inlayhints.nvim",
         "j-hui/fidget.nvim",
-        "SmiteshP/nvim-navic"
+        "SmiteshP/nvim-navic",
     }
 
     use {
@@ -331,15 +331,13 @@ local function spec(use)
                 vim.api.nvim_set_keymap(
                     "n",
                     "<leader>go",
-                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<CR>'
-                    ,
+                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
                     { silent = true }
                 )
                 vim.api.nvim_set_keymap(
                     "v",
                     "<leader>go",
-                    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<CR>'
-                    ,
+                    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
                     { silent = true }
                 )
             end,

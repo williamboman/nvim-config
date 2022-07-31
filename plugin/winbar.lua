@@ -1,5 +1,4 @@
 local devicons = require "nvim-web-devicons"
-local navic = require "nvim-navic"
 
 local expand, bufname = vim.fn.expand, vim.fn.bufname
 
@@ -20,7 +19,7 @@ function MyWinbar()
     local text_settings = ("sw=%s %s tw=%s "):format(sw, et, tw)
 
     if actual_curwin == curwin then
-        return "%#WinBarActive#%#WinBarTextActive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarActive#  %#IndentBlanklineContextChar#" .. navic.get_location() .. "%=%#WinBarActiveMuted#" .. text_settings
+        return "%#WinBarActive#%#WinBarTextActive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarActive#%=%#WinBarActiveMuted#" .. text_settings
     else
         return "%#WinBarInactive#%#WinBarTextInactive#" .. icon .. " " .. buffer_name .. "%m%r%#WinBarInactive#%=%#WinBarInactiveMuted#" .. text_settings
     end
