@@ -70,6 +70,7 @@ local function spec(use)
     use {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         "lewis6991/satellite.nvim",
+        "stevearc/aerial.nvim",
         "ggandor/leap.nvim",
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",

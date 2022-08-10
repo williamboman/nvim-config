@@ -2,6 +2,7 @@ local ts_utils = require "nvim-treesitter.ts_utils"
 local lsp_signature = require "lsp_signature"
 local telescope_lsp = require "wb.telescope.lsp"
 local navic = require("nvim-navic")
+local aerial = require("aerial")
 
 local function highlight_references()
     local node = ts_utils.get_node_at_cursor()
@@ -121,7 +122,6 @@ local function buf_set_keymaps(bufnr)
     buf_set_keymap("n", "gr", telescope_lsp.references)
     buf_set_keymap("n", "gbr", telescope_lsp.buffer_references)
     buf_set_keymap("n", "gI", telescope_lsp.implementations)
-    buf_set_keymap("n", "<space>s", telescope_lsp.document_symbols)
 
     -- Docs
     buf_set_keymap("n", "K", hover)
@@ -160,4 +160,6 @@ return function(client, bufnr)
     if client.supports_method "textDocument/documentSymbol" then
         navic.attach(client, bufnr)
     end
+
+  aerial.on_attach(client, bufnr)
 end
