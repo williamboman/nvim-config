@@ -59,7 +59,7 @@ local function spec(use)
             ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         },
         {
-            "janko/vim-test",
+            "vim-test/vim-test",
             config = function()
                 require("wb.vim-test").setup()
             end,
@@ -212,7 +212,6 @@ local function spec(use)
             "rebelot/kanagawa.nvim",
             commit = "a6db77965a27ca893ea693d69cc3c152c000a627",
         },
-        "christianchiarulli/nvcode-color-schemes.vim",
         "kyazdani42/nvim-web-devicons",
         {
             "lukas-reineke/indent-blankline.nvim",
