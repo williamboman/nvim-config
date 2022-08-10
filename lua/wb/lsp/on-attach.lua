@@ -76,32 +76,6 @@ local function find_and_run_codelens()
     vim.api.nvim_win_set_cursor(0, { row, col }) -- restore cursor, TODO: also restore position
 end
 
-local function get_preview_window()
-    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
-        if vim.api.nvim_win_get_option(win, "previewwindow") then
-            return win
-        end
-    end
-    vim.cmd [[new]]
-    local pwin = vim.api.nvim_get_current_win()
-    vim.api.nvim_win_set_option(pwin, "previewwindow", true)
-    vim.api.nvim_win_set_height(pwin, vim.api.nvim_get_option "previewheight")
-    return pwin
-end
-
-local function hover()
-    local existing_float_win = vim.b.lsp_floating_preview
-    if existing_float_win and vim.api.nvim_win_is_valid(existing_float_win) then
-        vim.b.lsp_floating_preview = nil
-        local preview_buffer = vim.api.nvim_win_get_buf(existing_float_win)
-        local pwin = get_preview_window()
-        vim.api.nvim_win_set_buf(pwin, preview_buffer)
-        vim.api.nvim_win_close(existing_float_win, true)
-    else
-        vim.lsp.buf.hover()
-    end
-end
-
 ---@param bufnr number
 local function buf_set_keymaps(bufnr)
     local function buf_set_keymap(mode, lhs, rhs)
@@ -124,7 +98,6 @@ local function buf_set_keymaps(bufnr)
     buf_set_keymap("n", "gI", telescope_lsp.implementations)
 
     -- Docs
-    buf_set_keymap("n", "K", hover)
     buf_set_keymap("n", "<M-p>", vim.lsp.buf.signature_help)
     buf_set_keymap("i", "<M-p>", vim.lsp.buf.signature_help)
 
@@ -161,5 +134,5 @@ return function(client, bufnr)
         navic.attach(client, bufnr)
     end
 
-  aerial.on_attach(client, bufnr)
+    aerial.on_attach(client, bufnr)
 end
