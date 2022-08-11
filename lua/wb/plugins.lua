@@ -40,6 +40,7 @@ local function spec(use)
 
     -- test & debugging
     use {
+        "vim-test/vim-test",
         {
             "puremourning/vimspector",
             setup = function()
@@ -58,12 +59,6 @@ local function spec(use)
             end,
             ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         },
-        {
-            "vim-test/vim-test",
-            config = function()
-                require("wb.vim-test").setup()
-            end,
-        },
     }
 
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
@@ -76,7 +71,15 @@ local function spec(use)
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
         "mizlan/iswap.nvim",
+        "stevearc/dressing.nvim",
         "linty-org/readline.nvim",
+        "akinsho/toggleterm.nvim",
+        "nvim-lualine/lualine.nvim",
+        "numToStr/Comment.nvim",
+        "windwp/nvim-autopairs",
+        "szw/vim-maximizer",
+        "zbirenbaum/neodim",
+        { "s1n7ax/nvim-window-picker", tag = "v1.*" },
         {
             "andymass/vim-matchup",
             setup = function()
@@ -86,22 +89,6 @@ local function spec(use)
                     highlight = "OffscreenMatchPopup",
                 }
             end,
-        },
-        {
-            "numToStr/Comment.nvim",
-            config = function()
-                require("Comment").setup()
-            end,
-        },
-        {
-            "windwp/nvim-autopairs",
-            config = function()
-                require("wb.nvim-autopairs").setup()
-            end,
-        },
-        {
-            "s1n7ax/nvim-window-picker",
-            tag = "v1.*",
         },
         {
             -- "hrsh7th/nvim-cmp",
@@ -115,23 +102,12 @@ local function spec(use)
                 "andersevenrud/cmp-tmux",
                 "saadparwaiz1/cmp_luasnip",
                 "petertriho/cmp-git",
+                "onsails/lspkind-nvim",
                 {
                     "L3MON4D3/LuaSnip",
                     requires = { "rafamadriz/friendly-snippets" },
-                    config = function()
-                        require("luasnip.loaders.from_vscode").lazy_load()
-                    end,
-                },
-                {
-                    "onsails/lspkind-nvim",
-                    config = function()
-                        require("lspkind").init()
-                    end,
                 },
             },
-            config = function()
-                require("wb.cmp").setup()
-            end,
         },
         {
             "junegunn/vim-peekaboo",
@@ -147,42 +123,6 @@ local function spec(use)
                 "kyazdani42/nvim-web-devicons",
                 "MunifTanjim/nui.nvim",
             },
-            config = function()
-                require("wb.neo-tree").setup()
-            end,
-        },
-        {
-            "nvim-lualine/lualine.nvim",
-            config = function()
-                require("wb.lualine").setup()
-            end,
-        },
-        {
-            "szw/vim-maximizer",
-            config = function()
-                vim.api.nvim_set_keymap("n", "<C-w>z", "<cmd>MaximizerToggle!<CR>", { silent = true, noremap = false })
-            end,
-        },
-        {
-            "akinsho/toggleterm.nvim",
-            config = function()
-                require("toggleterm").setup {
-                    insert_mappings = false,
-                    env = {
-                        MANPAGER = "less -X",
-                    },
-                    terminal_mappings = false,
-                    start_in_insert = false,
-                    open_mapping = [[<space>t]],
-                    highlights = {
-                        CursorLineSign = { link = "DarkenedPanel" },
-                        Normal = { guibg = "#14141A" },
-                    },
-                }
-
-                -- Remove WinEnter to allow moving a toggleterm to new tab
-                vim.cmd [[autocmd! ToggleTermCommands WinEnter]]
-            end,
         },
         {
             "editorconfig/editorconfig-vim",
@@ -191,47 +131,15 @@ local function spec(use)
                 vim.g.EditorConfig_preserve_formatoptions = 1
             end,
         },
-        {
-            "stevearc/dressing.nvim",
-            config = function()
-                require("dressing").setup {
-                    input = {
-                        winblend = 10,
-                        winhighlight = "Normal:DressingInputNormalFloat,NormalFloat:DressingInputNormalFloat,FloatBorder:DressingInputFloatBorder",
-                        border = "single",
-                    },
-                }
-            end,
-        },
     }
 
     -- UI
     use {
         "projekt0n/github-nvim-theme",
-        {
-            "rebelot/kanagawa.nvim",
-            commit = "a6db77965a27ca893ea693d69cc3c152c000a627",
-        },
+        "rebelot/kanagawa.nvim",
         "kyazdani42/nvim-web-devicons",
-        {
-            "lukas-reineke/indent-blankline.nvim",
-            config = function()
-                require("indent_blankline").setup {
-                    char = "▏",
-                    use_treesitter_scope = true,
-                    buftype_exclude = { "terminal", "nofile" },
-                    filetype_exclude = { "help", "packer" },
-                    show_current_context = true,
-                    show_current_context_start = true,
-                }
-            end,
-        },
-        {
-            "norcalli/nvim-colorizer.lua",
-            config = function()
-                require("wb.nvim-colorizer").setup()
-            end,
-        },
+        "lukas-reineke/indent-blankline.nvim",
+        "norcalli/nvim-colorizer.lua",
     }
 
     -- Treesitter
@@ -246,9 +154,6 @@ local function spec(use)
                 "JoosepAlviste/nvim-ts-context-commentstring",
                 "windwp/nvim-ts-autotag",
             },
-            config = function()
-                require("wb.nvim-treesitter").setup()
-            end,
         }
     end
 
@@ -272,41 +177,6 @@ local function spec(use)
         "SmiteshP/nvim-navic",
     }
 
-    use {
-        "zbirenbaum/neodim",
-        requires = { "nvim-treesitter/nvim-treesitter" },
-        config = function()
-            require("neodim").setup {
-                alpha = 0.6,
-                hide = {
-                    virtual_text = false,
-                    signs = true,
-                    underline = false,
-                },
-            }
-        end,
-    }
-
-    use {
-        "rmagatti/goto-preview",
-        config = function()
-            require("goto-preview").setup {
-                default_mappings = true,
-                opacity = 7,
-                post_open_hook = function(buf_handle, win_handle)
-                    vim.cmd(([[ autocmd WinLeave <buffer> ++once call nvim_win_close(%d, v:false)]]):format(win_handle))
-                    vim.api.nvim_buf_set_keymap(
-                        buf_handle,
-                        "n",
-                        "<Esc>",
-                        ("<cmd>call nvim_win_close(%d, v:false)<CR>"):format(win_handle),
-                        { noremap = true }
-                    )
-                end,
-            }
-        end,
-    }
-
     -- Telescope
     use {
         "nvim-telescope/telescope.nvim",
@@ -315,43 +185,14 @@ local function spec(use)
             "nvim-telescope/telescope-project.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         },
-        config = function()
-            require("wb.telescope").setup()
-        end,
     }
 
     -- git
     use {
         "rhysd/git-messenger.vim",
         "rhysd/committia.vim",
-        {
-            "ruifm/gitlinker.nvim",
-            config = function()
-                require("gitlinker").setup()
-
-                vim.api.nvim_set_keymap(
-                    "n",
-                    "<leader>go",
-                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
-                    { silent = true }
-                )
-                vim.api.nvim_set_keymap(
-                    "v",
-                    "<leader>go",
-                    '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<CR>',
-                    { silent = true }
-                )
-            end,
-        },
-        {
-            "lewis6991/gitsigns.nvim",
-            requires = {
-                "nvim-lua/plenary.nvim",
-            },
-            config = function()
-                require("wb.gitsigns").setup()
-            end,
-        },
+        "ruifm/gitlinker.nvim",
+        "lewis6991/gitsigns.nvim",
     }
 
     -- Misc

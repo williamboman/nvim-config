@@ -20,3 +20,5 @@ keymap("n", "].", vim.diagnostic.open_float)
 keymap("n", "<space>d", function()
     require("telescope.builtin").diagnostics { bufnr = 0 }
 end)
+
+keymap("n", "<C-w>z", "<cmd>MaximizerToggle!<CR>")
