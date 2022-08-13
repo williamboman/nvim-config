@@ -1,14 +1,15 @@
 local ts_utils = require "nvim-treesitter.ts_utils"
 local lsp_signature = require "lsp_signature"
+local navic = require "nvim-navic"
+local aerial = require "aerial"
 local telescope_lsp = require "wb.telescope.lsp"
-local navic = require("nvim-navic")
-local aerial = require("aerial")
 
 local function highlight_references()
     local node = ts_utils.get_node_at_cursor()
     while node ~= nil do
         local node_type = node:type()
-        if node_type == "string"
+        if
+            node_type == "string"
             or node_type == "string_fragment"
             or node_type == "template_string"
             or node_type == "document" -- for inline gql`` strings
@@ -64,7 +65,7 @@ local function find_and_run_codelens()
     end, lenses)
 
     if #lenses == 0 then
-        return vim.notify "Could not find codelens to run."
+        return vim.api.nvim_echo({ { "Could not find codelens to run.", "WarningMsg" } }, false, {})
     end
 
     table.sort(lenses, function(a, b)
@@ -82,7 +83,36 @@ local function buf_set_keymaps(bufnr)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
     end
 
-    buf_set_keymap("n", "<leader>p", vim.lsp.buf.formatting)
+    local function format(client)
+        vim.api.nvim_echo({ { ("Formatting with %s…"):format(client.name) } }, false, {})
+        vim.lsp.buf.format { id = client.id }
+    end
+
+    buf_set_keymap("n", "<leader>p", function()
+        local candidates = vim.tbl_filter(function(client)
+            return client.name ~= "sumneko_lua" and client.supports_method "textDocument/formatting"
+        end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() })
+        if #candidates > 1 then
+            vim.ui.select(candidates, {
+                prompt = "Client",
+                format_item = function(client)
+                    return client.name
+                end,
+            }, function(client)
+                if client then
+                    format(client)
+                end
+            end)
+        elseif #candidates == 1 then
+            format(candidates[1])
+        else
+            vim.api.nvim_echo(
+                { { "No clients that support textDocument/formatting are attached.", "WarningMsg" } },
+                false,
+                {}
+            )
+        end
+    end)
 
     -- Code actions
     buf_set_keymap("n", "<leader>r", vim.lsp.buf.rename)
