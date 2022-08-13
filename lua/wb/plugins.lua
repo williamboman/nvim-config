@@ -138,6 +138,7 @@ local function spec(use)
         "projekt0n/github-nvim-theme",
         "rebelot/kanagawa.nvim",
         "kyazdani42/nvim-web-devicons",
+        "lukas-reineke/headlines.nvim",
         "lukas-reineke/indent-blankline.nvim",
         "norcalli/nvim-colorizer.lua",
     }
