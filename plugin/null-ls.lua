@@ -8,11 +8,12 @@ editorconfig_checker._opts.command = "editorconfig-checker"
 
 null_ls.setup {
     sources = {
+        editorconfig_checker,
         null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.codespell,
-        editorconfig_checker,
         null_ls.builtins.diagnostics.gitlint,
         null_ls.builtins.diagnostics.misspell,
+        null_ls.builtins.diagnostics.selene,
         null_ls.builtins.diagnostics.shellcheck,
         null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.formatting.jq,
