@@ -23,7 +23,7 @@ end)
 
 keymap("n", "<C-w>z", "<cmd>MaximizerToggle!<CR>")
 
--- je ne pais parlaiz francais
+-- Nordic QWERTY gang
 keymap("n", "à", "`a")
 keymap("n", "è", "`e")
 keymap("n", "ì", "`i")
@@ -87,3 +87,14 @@ keymap("n", "´V", "`V")
 keymap("n", "´W", "`W")
 keymap("n", "´X", "`X")
 keymap("n", "´Z", "`Z")
+
+keymap("n", "9", "]", { remap = true })
+keymap("n", "8", "[", { remap = true })
+keymap("n", "9k", "9k")
+keymap("n", "9j", "9j")
+keymap("n", "9l", "9l")
+keymap("n", "9h", "9h")
+keymap("n", "8k", "8k")
+keymap("n", "8j", "8j")
+keymap("n", "8l", "8l")
+keymap("n", "8h", "8h")
