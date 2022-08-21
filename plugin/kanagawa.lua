@@ -11,6 +11,7 @@ kanagawa.setup {
         DressingInputFloatBorder = { fg = colors.sumiInk0, bg = colors.sumiInk0 },
         DressingInputNormalFloat = { bg = colors.sumiInk0 },
         FloatTitle = { fg = colors.sumiInk0, bg = colors.oniViolet, bold = true },
+        Headline = { bg = colors.winterBlue },
         IndentBlanklineChar = { fg = colors.sumiInk2 },
         IndentBlanklineContextStart = { bold = true, underline = false },
         LualineGitAdd = { link = "GitSignsAdd" },
@@ -42,6 +43,5 @@ kanagawa.setup {
         WinBarTextActive = { fg = colors.springBlue, bg = colors.sumiInk2, bold = true },
         WinBarTextInactive = { fg = colors.fujiGray, bg = colors.sumiInk2 },
         WinSeparator = { fg = colors.sumiInk3 },
-        Headline = { bg = colors.winterBlue },
     },
 }
