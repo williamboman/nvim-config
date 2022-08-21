@@ -1,4 +1,3 @@
-vim.cmd [[syntax on]]
 vim.o.clipboard = "unnamedplus"
 vim.o.hlsearch = true
 vim.o.hidden = true
