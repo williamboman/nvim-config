@@ -16,6 +16,7 @@ null_ls.setup {
         null_ls.builtins.diagnostics.selene,
         null_ls.builtins.diagnostics.shellcheck,
         null_ls.builtins.diagnostics.yamllint,
+        null_ls.builtins.formatting.cbfmt,
         null_ls.builtins.formatting.jq,
         null_ls.builtins.formatting.ktlint,
         null_ls.builtins.formatting.markdownlint,
