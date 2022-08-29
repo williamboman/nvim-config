@@ -8,12 +8,10 @@ local function goto_next_error()
     vim.diagnostic.goto_next { severity = "Error" }
 end
 
-for _, mode in pairs { "n", "v" } do
-    keymap(mode, "[e", goto_prev_error)
-    keymap(mode, "]e", goto_next_error)
-    keymap(mode, "[d", vim.diagnostic.goto_prev)
-    keymap(mode, "]d", vim.diagnostic.goto_next)
-end
+keymap({ "n", "v" }, "[e", goto_prev_error)
+keymap({ "n", "v" }, "]e", goto_next_error)
+keymap({ "n", "v" }, "[d", vim.diagnostic.goto_prev)
+keymap({ "n", "v" }, "]d", vim.diagnostic.goto_next)
 
 keymap("n", "].", vim.diagnostic.open_float)
 
@@ -88,13 +86,13 @@ keymap("n", "´W", "`W")
 keymap("n", "´X", "`X")
 keymap("n", "´Z", "`Z")
 
-keymap("n", "9", "]", { remap = true })
-keymap("n", "8", "[", { remap = true })
-keymap("n", "9k", "9k")
-keymap("n", "9j", "9j")
-keymap("n", "9l", "9l")
-keymap("n", "9h", "9h")
-keymap("n", "8k", "8k")
-keymap("n", "8j", "8j")
-keymap("n", "8l", "8l")
-keymap("n", "8h", "8h")
+keymap({ "n", "v" }, "9", "]", { remap = true })
+keymap({ "n", "v" }, "8", "[", { remap = true })
+keymap({ "n", "v" }, "9k", "9k")
+keymap({ "n", "v" }, "9j", "9j")
+keymap({ "n", "v" }, "9l", "9l")
+keymap({ "n", "v" }, "9h", "9h")
+keymap({ "n", "v" }, "8k", "8k")
+keymap({ "n", "v" }, "8j", "8j")
+keymap({ "n", "v" }, "8l", "8l")
+keymap({ "n", "v" }, "8h", "8h")
