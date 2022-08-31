@@ -64,6 +64,7 @@ local function spec(use)
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
     use {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        "https://github.com/vigoux/notifier.nvim",
         "lewis6991/hover.nvim",
         "lewis6991/satellite.nvim",
         "stevearc/aerial.nvim",
@@ -173,7 +174,6 @@ local function spec(use)
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "lvimuser/lsp-inlayhints.nvim",
-        "j-hui/fidget.nvim",
         "SmiteshP/nvim-navic",
     }
 
