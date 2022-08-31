@@ -70,7 +70,6 @@ local function spec(use)
         "ggandor/leap.nvim",
         "simnalamburt/vim-mundo",
         "airblade/vim-rooter",
-        "mizlan/iswap.nvim",
         "stevearc/dressing.nvim",
         "linty-org/readline.nvim",
         "akinsho/toggleterm.nvim",
