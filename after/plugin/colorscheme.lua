@@ -3,11 +3,11 @@ if vim.fn.has "mac" == 1 then
     local exit_code = os.execute "defaults read -g AppleInterfaceStyle"
     if exit_code == 0 then
         -- Dark mode
-        vim.cmd [[colorscheme kanagawa]]
+        vim.cmd.colorscheme { "kanagawa" }
     else
-        vim.cmd [[colorscheme github_light_default]]
+        vim.cmd.colorscheme { "github_light_default" }
     end
 else
     -- Dark mode
-    vim.cmd [[colorscheme kanagawa]]
+    vim.cmd.colorscheme { "kanagawa" }
 end

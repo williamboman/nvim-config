@@ -31,9 +31,9 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "TermOpen" }, {
         local bufnr = vim.api.nvim_get_current_buf()
         local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
         if buftype == "" or buftype == "help" then
-            vim.cmd [[setlocal winbar=%{%v:lua.MyWinbar()%}]]
+            vim.opt_local.winbar = "%{%v:lua.MyWinbar()%}"
         else
-            vim.cmd [[setlocal winbar=]]
+            vim.opt_local.winbar = ""
         end
     end,
 })

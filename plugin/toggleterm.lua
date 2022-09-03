@@ -18,4 +18,4 @@ toggleterm.setup {
 }
 
 -- Remove WinEnter to allow moving a toggleterm to new tab
-vim.cmd [[autocmd! ToggleTermCommands WinEnter]]
+vim.cmd.autocmd { "ToggleTermCommands", "WinEnter", bang = true }

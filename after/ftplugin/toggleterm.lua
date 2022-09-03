@@ -1,6 +1,6 @@
 local bufnr = vim.api.nvim_get_current_buf()
 
-vim.cmd "startinsert"
+vim.cmd.startinsert()
 
 vim.keymap.set("n", "<C-p>", [[<cmd>startinsert | call feedkeys("\<C-p>")<cr>]], { buffer = true, nowait = true })
 
@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     buffer = bufnr,
     callback = function()
         if vim.b.should_trigger_insert_mode then
-            vim.cmd "startinsert"
+            vim.cmd.startinsert()
         end
         vim.b.should_trigger_insert_mode = nil
     end,

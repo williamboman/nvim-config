@@ -8,14 +8,14 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     install_packer()
 end
 
-vim.cmd [[packadd packer.nvim]]
+vim.cmd.packadd { "packer.nvim" }
 
 function _G.packer_upgrade()
     vim.fn.delete(install_path, "rf")
     install_packer()
 end
 
-vim.cmd [[command! PackerUpgrade :call v:lua.packer_upgrade()]]
+vim.cmd.command { "PackerUpgrade", ":call v:lua.packer_upgrade()", bang = true }
 
 local function spec(use)
     use { "lewis6991/impatient.nvim" }

@@ -7,7 +7,7 @@ treesitter.setup {
     ensure_installed = "all",
     ignore_install = { "haskell", "phpdoc" },
     highlight = { enable = true },
-    indent = { enable = false },
+    indent = { enable = true },
     playground = {
         enable = true,
         disable = {},
