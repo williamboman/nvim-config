@@ -5,7 +5,7 @@ end
 
 notifier.setup {
     status_width = function ()
-        return vim.o.columns / 2
+        return math.floor(vim.o.columns / 2)
     end,
     notify = {
         clear_time = 5000
