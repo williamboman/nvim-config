@@ -3,9 +3,9 @@ if not status_ok then
     return
 end
 
-vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+local group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = "LspAttach_inlayhints",
+    group = group,
     callback = function(args)
         if not (args.data and args.data.client_id) then
             return

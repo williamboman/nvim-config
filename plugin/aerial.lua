@@ -7,7 +7,7 @@ aerial.setup {
     layout = {
         width = 40,
         default_direction = "right",
-        placement = "right",
+        placement = "edge",
     },
 }
 
