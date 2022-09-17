@@ -11,6 +11,7 @@ hover.setup {
         require "hover.providers.dictionary"
     end,
     title = true,
+    preview_window = true,
 }
 
 vim.keymap.set("n", "K", hover.hover, { desc = "hover.nvim" })
