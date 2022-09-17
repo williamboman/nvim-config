@@ -161,12 +161,17 @@ local function spec(use)
 
     local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
 
-    -- LSP
+    -- Mason
     local mason = is_macbook and "~/dev/github/mason.nvim" or "williamboman/mason.nvim"
     local mason_lspconfig = is_macbook and "~/dev/github/mason-lspconfig.nvim" or "williamboman/mason-lspconfig.nvim"
     use {
         mason,
         mason_lspconfig,
+        "RaafatTurki/mason-null-ls.nvim",
+    }
+
+    -- LSP
+    use {
         "neovim/nvim-lspconfig",
         "folke/lua-dev.nvim",
         "b0o/SchemaStore.nvim",

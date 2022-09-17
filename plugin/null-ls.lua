@@ -1,14 +1,14 @@
 local ok, null_ls = pcall(require, "null-ls")
-if not ok then
+local ok1, mason_null_ls = pcall(require, "mason-null-ls")
+if not ok or not ok1 then
     return
 end
 
-local editorconfig_checker = null_ls.builtins.diagnostics.editorconfig_checker
-editorconfig_checker._opts.command = "editorconfig-checker"
+mason_null_ls.setup {}
 
 null_ls.setup {
     sources = {
-        editorconfig_checker,
+        null_ls.builtins.diagnostics.editorconfig_checker.with { command = "editorconfig-checker" },
         null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.gitlint,
