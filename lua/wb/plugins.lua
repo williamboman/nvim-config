@@ -141,7 +141,7 @@ local function spec(use)
         "kyazdani42/nvim-web-devicons",
         "lukas-reineke/headlines.nvim",
         "lukas-reineke/indent-blankline.nvim",
-        "norcalli/nvim-colorizer.lua",
+        "NvChad/nvim-colorizer.lua",
     }
 
     -- Treesitter
