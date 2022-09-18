@@ -80,6 +80,9 @@ local function spec(use)
         "vigoux/notifier.nvim",
         "windwp/nvim-autopairs",
         "zbirenbaum/neodim",
+        { "kevinhwang91/nvim-bqf", ft = "qf", requires = {
+            "junegunn/fzf",
+        } },
         { "https://git.sr.ht/~whynothugo/lsp_lines.nvim", as = "lsp_lines.nvim" },
         { "s1n7ax/nvim-window-picker", tag = "v1.*" },
         {
