@@ -70,6 +70,7 @@ local function spec(use)
         "lewis6991/hover.nvim",
         "lewis6991/satellite.nvim",
         "linty-org/readline.nvim",
+        "monaqa/dial.nvim",
         "numToStr/Comment.nvim",
         "nvim-lualine/lualine.nvim",
         "simnalamburt/vim-mundo",
