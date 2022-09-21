@@ -41,24 +41,10 @@ local function spec(use)
     -- test & debugging
     use {
         "vim-test/vim-test",
-        {
-            "puremourning/vimspector",
-            setup = function()
-                vim.fn.sign_define("vimspectorBP", { text = " ●", texthl = "VimspectorBreakpoint" })
-                vim.fn.sign_define("vimspectorBPCond", { text = " ●", texthl = "VimspectorBreakpointCond" })
-                vim.fn.sign_define("vimspectorBPDisabled", { text = " ●", texthl = "VimspectorBreakpointDisabled" })
-                vim.fn.sign_define(
-                    "vimspectorPC",
-                    { text = "▶", texthl = "VimspectorProgramCounter", linehl = "VimspectorProgramCounterLine" }
-                )
-                vim.fn.sign_define("vimspectorPCBP", {
-                    text = "●▶",
-                    texthl = "VimspectorProgramCounterBreakpoint",
-                    linehl = "VimspectorProgramCounterLine",
-                })
-            end,
-            ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        },
+        { "mfussenegger/nvim-dap", tag = "0.2.0" },
+        { "rcarriga/nvim-dap-ui", tag = "v1.6.0" },
+        "theHamsta/nvim-dap-virtual-text",
+        "mxsdev/nvim-dap-vscode-js",
     }
 
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
