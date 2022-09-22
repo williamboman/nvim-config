@@ -9,13 +9,11 @@ toggleterm.setup {
         MANPAGER = "less -X",
     },
     terminal_mappings = false,
-    start_in_insert = false,
+    start_in_insert = true,
+    persist_mode = true,
     open_mapping = [[<space>t]],
     highlights = {
         CursorLineSign = { link = "DarkenedPanel" },
         Normal = { guibg = KANAGAWA_COLORS.sumiInk0 },
     },
 }
-
--- Remove WinEnter to allow moving a toggleterm to new tab
-vim.cmd.autocmd { "ToggleTermCommands", "WinEnter", bang = true }
