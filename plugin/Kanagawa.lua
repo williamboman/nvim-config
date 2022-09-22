@@ -59,3 +59,5 @@ kanagawa.setup {
         WinSeparator = { fg = KANAGAWA_COLORS.sumiInk3 },
     },
 }
+
+vim.cmd.colorscheme { "kanagawa" }
