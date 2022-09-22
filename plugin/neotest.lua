@@ -4,6 +4,11 @@ if not ok then
 end
 
 neotest.setup {
+    summary = {
+        mappings = {
+            stop = "x",
+        },
+    },
     adapters = {
         require "neotest-plenary",
         require "neotest-rust",
