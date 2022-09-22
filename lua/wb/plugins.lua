@@ -53,6 +53,7 @@ local function spec(use)
         { "rcarriga/nvim-dap-ui", tag = "v1.6.0" },
         "theHamsta/nvim-dap-virtual-text",
         "mxsdev/nvim-dap-vscode-js",
+        "jbyuki/one-small-step-for-vimkind",
     }
 
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour

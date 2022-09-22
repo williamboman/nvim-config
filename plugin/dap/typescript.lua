@@ -4,7 +4,7 @@ if not ok then
 end
 
 js_debug.setup {
-    debugger_path = require("mason-registry").get_package("js-debug-adapter"):get_install_path(), -- Path to vscode-js-debug installation.
+    debugger_cmd = { "js-debug-adapter" },
     adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
 }
 
