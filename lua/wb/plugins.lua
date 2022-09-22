@@ -40,7 +40,15 @@ local function spec(use)
 
     -- test & debugging
     use {
-        "vim-test/vim-test",
+        {
+            "nvim-neotest/neotest",
+            tag = "v1.36.1",
+            requires = {
+                "haydenmeade/neotest-jest",
+                "rouge8/neotest-rust",
+                "nvim-neotest/neotest-plenary",
+            },
+        },
         { "mfussenegger/nvim-dap", tag = "0.2.0" },
         { "rcarriga/nvim-dap-ui", tag = "v1.6.0" },
         "theHamsta/nvim-dap-virtual-text",
@@ -51,6 +59,7 @@ local function spec(use)
     use {
         "airblade/vim-rooter",
         "akinsho/toggleterm.nvim",
+        "antoinemadec/FixCursorHold.nvim",
         "ggandor/leap.nvim",
         "levouh/tint.nvim",
         "lewis6991/hover.nvim",

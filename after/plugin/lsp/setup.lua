@@ -152,6 +152,7 @@ require("mason-lspconfig").setup_handlers {
     end,
     ["sumneko_lua"] = function()
         lspconfig.sumneko_lua.setup(require("lua-dev").setup {
+            library = { plugins = { "neotest" }, types = true },
             settings = {
                 Lua = {
                     format = {
