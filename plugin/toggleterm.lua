@@ -13,7 +13,7 @@ toggleterm.setup {
     open_mapping = [[<space>t]],
     highlights = {
         CursorLineSign = { link = "DarkenedPanel" },
-        Normal = { guibg = "#14141A" },
+        Normal = { guibg = KANAGAWA_COLORS.sumiInk0 },
     },
 }
 
