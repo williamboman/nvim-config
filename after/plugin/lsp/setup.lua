@@ -187,3 +187,8 @@ require("mason-lspconfig").setup_handlers {
         }
     end,
 }
+
+vim.fn.sign_define("DiagnosticSignError", { text = "", linehl = "DiagnosticSignErrorLine" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", linehl = "DiagnosticSignWarnLine" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", linehl = "DiagnosticSignInfoLine" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", linehl = "DiagnosticSignHintLine" })

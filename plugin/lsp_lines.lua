@@ -7,8 +7,10 @@ lsp_lines.setup()
 
 -- Default config
 vim.diagnostic.config {
+    virtual_text = true,
     virtual_lines = false,
-    signs = false,
+    underline = true,
+    signs = true,
     severity_sort = true,
     float = {
         header = false,
@@ -28,24 +30,24 @@ vim.keymap.set("n", "<M-d>", function()
     current_mode = (current_mode % #Mode) + 1
     if Mode[current_mode] == "Text" then
         vim.diagnostic.config {
-            signs = false,
+            signs = true,
             underline = true,
-            virtual_text = true,
             virtual_lines = false,
+            virtual_text = true,
         }
     elseif Mode[current_mode] == "Lines" then
         vim.diagnostic.config {
-            signs = false,
+            signs = true,
             underline = true,
-            virtual_text = false,
             virtual_lines = true,
+            virtual_text = false,
         }
     elseif Mode[current_mode] == "None" then
         vim.diagnostic.config {
-            signs = true,
+            signs = false,
             underline = false,
-            virtual_text = false,
             virtual_lines = false,
+            virtual_text = false,
         }
     end
 end, { desc = "Toggle lsp_lines" })
