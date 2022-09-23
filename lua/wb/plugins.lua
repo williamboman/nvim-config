@@ -74,10 +74,10 @@ local function spec(use)
         "stevearc/aerial.nvim",
         "stevearc/dressing.nvim",
         "szw/vim-maximizer",
-        "vigoux/notifier.nvim",
         "windwp/nvim-autopairs",
         "zbirenbaum/neodim",
         "s1n7ax/nvim-window-picker",
+        { "williamboman/notifier.nvim", branch = "feat/left-aligned-content" },
         { "kevinhwang91/nvim-bqf", ft = "qf", requires = {
             "junegunn/fzf",
         } },
