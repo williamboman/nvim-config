@@ -180,7 +180,7 @@ local function spec(use)
         { "simrat39/rust-tools.nvim", branch = "modularize_and_inlay_rewrite" },
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
-        "lvimuser/lsp-inlayhints.nvim",
+        { "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
         "SmiteshP/nvim-navic",
     }
 

@@ -144,7 +144,7 @@ require("mason-lspconfig").setup_handlers {
     ["rust_analyzer"] = function()
         require("rust-tools").setup {
             tools = {
-                autoSetHints = false,
+                inlay_hints = { auto = false },
                 executor = require("rust-tools/executors").toggleterm,
                 hover_actions = { border = "solid" },
             },
