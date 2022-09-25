@@ -5,12 +5,14 @@ end
 
 lsp_lines.setup()
 
--- Default config
-vim.diagnostic.config {
-    virtual_text = true,
+local DEFAULT_CONFIG = {
+    virtual_text = false,
+    right_align = {
+        right_spacing = 4,
+    },
     virtual_lines = false,
     underline = true,
-    signs = true,
+    signs = false,
     severity_sort = true,
     float = {
         header = false,
@@ -18,8 +20,11 @@ vim.diagnostic.config {
     },
 }
 
+-- Default config
+vim.diagnostic.config(DEFAULT_CONFIG)
+
 local Mode = {
-    "Text",
+    "Default",
     "Lines",
     "None",
 }
@@ -28,24 +33,17 @@ local current_mode = 1
 
 vim.keymap.set("n", "<M-d>", function()
     current_mode = (current_mode % #Mode) + 1
-    if Mode[current_mode] == "Text" then
-        vim.diagnostic.config {
-            signs = true,
-            underline = true,
-            virtual_lines = false,
-            virtual_text = true,
-        }
+    if Mode[current_mode] == "Default" then
+        vim.diagnostic.config(DEFAULT_CONFIG)
     elseif Mode[current_mode] == "Lines" then
         vim.diagnostic.config {
-            signs = true,
-            underline = true,
             virtual_lines = true,
-            virtual_text = false,
         }
     elseif Mode[current_mode] == "None" then
         vim.diagnostic.config {
             signs = false,
             underline = false,
+            right_align = false,
             virtual_lines = false,
             virtual_text = false,
         }

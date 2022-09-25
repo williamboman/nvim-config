@@ -9,14 +9,13 @@ KANAGAWA_COLORS = require("kanagawa.colors").setup()
 
 kanagawa.setup {
     overrides = {
-        DiagnosticSignErrorLine = { bg = "#2f2424" },
-        DiagnosticSignHintLine = { bg = "#24282f" },
-        DiagnosticSignInfoLine = { bg = "#242c2f" },
-        DiagnosticSignWarnLine = { bg = "#2f2b24" },
-        DiagnosticUnderlineError = { sp = tint.transform_color({}, "#2f2424", { tint.saturate(3), tint.tint(40) }), },
-        DiagnosticUnderlineHint = { sp = tint.transform_color({}, "#24282f", { tint.saturate(3), tint.tint(40) }), },
-        DiagnosticUnderlineInfo = { sp = tint.transform_color({}, "#242c2f", { tint.saturate(3), tint.tint(40) }), },
-        DiagnosticUnderlineWarn = { sp = tint.transform_color({}, "#2f2b24", { tint.saturate(3), tint.tint(40) }), },
+        LspInlayHint = { link = "Comment" },
+        DiagnosticLineError = { bg = "#2f2424" },
+        DiagnosticLineWarn = { bg = "#2f2b24" },
+        DiagnosticUnderlineError = { sp = tint.transform_color({}, "#2f2424", { tint.saturate(3), tint.tint(40) }) },
+        DiagnosticUnderlineHint = { sp = tint.transform_color({}, "#24282f", { tint.saturate(3), tint.tint(40) }) },
+        DiagnosticUnderlineInfo = { sp = tint.transform_color({}, "#242c2f", { tint.saturate(3), tint.tint(40) }) },
+        DiagnosticUnderlineWarn = { sp = tint.transform_color({}, "#2f2b24", { tint.saturate(3), tint.tint(40) }) },
         DressingInputFloatBorder = { fg = KANAGAWA_COLORS.sumiInk0, bg = KANAGAWA_COLORS.sumiInk0 },
         DressingInputNormalFloat = { bg = KANAGAWA_COLORS.sumiInk0 },
         FloatTitle = { fg = KANAGAWA_COLORS.sumiInk0, bg = KANAGAWA_COLORS.oniViolet, bold = true },
