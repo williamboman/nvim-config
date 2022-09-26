@@ -6,7 +6,10 @@ end
 neotest.setup {
     summary = {
         mappings = {
+            expand = { "zo", "zc" },
+            expand_all = { "zO", "zC" },
             stop = "x",
+            jumpto = "<CR>",
         },
     },
     adapters = {
