@@ -42,17 +42,16 @@ local function spec(use)
     use {
         {
             "nvim-neotest/neotest",
-            tag = "v1.36.1",
             requires = {
                 "haydenmeade/neotest-jest",
                 "rouge8/neotest-rust",
                 "nvim-neotest/neotest-plenary",
             },
         },
-        { "mfussenegger/nvim-dap", tag = "0.2.0" },
-        { "rcarriga/nvim-dap-ui", tag = "v1.6.0" },
+        "mfussenegger/nvim-dap",
+        "rcarriga/nvim-dap-ui",
         "theHamsta/nvim-dap-virtual-text",
-        "mxsdev/nvim-dap-vscode-js",
+        { "williamboman/nvim-dap-vscode-js", branch = "feat/debug-cmd" },
         "jbyuki/one-small-step-for-vimkind",
     }
 
@@ -105,6 +104,7 @@ local function spec(use)
                 "saadparwaiz1/cmp_luasnip",
                 "petertriho/cmp-git",
                 "onsails/lspkind-nvim",
+                "rcarriga/cmp-dap",
                 {
                     "L3MON4D3/LuaSnip",
                     requires = { "rafamadriz/friendly-snippets" },

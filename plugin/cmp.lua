@@ -4,6 +4,7 @@ if not ok then
 end
 local types = require "cmp.types"
 local luasnip = require "luasnip"
+local cmp_dap = require "cmp_dap"
 local mapping = cmp.mapping
 
 local has_words_before = function()
@@ -12,6 +13,9 @@ local has_words_before = function()
 end
 
 cmp.setup {
+    enabled = function()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
+    end,
     formatting = {
         format = require("lspkind").cmp_format {
             with_text = true,
@@ -72,3 +76,9 @@ cmp.setup {
 require("cmp_git").setup {
     enableRemoteUrlRewrites = true,
 }
+
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    sources = {
+        { name = "dap" },
+    },
+})
