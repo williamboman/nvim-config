@@ -168,7 +168,6 @@ local function spec(use)
     use {
         mason,
         mason_lspconfig,
-        "RaafatTurki/mason-null-ls.nvim",
     }
 
     -- LSP

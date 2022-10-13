@@ -1,10 +1,7 @@
 local ok, null_ls = pcall(require, "null-ls")
-local ok1, mason_null_ls = pcall(require, "mason-null-ls")
-if not ok or not ok1 then
+if not ok then
     return
 end
-
-mason_null_ls.setup {}
 
 null_ls.setup {
     sources = {
