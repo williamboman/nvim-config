@@ -117,7 +117,6 @@ local function buf_set_keymaps(bufnr)
     -- Code actions
     buf_set_keymap("n", "<leader>r", vim.lsp.buf.rename)
     buf_set_keymap("n", "<space>f", vim.lsp.buf.code_action)
-    buf_set_keymap("v", "<space>f", vim.lsp.buf.range_code_action)
     buf_set_keymap("n", "<leader>l", find_and_run_codelens)
 
     -- Movement
