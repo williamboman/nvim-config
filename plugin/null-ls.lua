@@ -5,10 +5,10 @@ end
 
 null_ls.setup {
     sources = {
-        null_ls.builtins.diagnostics.editorconfig_checker.with { command = "editorconfig-checker" },
         null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.gitlint,
+        null_ls.builtins.diagnostics.hadolint,
         null_ls.builtins.diagnostics.misspell,
         null_ls.builtins.diagnostics.selene,
         null_ls.builtins.diagnostics.shellcheck,
