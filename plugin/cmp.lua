@@ -68,6 +68,7 @@ cmp.setup {
         { name = "path" },
         { name = "luasnip" },
         { name = "tmux" },
+        { name = "rg" },
         { name = "git" },
         { name = "calc" },
     },
