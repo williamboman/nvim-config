@@ -148,6 +148,13 @@ require("mason-lspconfig").setup_handlers {
                 executor = require("rust-tools/executors").toggleterm,
                 hover_actions = { border = "solid" },
             },
+            dap = {
+                adapter = require("rust-tools.dap").get_codelldb_adapter(
+                    "codelldb",
+                    require("mason-registry").get_package("codelldb"):get_install_path()
+                        .. "/extension/lldb/lib/liblldb.dylib"
+                ),
+            },
         }
     end,
     ["sumneko_lua"] = function()
