@@ -1,7 +1,7 @@
-local ok1, dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
-local ok2, dapui = pcall(require, "dapui")
-local ok3, dap = pcall(require, "dap")
-if not ok1 or not ok2 or not ok3 then
+local deps_ok, dap_virtual_text, dapui, dapui_widgets, dap = pcall(function()
+    return require "nvim-dap-virtual-text", require "dapui", require "dap.ui.widgets", require "dap"
+end)
+if not deps_ok then
     return
 end
 
@@ -37,7 +37,7 @@ map("n", "<leader>dr", c(dap.run_last))
 map("n", "<leader>dx", c(dap.clear_breakpoints))
 
 map("v", "<M-e>", c(dapui.eval))
-map("n", "<leader>d?", c(require("dap.ui.widgets").hover))
+map("n", "<leader>d?", c(dapui_widgets.hover))
 
 dap.listeners.after.event_initialized["dapui_config"] = c(dapui.open)
 dap.listeners.after.event_loadedSource["dapui_config"] = c(dapui.open)

@@ -1,8 +1,9 @@
-local ok, lualine = pcall(require, "lualine")
-if not ok then
+local deps_ok, lualine, navic = pcall(function()
+    return require "lualine", require "nvim-navic"
+end)
+if not deps_ok then
     return
 end
-local navic = require "nvim-navic"
 
 local function attached_clients()
     return "(" .. vim.tbl_count(vim.lsp.buf_get_clients(0)) .. ")"

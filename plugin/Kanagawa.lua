@@ -1,7 +1,7 @@
-local ok, kanagawa = pcall(require, "kanagawa")
-local ok1, tint = pcall(require, "tint.transforms")
-
-if not ok or not ok1 then
+local deps_ok, kanagawa, tint = pcall(function()
+    return require "kanagawa", require "tint.transforms"
+end)
+if not deps_ok then
     return
 end
 

@@ -1,5 +1,7 @@
-local ok, js_debug = pcall(require, "dap-vscode-js")
-if not ok then
+local deps_ok, js_debug, dap = pcall(function()
+    return require "dap-vscode-js", require "dap"
+end)
+if not deps_ok then
     return
 end
 
@@ -9,7 +11,7 @@ js_debug.setup {
 }
 
 for _, language in ipairs { "typescript", "javascript" } do
-    require("dap").configurations[language] = {
+    dap.configurations[language] = {
         {
             type = "pwa-node",
             request = "launch",

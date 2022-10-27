@@ -1,10 +1,14 @@
-local ok, cmp = pcall(require, "cmp")
-if not ok then
+local deps_ok, cmp, types, luasnip, cmp_dap, lspkind, cmp_git = pcall(function()
+    return require "cmp",
+        require "cmp.types",
+        require "luasnip",
+        require "cmp_dap",
+        require "lspkind",
+        require "cmp_git"
+end)
+if not deps_ok then
     return
 end
-local types = require "cmp.types"
-local luasnip = require "luasnip"
-local cmp_dap = require "cmp_dap"
 local mapping = cmp.mapping
 
 local has_words_before = function()
@@ -17,7 +21,7 @@ cmp.setup {
         return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
     end,
     formatting = {
-        format = require("lspkind").cmp_format {
+        format = lspkind.cmp_format {
             with_text = true,
         },
     },
@@ -74,7 +78,7 @@ cmp.setup {
     },
 }
 
-require("cmp_git").setup {
+cmp_git.setup {
     enableRemoteUrlRewrites = true,
 }
 

@@ -174,10 +174,10 @@ local function spec(use)
     -- LSP
     use {
         "neovim/nvim-lspconfig",
-        "folke/lua-dev.nvim",
+        "folke/neodev.nvim",
         "b0o/SchemaStore.nvim",
         "ray-x/lsp_signature.nvim",
-        { "simrat39/rust-tools.nvim", branch = "modularize_and_inlay_rewrite" },
+        "simrat39/rust-tools.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         { "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },

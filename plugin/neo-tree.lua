@@ -1,4 +1,6 @@
-local ok, neotree = pcall(require, "neo-tree")
+local ok, neotree, inputs = pcall(function()
+    return require "neo-tree", require "neo-tree.ui.inputs"
+end)
 if not ok then
     return
 end
@@ -134,11 +136,11 @@ neotree.setup {
     },
 }
 
-require("neo-tree.ui.inputs").confirm = function(message, callback)
+inputs.confirm = function(message, callback)
     callback(vim.fn.confirm(message, "&Yes\n&No") == 1)
 end
 
-require("neo-tree.ui.inputs").input = function(message, default_value, callback, options, completion)
+inputs.input = function(message, default_value, callback, options, completion)
     local input
     if completion then
         input = vim.fn.input(message .. " ", default_value or "", completion)

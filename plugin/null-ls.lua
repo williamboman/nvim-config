@@ -7,6 +7,7 @@ null_ls.setup {
     sources = {
         null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.codespell,
+        null_ls.builtins.diagnostics.commitlint,
         null_ls.builtins.diagnostics.gitlint,
         null_ls.builtins.diagnostics.hadolint,
         null_ls.builtins.diagnostics.misspell,
@@ -21,5 +22,4 @@ null_ls.setup {
         null_ls.builtins.formatting.shellharden,
         null_ls.builtins.formatting.stylua,
     },
-    on_attach = require "wb.lsp.on-attach",
 }

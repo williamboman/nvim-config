@@ -1,10 +1,9 @@
-local ok, lspconfig = pcall(require, "lspconfig")
-if not ok then
+local deps_ok, lspconfig, util, cmp_lsp = pcall(function()
+    return require "lspconfig", require "lspconfig.util", require "cmp_nvim_lsp"
+end)
+if not deps_ok then
     return
 end
-
-local util = require "lspconfig.util"
-local cmp_lsp = require "cmp_nvim_lsp"
 
 local function create_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -18,11 +17,6 @@ local function create_capabilities()
 end
 
 util.on_setup = util.add_hook_after(util.on_setup, function(config)
-    if config.on_attach then
-        config.on_attach = util.add_hook_after(config.on_attach, require "wb.lsp.on-attach")
-    else
-        config.on_attach = require "wb.lsp.on-attach"
-    end
     config.capabilities = vim.tbl_deep_extend("force", create_capabilities(), config.capabilities or {})
 end)
 
@@ -158,8 +152,8 @@ require("mason-lspconfig").setup_handlers {
         }
     end,
     ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup(require("lua-dev").setup {
-            library = { plugins = { "neotest" }, types = true },
+        require("neodev").setup {}
+        lspconfig.sumneko_lua.setup {
             settings = {
                 Lua = {
                     format = {
@@ -179,7 +173,7 @@ require("mason-lspconfig").setup_handlers {
                     },
                 },
             },
-        })
+        }
     end,
     ["yamlls"] = function()
         lspconfig.yamlls.setup {

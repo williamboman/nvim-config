@@ -1,10 +1,11 @@
-local ok, dialmap = pcall(require, "dial.map")
-if not ok then
+local deps_ok, dialmap, dialconfig, augend = pcall(function()
+    return require "dial.map", require "dial.config", require "dial.augend"
+end)
+if not deps_ok then
     return
 end
 
-local augend = require "dial.augend"
-require("dial.config").augends:register_group {
+dialconfig.augends:register_group {
     default = {
         augend.integer.alias.decimal, -- nonnegative decimal number (0, 1, 2, 3, ...)
         augend.constant.alias.bool, -- boolean value (true <-> false)

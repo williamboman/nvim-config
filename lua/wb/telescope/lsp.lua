@@ -18,6 +18,10 @@ M.definitions = function()
     builtin.lsp_definitions()
 end
 
+M.type_definition = function()
+    builtin.lsp_type_definitions()
+end
+
 M.references = function()
     builtin.lsp_references()
 end

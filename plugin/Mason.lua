@@ -5,7 +5,7 @@ end
 
 mason.setup {
     max_concurrent_installers = 10,
-    -- log_level = vim.log.levels.TRACE,
+    log_level = vim.log.levels.DEBUG,
     ui = {
         icons = {
             package_installed = "",
