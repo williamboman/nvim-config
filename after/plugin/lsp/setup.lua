@@ -5,20 +5,36 @@ if not deps_ok then
     return
 end
 
-local function create_capabilities()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    vim.list_extend(capabilities.textDocument.completion.completionItem.resolveSupport.properties, {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-    })
-    return cmp_lsp.update_capabilities(capabilities)
+local capabilities
+do
+    local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = true,
+                },
+            },
+            codeAction = {
+                resolveSupport = {
+                    properties = vim.list_extend(default_capabilities.textDocument.codeAction.resolveSupport.properties, {
+                        "documentation",
+                        "detail",
+                        "additionalTextEdits",
+                    }),
+                },
+            },
+        },
+    }
 end
 
-util.on_setup = util.add_hook_after(util.on_setup, function(config)
-    config.capabilities = vim.tbl_deep_extend("force", create_capabilities(), config.capabilities or {})
-end)
+util.default_config = vim.tbl_deep_extend("force", util.default_config, {
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        cmp_lsp.default_capabilities(capabilities)
+    ),
+})
 
 require("mason-lspconfig").setup {}
 
