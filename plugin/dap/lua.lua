@@ -26,16 +26,3 @@ dap.configurations.lua = {
 dap.adapters.nlua = function(callback, config)
     callback { type = "server", host = config.host, port = config.port }
 end
-
-dap.configurations.rust = {
-    {
-        name = "testing attach",
-        type = "rt_lldb",
-        request = "attach",
-        program = function()
-            return vim.fn.input "Program path?"
-        end,
-        stopOnEntry = true,
-        waitFor = false,
-    },
-}
