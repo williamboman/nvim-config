@@ -147,19 +147,17 @@ local function spec(use)
     }
 
     -- Treesitter
-    if vim.fn.has "unix" == 1 then
-        use {
-            "nvim-treesitter/nvim-treesitter",
-            run = ":TSUpdate",
-            requires = {
-                "nvim-treesitter/playground",
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                "p00f/nvim-ts-rainbow",
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                "windwp/nvim-ts-autotag",
-            },
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+        requires = {
+            "nvim-treesitter/playground",
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            "p00f/nvim-ts-rainbow",
+            "JoosepAlviste/nvim-ts-context-commentstring",
+            "windwp/nvim-ts-autotag",
         }
-    end
+    }
 
     local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
 
