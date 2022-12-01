@@ -25,5 +25,22 @@ hints.setup {
         type_hints = {
             show = true,
         },
+        label_formatter = function(labels, kind, opts, client_name)
+            if kind == 2 and not opts.parameter_hints.show then
+                return ""
+            elseif not opts.type_hints.show then
+                return ""
+            end
+
+            return table.concat(labels or {}, ", ")
+        end,
+        virt_text_formatter = function(label, hint, opts, client_name)
+            local virt_text = {}
+            virt_text[#virt_text + 1] = { "", "LspInlayHintBorder" }
+            virt_text[#virt_text + 1] = { label, opts.highlight }
+            virt_text[#virt_text + 1] = { "", "LspInlayHintBorder" }
+            virt_text[#virt_text + 1] = { " ", "" }
+            return virt_text
+        end,
     },
 }

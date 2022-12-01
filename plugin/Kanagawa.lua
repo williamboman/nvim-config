@@ -9,7 +9,8 @@ KANAGAWA_COLORS = require("kanagawa.colors").setup()
 
 kanagawa.setup {
     overrides = {
-        LspInlayHint = { link = "Comment" },
+        LspInlayHint = { fg = KANAGAWA_COLORS.fujiGray, bg = "#272737", italic = true },
+        LspInlayHintBorder = { fg = "#272737" },
         DiagnosticLineError = { bg = "#2f2424" },
         DiagnosticLineWarn = { bg = "#2f2b24" },
         DiagnosticUnderlineError = { sp = tint.transform_color({}, "#2f2424", { tint.saturate(3), tint.tint(40) }) },
