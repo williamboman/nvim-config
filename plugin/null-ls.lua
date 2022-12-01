@@ -13,6 +13,7 @@ null_ls.setup {
         null_ls.builtins.diagnostics.misspell,
         null_ls.builtins.diagnostics.selene,
         null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.diagnostics.write_good,
         null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.formatting.cbfmt,
         null_ls.builtins.formatting.jq,
