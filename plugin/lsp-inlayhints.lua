@@ -36,6 +36,7 @@ hints.setup {
         end,
         virt_text_formatter = function(label, hint, opts, client_name)
             local virt_text = {}
+            virt_text[#virt_text + 1] = { " ", "" }
             virt_text[#virt_text + 1] = { "", "LspInlayHintBorder" }
             virt_text[#virt_text + 1] = { label, opts.highlight }
             virt_text[#virt_text + 1] = { "", "LspInlayHintBorder" }
