@@ -159,7 +159,7 @@ local function spec(use)
         }
     }
 
-    local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
+    local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-Air"
 
     -- Mason
     local mason = is_macbook and "~/dev/github/mason.nvim" or "williamboman/mason.nvim"
