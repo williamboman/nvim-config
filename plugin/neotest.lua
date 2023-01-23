@@ -4,6 +4,10 @@ if not ok then
 end
 
 neotest.setup {
+    quickfix = {
+        enabled = false,
+        open = false,
+    },
     summary = {
         mappings = {
             expand = { "zo", "zc" },
