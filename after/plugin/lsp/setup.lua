@@ -1,5 +1,5 @@
-local deps_ok, lspconfig, util, cmp_lsp = pcall(function()
-    return require "lspconfig", require "lspconfig.util", require "cmp_nvim_lsp"
+local deps_ok, lspconfig, util, cmp_lsp, mason_lspconfig = pcall(function()
+    return require "lspconfig", require "lspconfig.util", require "cmp_nvim_lsp", require "mason-lspconfig"
 end)
 if not deps_ok then
     return
@@ -36,9 +36,9 @@ util.default_config = vim.tbl_deep_extend("force", util.default_config, {
     ),
 })
 
-require("mason-lspconfig").setup {}
+mason_lspconfig.setup {}
 
-require("mason-lspconfig").setup_handlers {
+mason_lspconfig.setup_handlers {
     function(server_name)
         lspconfig[server_name].setup {}
     end,
@@ -136,7 +136,13 @@ require("mason-lspconfig").setup_handlers {
         end
 
         lspconfig.jdtls.setup {
-            use_lombok_agent = true,
+            cmd = {
+                "jdtls",
+                "--jvm-arg=" .. string.format(
+                    "-javaagent:%s",
+                    require("mason-registry").get_package("jdtls"):get_install_path() .. "/lombok.jar"
+                ),
+            },
             handlers = {
                 ["language/status"] = progress_handler,
             },
@@ -144,6 +150,7 @@ require("mason-lspconfig").setup_handlers {
     end,
     ["jsonls"] = function()
         lspconfig.jsonls.setup {
+            filetypes = { "json", "jsonc", "json5" },
             settings = {
                 json = {
                     schemas = require("schemastore").json.schemas(),
