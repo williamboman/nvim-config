@@ -51,7 +51,7 @@ local function spec(use)
         "mfussenegger/nvim-dap",
         "rcarriga/nvim-dap-ui",
         "theHamsta/nvim-dap-virtual-text",
-        { "williamboman/nvim-dap-vscode-js", branch = "feat/debug-cmd" },
+        "mxsdev/nvim-dap-vscode-js",
         "jbyuki/one-small-step-for-vimkind",
     }
 
@@ -75,7 +75,7 @@ local function spec(use)
         "windwp/nvim-autopairs",
         "zbirenbaum/neodim",
         "s1n7ax/nvim-window-picker",
-        { "williamboman/notifier.nvim", branch = "feat/left-aligned-content" },
+        { "williamboman/notifier.nvim", branch = "feat/level-aware-content-highlighting" },
         { "kevinhwang91/nvim-bqf", ft = "qf", requires = {
             "junegunn/fzf",
         } },
