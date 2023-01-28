@@ -35,6 +35,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.title = true
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
+vim.o.splitkeep="screen"
 
 if vim.fn.has "win32" == 1 then
     vim.o.shell = "powershell.exe"
