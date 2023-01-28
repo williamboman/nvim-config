@@ -166,11 +166,15 @@ mason_lspconfig.setup_handlers {
                 hover_actions = { border = "solid" },
             },
             dap = {
-                adapter = require("rust-tools.dap").get_codelldb_adapter(
-                    "codelldb",
-                    require("mason-registry").get_package("codelldb"):get_install_path()
-                        .. "/extension/lldb/lib/liblldb.dylib"
-                ),
+                adapter = {
+                    type = "server",
+                    port = "${port}",
+                    host = "127.0.0.1",
+                    executable = {
+                        command = "codelldb",
+                        args = { "--port", "${port}" },
+                    },
+                },
             },
         }
     end,
