@@ -138,10 +138,7 @@ mason_lspconfig.setup_handlers {
         lspconfig.jdtls.setup {
             cmd = {
                 "jdtls",
-                "--jvm-arg=" .. string.format(
-                    "-javaagent:%s",
-                    require("mason-registry").get_package("jdtls"):get_install_path() .. "/lombok.jar"
-                ),
+                "--jvm-arg=" .. string.format("-javaagent:%s", vim.fn.expand "$MASON/share/jdtls/lombok.jar"),
             },
             handlers = {
                 ["language/status"] = progress_handler,
