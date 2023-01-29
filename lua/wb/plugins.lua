@@ -170,15 +170,16 @@ local function spec(use)
 
     -- LSP
     use {
-        "neovim/nvim-lspconfig",
-        "folke/neodev.nvim",
+        "DNLHC/glance.nvim",
+        "SmiteshP/nvim-navic",
         "b0o/SchemaStore.nvim",
-        "ray-x/lsp_signature.nvim",
-        "simrat39/rust-tools.nvim",
+        "folke/neodev.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
+        "neovim/nvim-lspconfig",
+        "ray-x/lsp_signature.nvim",
+        "simrat39/rust-tools.nvim",
         { "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
-        "SmiteshP/nvim-navic",
     }
 
     -- Telescope

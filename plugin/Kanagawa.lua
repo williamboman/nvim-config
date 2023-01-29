@@ -9,8 +9,6 @@ KANAGAWA_COLORS = require("kanagawa.colors").setup()
 
 kanagawa.setup {
     overrides = {
-        LspInlayHint = { fg = KANAGAWA_COLORS.fujiGray, bg = "#272737", italic = true },
-        LspInlayHintBorder = { fg = "#272737" },
         DiagnosticLineError = { bg = "#2f2424" },
         DiagnosticLineWarn = { bg = "#2f2b24" },
         DiagnosticUnderlineError = { sp = tint.transform_color({}, "#2f2424", { tint.saturate(3), tint.tint(40) }) },
@@ -20,9 +18,15 @@ kanagawa.setup {
         DressingInputFloatBorder = { fg = KANAGAWA_COLORS.sumiInk0, bg = KANAGAWA_COLORS.sumiInk0 },
         DressingInputNormalFloat = { bg = KANAGAWA_COLORS.sumiInk0 },
         FloatTitle = { fg = KANAGAWA_COLORS.sumiInk0, bg = KANAGAWA_COLORS.oniViolet, bold = true },
+        GlancePreviewMatch = { link = "IncSearch" },
+        GlanceWinBarFilePath = { bold = true, italic = true, bg = KANAGAWA_COLORS.waveBlue1, fg = KANAGAWA_COLORS.fujiGray },
+        GlanceWinBarFilename = { bold = true, bg = KANAGAWA_COLORS.waveBlue1, fg = KANAGAWA_COLORS.fujiWhite },
+        GlanceWinBarTitle = { bold = true, bg = KANAGAWA_COLORS.waveBlue2, fg = KANAGAWA_COLORS.oldWhite },
         Headline = { bg = KANAGAWA_COLORS.winterBlue },
         IndentBlanklineChar = { fg = KANAGAWA_COLORS.sumiInk2 },
         IndentBlanklineContextStart = { bold = true, underline = false },
+        LspInlayHint = { fg = KANAGAWA_COLORS.fujiGray, bg = "#272737", italic = true },
+        LspInlayHintBorder = { fg = "#272737" },
         LualineGitAdd = { link = "GitSignsAdd" },
         LualineGitChange = { link = "GitSignsAdd" },
         LualineGitDelete = { link = "GitSignsDelete" },

@@ -66,11 +66,11 @@ local function buf_set_keymaps(bufnr)
     buf_set_keymap("n", "<leader>l", find_and_run_codelens)
 
     -- Movement
-    buf_set_keymap("n", "gD", telescope_lsp.type_definition)
-    buf_set_keymap("n", "gd", telescope_lsp.definitions)
-    buf_set_keymap("n", "gr", telescope_lsp.references)
+    buf_set_keymap("n", "gD", "<cmd>Glance type_definitions<cr>")
+    buf_set_keymap("n", "gd", "<cmd>Glance definitions<cr>")
+    buf_set_keymap("n", "gr", "<cmd>Glance references<cr>")
     buf_set_keymap("n", "gbr", telescope_lsp.buffer_references)
-    buf_set_keymap("n", "gI", telescope_lsp.implementations)
+    buf_set_keymap("n", "gI", "<cmd>Glance implementations<cr>")
 
     -- Docs
     buf_set_keymap("n", "<M-p>", vim.lsp.buf.signature_help)
