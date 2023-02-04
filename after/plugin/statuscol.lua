@@ -7,4 +7,5 @@ statuscol.setup {
     foldfunc = "builtin",
     setopt = true,
     order = "sNSFs",
+    ft_ignore = { "toggleterm" },
 }
