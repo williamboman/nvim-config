@@ -195,6 +195,9 @@ mason_lspconfig.setup_handlers {
                     diagnostics = {
                         globals = { "P" },
                     },
+                    workspace = {
+                        checkThirdParty = false,
+                    },
                 },
             },
         }
