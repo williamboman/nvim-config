@@ -4,8 +4,8 @@ if not ok then
 end
 
 tint.setup {
-    tint = -20,
-    saturation = 0.6,
+    tint = -30,
+    saturation = 0.5,
     highlight_ignore_patterns = { "WinBar.*", "WinSeparator", "IndentBlankline.*", "SignColumn", "EndOfBuffer" },
     window_ignore_function = function(winid)
         -- Don't tint floating windows.
