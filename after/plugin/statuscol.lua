@@ -6,5 +6,5 @@ end
 statuscol.setup {
     foldfunc = "builtin",
     setopt = true,
-    order = "NSFs",
+    order = "sNSFs",
 }
