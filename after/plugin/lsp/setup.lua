@@ -10,6 +10,10 @@ do
     local default_capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = {
         textDocument = {
+            foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            },
             completion = {
                 completionItem = {
                     snippetSupport = true,

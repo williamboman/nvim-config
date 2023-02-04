@@ -57,6 +57,7 @@ local function spec(use)
 
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
     use {
+        "luukvbaal/statuscol.nvim",
         "airblade/vim-rooter",
         "akinsho/toggleterm.nvim",
         "antoinemadec/FixCursorHold.nvim",
@@ -75,6 +76,7 @@ local function spec(use)
         "windwp/nvim-autopairs",
         "zbirenbaum/neodim",
         "s1n7ax/nvim-window-picker",
+        { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
         { "williamboman/notifier.nvim", branch = "feat/level-aware-content-highlighting" },
         { "kevinhwang91/nvim-bqf", ft = "qf", requires = {
             "junegunn/fzf",
@@ -155,7 +157,7 @@ local function spec(use)
             "p00f/nvim-ts-rainbow",
             "JoosepAlviste/nvim-ts-context-commentstring",
             "windwp/nvim-ts-autotag",
-        }
+        },
     }
 
     local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-Air"
