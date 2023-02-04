@@ -37,6 +37,13 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.splitkeep="screen"
 
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.o.statuscolumn = "%=%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''}%s%C"
+
 if vim.fn.has "win32" == 1 then
     vim.o.shell = "powershell.exe"
 end
