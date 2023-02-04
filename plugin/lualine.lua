@@ -1,5 +1,5 @@
-local deps_ok, lualine, navic = pcall(function()
-    return require "lualine", require "nvim-navic"
+local deps_ok, lualine = pcall(function()
+    return require "lualine"
 end)
 if not deps_ok then
     return
@@ -19,7 +19,6 @@ lualine.setup {
     },
     sections = {
         lualine_b = { "branch", "diff", cwd },
-        lualine_c = { navic.get_location },
         lualine_x = {
             { "diagnostics", sources = { "nvim_diagnostic" } },
             "filesize",

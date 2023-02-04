@@ -172,6 +172,7 @@ local function spec(use)
     use {
         "DNLHC/glance.nvim",
         "SmiteshP/nvim-navic",
+        "utilyre/barbecue.nvim",
         "b0o/SchemaStore.nvim",
         "folke/neodev.nvim",
         "jose-elias-alvarez/null-ls.nvim",

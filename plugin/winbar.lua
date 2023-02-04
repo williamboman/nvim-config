@@ -1,3 +1,4 @@
+do return end
 local devicons = require "nvim-web-devicons"
 
 local expand, bufname = vim.fn.expand, vim.fn.bufname
