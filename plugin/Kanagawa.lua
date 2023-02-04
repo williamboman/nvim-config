@@ -30,6 +30,7 @@ kanagawa.setup {
         LualineGitAdd = { link = "GitSignsAdd" },
         LualineGitChange = { link = "GitSignsAdd" },
         LualineGitDelete = { link = "GitSignsDelete" },
+        MoreMsg = { bg = "none" },
         NeoTreeGitUntracked = { link = "NeoTreeGitModified" },
         NeoTreeNormal = { bg = KANAGAWA_COLORS.sumiInk0 },
         NeoTreeNormalNC = { bg = KANAGAWA_COLORS.sumiInk0 },
