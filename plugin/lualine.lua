@@ -19,6 +19,7 @@ lualine.setup {
     },
     sections = {
         lualine_b = { "branch", "diff", cwd },
+        lualine_c = {},
         lualine_x = {
             { "diagnostics", sources = { "nvim_diagnostic" } },
             "filesize",

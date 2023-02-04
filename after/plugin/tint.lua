@@ -6,7 +6,7 @@ end
 tint.setup {
     tint = -30,
     saturation = 0.5,
-    highlight_ignore_patterns = { "WinBar.*", "WinSeparator", "IndentBlankline.*", "SignColumn", "EndOfBuffer" },
+    highlight_ignore_patterns = { "LspInlayHint.*", "WinBar.*", "WinSeparator", "IndentBlankline.*", "SignColumn", "EndOfBuffer" },
     window_ignore_function = function(winid)
         -- Don't tint floating windows.
         if vim.api.nvim_win_get_config(winid).relative ~= "" then
