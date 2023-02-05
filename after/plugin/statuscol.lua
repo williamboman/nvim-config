@@ -4,8 +4,8 @@ if not ok then
 end
 
 statuscol.setup {
+    separator = "│",
     foldfunc = "builtin",
     setopt = true,
-    order = "sNSFs",
-    ft_ignore = { "toggleterm" },
+    order = "NSFs",
 }
