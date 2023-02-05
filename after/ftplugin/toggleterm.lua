@@ -20,3 +20,7 @@ vim.api.nvim_create_autocmd({ "TermLeave" }, {
         vim.b.last_insert_line = bufinfo.lnum
     end,
 })
+
+vim.schedule(function()
+    vim.opt.statuscolumn = ""
+end)
