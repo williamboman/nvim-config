@@ -22,8 +22,6 @@ local function make_highlight_map(base_name)
     return result
 end
 
--- TODO rename?
-local virtual_text_highlight_map = make_highlight_map "VirtualText"
 local line_highlight_map = make_highlight_map "Line"
 
 ---@param diagnostics Diagnostic[]
@@ -67,16 +65,6 @@ local function diagnostic_lines(diagnostics)
     return diagnostics_by_line
 end
 
----TODO: this won't play nicely with anticonceal text
----@param bufnr integer
----@param line integer
----@param virt_texts_length integer
-local function get_virt_text_pos(bufnr, line, virt_texts_length)
-    -- TODO error handling
-    local line_contents = vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)[1] or ""
-    return ((vim.o.columns - #line_contents) >= virt_texts_length) and "right_align" or "eol"
-end
-
 ---@type table<integer, table<integer, Diagnostic[]>>
 local diagnostics_per_namespace = {}
 
@@ -100,66 +88,27 @@ local function redraw_extmarks(bufnr, trigger_ns)
             vim.list_extend(merged_diagnostics, ns_diagnostics[bufnr])
         end
     end
-    local diagnostic_indicator = "■ "
-    local suffix = "    "
 
     for line, diagnostics in pairs(diagnostic_lines(merged_diagnostics)) do
         ---@type Diagnostic
-        local primary_diagnostic
-        ---@type table<integer, table[]>
-        local virt_texts_by_ns = {}
-        local virt_texts_length = 0
+        local highest_severity_diagnostic
 
         for i = 1, #diagnostics do
             local diagnostic = diagnostics[i]
             if diagnostic.namespace ~= trigger_ns then
                 vim.api.nvim_buf_clear_namespace(bufnr, diagnostic.namespace, line, line + 1)
             end
-
-            if not virt_texts_by_ns[diagnostic.namespace] then
-                virt_texts_by_ns[diagnostic.namespace] = {}
-            end
-            table.insert(
-                virt_texts_by_ns[diagnostic.namespace],
-                { diagnostic_indicator, virtual_text_highlight_map[diagnostic.severity] }
-            )
-            virt_texts_length = virt_texts_length + #diagnostic_indicator
-
-            if not primary_diagnostic or primary_diagnostic.severity > diagnostic.severity then
-                primary_diagnostic = diagnostic
+            if not highest_severity_diagnostic or (diagnostic.severity < highest_severity_diagnostic.severity) then
+                highest_severity_diagnostic = diagnostic
             end
         end
 
-        if primary_diagnostic.message then
-            local virt_texts = virt_texts_by_ns[primary_diagnostic.namespace]
-            local message = primary_diagnostic.message .. suffix
-            table.insert(virt_texts, {
-                message,
-                virtual_text_highlight_map[primary_diagnostic.severity],
-            })
-            virt_texts_length = virt_texts_length + #message
-
-            vim.api.nvim_buf_set_extmark(bufnr, primary_diagnostic.namespace, line, 0, {
-                hl_mode = "combine",
-                priority = 100,
-                line_hl_group = line_highlight_map[primary_diagnostic.severity],
-                -- cursorline_hl_group = TODO lighter variants?,
-                virt_text = virt_texts,
-                virt_text_pos = get_virt_text_pos(bufnr, line, virt_texts_length),
-            })
-            virt_texts_by_ns[primary_diagnostic.namespace] = nil
-        end
-
-        for ns, virt_texts in pairs(virt_texts_by_ns) do
-            vim.api.nvim_buf_set_extmark(bufnr, ns, line, 0, {
-                hl_mode = "combine",
-                priority = 100,
-                line_hl_group = line_highlight_map[primary_diagnostic.severity],
-                -- cursorline_hl_group = TODO lighter variants?,
-                virt_text = virt_texts,
-                virt_text_pos = get_virt_text_pos(bufnr, line, virt_texts_length),
-            })
-        end
+        vim.api.nvim_buf_set_extmark(bufnr, highest_severity_diagnostic.namespace, line, 0, {
+            hl_mode = "combine",
+            priority = 100,
+            line_hl_group = line_highlight_map[highest_severity_diagnostic.severity],
+            -- cursorline_hl_group = TODO lighter variants?,
+        })
     end
 end
 
@@ -172,12 +121,12 @@ local function show(namespace, bufnr, diagnostics, opts)
     opts = opts or {}
 
     local ns = vim.diagnostic.get_namespace(namespace)
-    if not ns.user_data.right_align_ns then
-        ns.user_data.right_align_ns = create_namespace()
+    if not ns.user_data.line_highlight_ns then
+        ns.user_data.line_highlight_ns = create_namespace()
     end
-    diagnostics_per_namespace[ns.user_data.right_align_ns][bufnr] =
-        prefix_source(diagnostics, ns.user_data.right_align_ns)
-    redraw_extmarks(bufnr, ns.user_data.right_align_ns)
+    diagnostics_per_namespace[ns.user_data.line_highlight_ns][bufnr] =
+        prefix_source(diagnostics, ns.user_data.line_highlight_ns)
+    redraw_extmarks(bufnr, ns.user_data.line_highlight_ns)
 end
 
 ---@param namespace integer
@@ -185,19 +134,10 @@ end
 local function hide(namespace, bufnr)
     bufnr = get_bufnr(bufnr)
     local ns = vim.diagnostic.get_namespace(namespace)
-    if ns.user_data.right_align_ns then
-        vim.api.nvim_buf_clear_namespace(bufnr, ns.user_data.right_align_ns, 0, -1)
-        diagnostics_per_namespace[ns.user_data.right_align_ns][bufnr] = nil
+    if ns.user_data.line_highlight_ns then
+        vim.api.nvim_buf_clear_namespace(bufnr, ns.user_data.line_highlight_ns, 0, -1)
+        diagnostics_per_namespace[ns.user_data.line_highlight_ns][bufnr] = nil
     end
 end
 
-local augroup = vim.api.nvim_create_augroup("RightAlign", {})
-
-vim.api.nvim_create_autocmd({ "TextChangedI", "VimResized", "WinScrolled" }, {
-    group = augroup,
-    callback = function(args)
-        redraw_extmarks(args.buf)
-    end,
-})
-
-vim.diagnostic.handlers.right_align = { show = show, hide = hide }
+vim.diagnostic.handlers.line_highlight = { show = show, hide = hide }

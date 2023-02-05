@@ -6,10 +6,8 @@ end
 lsp_lines.setup()
 
 local DEFAULT_CONFIG = {
-    virtual_text = false,
-    right_align = {
-        right_spacing = 4,
-    },
+    virtual_text = true,
+    line_highlight = true,
     virtual_lines = false,
     underline = true,
     signs = false,
@@ -43,7 +41,7 @@ vim.keymap.set("n", "<M-d>", function()
         vim.diagnostic.config {
             signs = false,
             underline = false,
-            right_align = false,
+            line_highlight = false,
             virtual_lines = false,
             virtual_text = false,
         }
