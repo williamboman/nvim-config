@@ -105,7 +105,7 @@ local function redraw_extmarks(bufnr, trigger_ns)
 
         vim.api.nvim_buf_set_extmark(bufnr, highest_severity_diagnostic.namespace, line, 0, {
             hl_mode = "combine",
-            priority = 100,
+            priority = 0,
             line_hl_group = line_highlight_map[highest_severity_diagnostic.severity],
             -- cursorline_hl_group = TODO lighter variants?,
         })
