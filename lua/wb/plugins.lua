@@ -139,6 +139,7 @@ local function spec(use)
 
     -- UI
     use {
+        "williamboman/warden.nvim",
         "projekt0n/github-nvim-theme",
         "rebelot/kanagawa.nvim",
         "kyazdani42/nvim-web-devicons",
