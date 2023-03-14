@@ -9,8 +9,9 @@ statuscol.setup {
     setopt = true,
     ft_ignore = { "qf" },
     segments = {
+        { text = { "%s" }, click = "v:lua.ScSa" },
         {
-            text = { " ", builtin.lnumfunc, " " },
+            text = { builtin.lnumfunc, " " },
             condition = { true, builtin.not_empty },
             click = "v:lua.ScLa",
         },
