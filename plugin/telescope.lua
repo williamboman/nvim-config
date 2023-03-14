@@ -2,6 +2,7 @@ local ok, telescope = pcall(require, "telescope")
 if not ok then
     return
 end
+local builtin = require("telescope.builtin")
 local actions = require "telescope.actions"
 local layout_actions = require "telescope.actions.layout"
 local files = require "wb.telescope.find_files"
@@ -9,36 +10,37 @@ local git = require "wb.telescope.git"
 
 ---@param lhs string
 ---@param rhs string|fun()
-local function map_uwu(lhs, rhs)
+local function telescope_map(lhs, rhs)
     for _, keymap in pairs { "<C-p>" .. lhs, "<C-p>" .. "<C-" .. lhs .. ">" } do
         vim.keymap.set("n", keymap, rhs)
     end
 end
 
 local function keymaps()
-    map_uwu("r", "<cmd>Telescope resume<CR>")
+    telescope_map("r", "<cmd>Telescope resume<CR>")
 
-    map_uwu("f", files.find)
-    map_uwu(".f", function()
+    telescope_map("f", files.find)
+    telescope_map(".f", function()
         files.find { use_buffer_cwd = true }
     end)
-    map_uwu("p", files.git_files)
+    telescope_map("p", files.git_files)
     vim.keymap.set("n", "<space>p", files.git_files)
-    map_uwu(".p", function()
+    telescope_map(".p", function()
         files.git_files { use_buffer_cwd = true }
     end)
-    map_uwu("a", files.file_browser)
-    map_uwu("l", files.current_buffer_fuzzy_find)
-    map_uwu("o", files.project)
-    map_uwu("q", files.grep)
-    map_uwu(".q", function()
+    telescope_map("a", files.file_browser)
+    telescope_map("l", files.current_buffer_fuzzy_find)
+    telescope_map("o", files.project)
+    telescope_map("q", files.grep)
+    telescope_map('"', builtin.registers)
+    telescope_map(".q", function()
         files.grep { use_buffer_cwd = true }
     end)
-    map_uwu("h", files.oldfiles)
-    map_uwu("b", files.buffers)
+    telescope_map("h", files.oldfiles)
+    telescope_map("b", files.buffers)
 
-    map_uwu("s", git.status)
-    map_uwu("S", git.stash)
+    telescope_map("s", git.status)
+    telescope_map("S", git.stash)
 end
 
 local is_win = vim.fn.has "win32" == 1
