@@ -76,8 +76,8 @@ local function spec(use)
         "windwp/nvim-autopairs",
         "zbirenbaum/neodim",
         "s1n7ax/nvim-window-picker",
+        "j-hui/fidget.nvim",
         { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
-        { "williamboman/notifier.nvim", branch = "feat/level-aware-content-highlighting" },
         { "kevinhwang91/nvim-bqf", ft = "qf", requires = {
             "junegunn/fzf",
         } },
