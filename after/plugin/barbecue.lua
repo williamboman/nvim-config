@@ -12,9 +12,7 @@ barbecue.setup {
         local sw = vim.o.sw
         local et = vim.o.et and "et" or "noet"
         local tw = vim.o.tw
-        local actual_curwin = tonumber(vim.g.actual_curwin)
         local curwin = vim.api.nvim_get_current_win()
-        -- local hl = curwin == actual_curwin and "WinBarActiveMuted" or "WinBarInactiveMuted"
         local hl = "WinBarActiveMuted"
 
         local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(curwin))

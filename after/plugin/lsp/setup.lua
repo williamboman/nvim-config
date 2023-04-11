@@ -40,7 +40,7 @@ util.default_config = vim.tbl_deep_extend("force", util.default_config, {
     ),
 })
 
-mason_lspconfig.setup {}
+mason_lspconfig.setup()
 
 mason_lspconfig.setup_handlers {
     function(server_name)
@@ -213,7 +213,7 @@ mason_lspconfig.setup_handlers {
                     hover = true,
                     completion = true,
                     validate = true,
-                    schemas = require("schemastore").json.schemas(),
+                    schemas = require("schemastore").yaml.schemas(),
                 },
             },
         }

@@ -11,6 +11,7 @@ toggleterm.setup {
     terminal_mappings = false,
     start_in_insert = true,
     persist_mode = true,
+    auto_scroll = false,
     open_mapping = [[<space>t]],
     highlights = {
         CursorLineSign = { link = "DarkenedPanel" },

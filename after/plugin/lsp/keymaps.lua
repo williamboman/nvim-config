@@ -69,6 +69,7 @@ local function buf_set_keymaps(bufnr)
     buf_set_keymap("n", "gD", "<cmd>Glance type_definitions<cr>")
     buf_set_keymap("n", "gd", "<cmd>Glance definitions<cr>")
     buf_set_keymap("n", "gr", "<cmd>Glance references<cr>")
+    buf_set_keymap("n", "gqr", vim.lsp.buf.references)
     buf_set_keymap("n", "gbr", telescope_lsp.buffer_references)
     buf_set_keymap("n", "gI", "<cmd>Glance implementations<cr>")
 

@@ -49,6 +49,7 @@ kanagawa.setup {
         NeotestSkipped = { fg = KANAGAWA_COLORS.springViolet1 },
         NeotestTarget = { fg = KANAGAWA_COLORS.roninYellow },
         NeotestWinSelect = { fg = KANAGAWA_COLORS.sumiInk0, bg = KANAGAWA_COLORS.waveBlue2 },
+        NormalTerm = { bg = KANAGAWA_COLORS.sumiInk0 },
         NotifierContentError = { fg = KANAGAWA_COLORS.autumnRed },
         NotifierContentWarn = { fg = KANAGAWA_COLORS.autumnYellow },
         NotifierTitle = { link = "Comment" },

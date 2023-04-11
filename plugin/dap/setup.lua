@@ -6,7 +6,13 @@ if not deps_ok then
 end
 
 dap_virtual_text.setup()
-dapui.setup()
+dapui.setup {
+    icons = {
+        collapsed = "›",
+        current_frame = "›",
+        expanded = "",
+    },
+}
 
 local map = vim.keymap.set
 

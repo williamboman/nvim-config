@@ -141,7 +141,7 @@ local function spec(use)
     use {
         "williamboman/warden.nvim",
         "projekt0n/github-nvim-theme",
-        "rebelot/kanagawa.nvim",
+        { "rebelot/kanagawa.nvim", commit = "4c8d487" },
         "kyazdani42/nvim-web-devicons",
         "lukas-reineke/headlines.nvim",
         "lukas-reineke/indent-blankline.nvim",
@@ -155,13 +155,13 @@ local function spec(use)
         requires = {
             "nvim-treesitter/playground",
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "p00f/nvim-ts-rainbow",
+            "HiPhish/nvim-ts-rainbow2",
             "JoosepAlviste/nvim-ts-context-commentstring",
             "windwp/nvim-ts-autotag",
         },
     }
 
-    local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-Air"
+    local is_macbook = vim.trim(vim.fn.system "hostname") == "Williams-MacBook-Air.local"
 
     -- Mason
     local mason = is_macbook and "~/dev/github/mason.nvim" or "williamboman/mason.nvim"
