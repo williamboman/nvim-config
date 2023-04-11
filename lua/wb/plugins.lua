@@ -143,7 +143,6 @@ local function spec(use)
         "projekt0n/github-nvim-theme",
         { "rebelot/kanagawa.nvim", commit = "4c8d487" },
         "kyazdani42/nvim-web-devicons",
-        "lukas-reineke/headlines.nvim",
         "lukas-reineke/indent-blankline.nvim",
         "NvChad/nvim-colorizer.lua",
     }
