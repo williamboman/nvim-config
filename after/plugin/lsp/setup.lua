@@ -32,23 +32,18 @@ do
     }
 end
 
-util.default_config = vim.tbl_deep_extend("force", util.default_config, {
-    capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        cmp_lsp.default_capabilities(capabilities)
-    ),
-})
-
 mason_lspconfig.setup()
 
 mason_lspconfig.setup_handlers {
     function(server_name)
-        lspconfig[server_name].setup {}
+        lspconfig[server_name].setup {
+            capabilities = capabilities,
+        }
     end,
     ["tsserver"] = function()
         require("typescript").setup {
             server = {
+                capabilities = capabilities,
                 settings = {
                     typescript = {
                         inlayHints = {
@@ -144,6 +139,7 @@ mason_lspconfig.setup_handlers {
                 "jdtls",
                 "--jvm-arg=" .. string.format("-javaagent:%s", vim.fn.expand "$MASON/share/jdtls/lombok.jar"),
             },
+            capabilities = capabilities,
             handlers = {
                 ["language/status"] = progress_handler,
             },
@@ -151,6 +147,7 @@ mason_lspconfig.setup_handlers {
     end,
     ["jsonls"] = function()
         lspconfig.jsonls.setup {
+            capabilities = capabilities,
             filetypes = { "json", "jsonc", "json5" },
             settings = {
                 json = {
@@ -182,6 +179,7 @@ mason_lspconfig.setup_handlers {
     ["lua_ls"] = function()
         require("neodev").setup {}
         lspconfig.lua_ls.setup {
+            capabilities = capabilities,
             settings = {
                 Lua = {
                     format = {
@@ -208,6 +206,7 @@ mason_lspconfig.setup_handlers {
     end,
     ["yamlls"] = function()
         lspconfig.yamlls.setup {
+            capabilities = capabilities,
             settings = {
                 yaml = {
                     hover = true,
