@@ -17,7 +17,7 @@ barbecue.setup {
 
         local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(curwin))
 
-        local text_settings = ("%%=%%#%s#sw=%s %s tw=%s "):format(hl, sw, et, tw)
+        local text_settings = ("%%#%s#sw=%s %s tw=%s "):format(hl, sw, et, tw)
 
         if buf_name == "" then
             return "[A Buffer Has No Name]" .. text_settings
