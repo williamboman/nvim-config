@@ -150,6 +150,7 @@ local function spec(use)
     -- Treesitter
     use {
         "nvim-treesitter/nvim-treesitter",
+        disable = vim.fn.has "win32" == 1,
         run = ":TSUpdate",
         requires = {
             "nvim-treesitter/playground",
