@@ -23,12 +23,22 @@ keymap("n", "<C-w>z", "<cmd>MaximizerToggle!<CR>")
 
 keymap("n", "<space>c", function ()
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
-        if vim.fn.getwinvar(win, "&syntax") == "qf" then
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == "qf" then
             vim.cmd.cclose()
             return
         end
     end
     vim.cmd.copen()
+end)
+
+keymap("n", "<space>k", function ()
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
+        if vim.wo[win].previewwindow then
+            vim.cmd.pclose()
+            return
+        end
+    end
 end)
 
 local remap = { remap = true }
