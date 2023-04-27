@@ -1,13 +1,18 @@
-local deps_ok, js_debug, dap = pcall(function()
-    return require "dap-vscode-js", require "dap"
+local ok, dap = pcall(function()
+    return require "dap"
 end)
-if not deps_ok then
+if not ok then
     return
 end
 
-js_debug.setup {
-    debugger_cmd = { "js-debug-adapter" },
-    adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
+dap.adapters["pwa-node"] = {
+    type = "server",
+    host = "localhost",
+    port = "${port}",
+    executable = {
+        command = vim.fn.exepath "js-debug-adapter",
+        args = { "${port}" },
+    },
 }
 
 for _, language in ipairs { "typescript", "javascript" } do
@@ -15,14 +20,14 @@ for _, language in ipairs { "typescript", "javascript" } do
         {
             type = "pwa-node",
             request = "launch",
-            name = "[pwa-node] Launch file",
+            name = "[node] Launch file",
             program = "${file}",
             cwd = "${workspaceFolder}",
         },
         {
             type = "pwa-node",
             request = "attach",
-            name = "[pwa-node] Attach",
+            name = "[node] Attach",
             processId = require("dap.utils").pick_process,
             cwd = "${workspaceFolder}",
         },
