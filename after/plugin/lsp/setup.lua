@@ -212,7 +212,16 @@ mason_lspconfig.setup_handlers {
                     hover = true,
                     completion = true,
                     validate = true,
-                    schemas = require("schemastore").yaml.schemas(),
+                    schemas = require("schemastore").yaml.schemas {
+                        extra = {
+                            {
+                                fileMatch = { "**/packages/*/package.yaml" },
+                                name = "Mason Registry",
+                                description = "Mason Registry",
+                                url = "https://raw.githubusercontent.com/mason-org/json-schema/main/bundled-schema.json",
+                            },
+                        },
+                    },
                 },
             },
         }
