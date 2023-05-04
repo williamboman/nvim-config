@@ -2,51 +2,11 @@ local ok, telescope = pcall(require, "telescope")
 if not ok then
     return
 end
-local builtin = require("telescope.builtin")
+local builtin = require "telescope.builtin"
 local actions = require "telescope.actions"
 local layout_actions = require "telescope.actions.layout"
 local files = require "wb.telescope.find_files"
 local git = require "wb.telescope.git"
-
----@param lhs string
----@param rhs string|fun()
-local function telescope_map(lhs, rhs)
-    for _, keymap in pairs { "<C-p>" .. lhs, "<C-p>" .. "<C-" .. lhs .. ">" } do
-        vim.keymap.set("n", keymap, rhs)
-    end
-end
-
-local function keymaps()
-    telescope_map("r", "<cmd>Telescope resume<CR>")
-
-    telescope_map("f", files.find)
-    telescope_map(".f", function()
-        files.find { use_buffer_cwd = true }
-    end)
-    telescope_map("p", files.git_files)
-    vim.keymap.set("n", "<space>p", files.git_files)
-    telescope_map(".p", function()
-        files.git_files { use_buffer_cwd = true }
-    end)
-    telescope_map("a", files.file_browser)
-    telescope_map("l", files.current_buffer_fuzzy_find)
-    telescope_map("o", files.project)
-    telescope_map("q", files.grep)
-    telescope_map('"', builtin.registers)
-    telescope_map(".q", function()
-        files.grep { use_buffer_cwd = true }
-    end)
-    telescope_map("h", files.oldfiles)
-    telescope_map("b", files.buffers)
-
-    telescope_map("s", git.status)
-    telescope_map("S", git.stash)
-end
-
-local is_win = vim.fn.has "win32" == 1
-if not is_win then
-    require("telescope").load_extension "fzf"
-end
 
 telescope.setup {
     defaults = {
@@ -120,6 +80,48 @@ telescope.setup {
     },
 }
 
-keymaps()
+---@param lhs string
+---@param rhs string|fun()
+local function telescope_map(lhs, rhs)
+    for _, keymap in pairs { "<C-p>" .. lhs, "<C-p>" .. "<C-" .. lhs .. ">" } do
+        vim.keymap.set("n", keymap, rhs)
+    end
+end
+
+telescope_map("r", "<cmd>Telescope resume<CR>")
+
+telescope_map("f", files.find)
+telescope_map(".f", function()
+    files.find { use_buffer_cwd = true }
+end)
+telescope_map("p", files.git_files)
+vim.keymap.set("n", "<space>p", files.git_files)
+telescope_map(".p", function()
+    files.git_files { use_buffer_cwd = true }
+end)
+telescope_map("a", files.file_browser)
+telescope_map("l", files.current_buffer_fuzzy_find)
+telescope_map("o", files.project)
+telescope_map("q", files.grep)
+telescope_map('"', builtin.registers)
+telescope_map(".q", function()
+    files.grep { use_buffer_cwd = true }
+end)
+telescope_map("h", files.oldfiles)
+telescope_map("b", files.buffers)
+
+telescope_map("s", git.status)
+telescope_map("S", git.stash)
+
+local is_win = vim.fn.has "win32" == 1
+if not is_win then
+    require("telescope").load_extension "fzf"
+end
+
+local original_edit = require("telescope.actions.set").edit
+require("telescope.actions.set").edit = function(...)
+    original_edit(...)
+    vim.cmd.stopinsert()
+end
 
 return M
