@@ -189,8 +189,8 @@ mason_lspconfig.setup_handlers {
                         enable = true,
                         arrayIndex = "Disable", -- "Enable", "Auto", "Disable"
                         await = true,
-                        paramName = "Disable", -- "All", "Literal", "Disable"
-                        paramType = false,
+                        paramName = "All", -- "All", "Literal", "Disable"
+                        paramType = true,
                         semicolon = "Disable", -- "All", "SameLine", "Disable"
                         setType = true,
                     },
