@@ -144,6 +144,7 @@ local function spec(use)
         "kyazdani42/nvim-web-devicons",
         "lukas-reineke/indent-blankline.nvim",
         "NvChad/nvim-colorizer.lua",
+        "Bekaboo/dropbar.nvim",
     }
 
     -- Treesitter
@@ -173,10 +174,9 @@ local function spec(use)
     -- LSP
     use {
         "DNLHC/glance.nvim",
-        "SmiteshP/nvim-navic",
-        "utilyre/barbecue.nvim",
         "b0o/SchemaStore.nvim",
         "folke/neodev.nvim",
+        "jmbuhr/otter.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "neovim/nvim-lspconfig",
