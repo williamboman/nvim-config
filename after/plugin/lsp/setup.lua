@@ -21,11 +21,14 @@ do
             },
             codeAction = {
                 resolveSupport = {
-                    properties = vim.list_extend(default_capabilities.textDocument.codeAction.resolveSupport.properties, {
-                        "documentation",
-                        "detail",
-                        "additionalTextEdits",
-                    }),
+                    properties = vim.list_extend(
+                        default_capabilities.textDocument.codeAction.resolveSupport.properties,
+                        {
+                            "documentation",
+                            "detail",
+                            "additionalTextEdits",
+                        }
+                    ),
                 },
             },
         },
@@ -38,37 +41,6 @@ mason_lspconfig.setup_handlers {
     function(server_name)
         lspconfig[server_name].setup {
             capabilities = capabilities,
-        }
-    end,
-    ["tsserver"] = function()
-        require("typescript").setup {
-            server = {
-                capabilities = capabilities,
-                settings = {
-                    typescript = {
-                        inlayHints = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayEnumMemberValueHints = true,
-                        },
-                    },
-                    javascript = {
-                        inlayHints = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayEnumMemberValueHints = true,
-                        },
-                    },
-                },
-            },
         }
     end,
     ["jdtls"] = function()
