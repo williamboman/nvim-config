@@ -66,14 +66,14 @@ treesitter.setup {
         enable = true,
         filetypes = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
     },
-    rainbow = { enable = true },
-    context_commentstring = {
-        enable = true,
-        config = {
-            javascriptreact = { style_element = "{/*%s*/}" },
-        },
-    },
+    rainbow = { enable = false },
     matchup = {
         enable = true,
+    },
+}
+
+require("ts_context_commentstring").setup {
+    languages = {
+        javascriptreact = "{/*%s*/}",
     },
 }
