@@ -11,7 +11,7 @@ end
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function(args)
         if supports_inlay_hints(args.buf) then
-            vim.lsp.inlay_hint(args.buf, true)
+            vim.lsp.inlay_hint.enable(args.buf, true)
         end
     end,
 })
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         if supports_inlay_hints(args.buf) then
             vim.defer_fn(function()
-                vim.lsp.inlay_hint(args.buf, true)
+                vim.lsp.inlay_hint.enable(args.buf, true)
             end, 3000)
         end
     end,
