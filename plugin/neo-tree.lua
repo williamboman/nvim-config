@@ -118,7 +118,9 @@ neotree.setup {
             never_show = { -- remains hidden even if visible is toggled to true
             },
         },
-        follow_current_file = false, -- This will find and focus the file in the active buffer every
+        follow_current_file = {
+            enabled = false, -- This will find and focus the file in the active buffer every
+        },
         -- time the current file is changed while the tree is open.
         hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
         -- in whatever position is specified in window.position
