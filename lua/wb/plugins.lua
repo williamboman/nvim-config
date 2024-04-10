@@ -181,8 +181,7 @@ local function spec(use)
         "neovim/nvim-lspconfig",
         "pmizio/typescript-tools.nvim",
         "ray-x/lsp_signature.nvim",
-        "simrat39/rust-tools.nvim",
-        { "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
+        "mrcjkb/rustaceanvim",
     }
 
     -- Telescope

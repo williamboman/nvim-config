@@ -129,24 +129,7 @@ mason_lspconfig.setup_handlers {
         }
     end,
     ["rust_analyzer"] = function()
-        require("rust-tools").setup {
-            tools = {
-                inlay_hints = { auto = false },
-                executor = require("rust-tools/executors").toggleterm,
-                hover_actions = { border = "solid" },
-            },
-            dap = {
-                adapter = {
-                    type = "server",
-                    port = "${port}",
-                    host = "127.0.0.1",
-                    executable = {
-                        command = "codelldb",
-                        args = { "--port", "${port}" },
-                    },
-                },
-            },
-        }
+        -- noop (rustaceanvim sets this up automatically)
     end,
     ["lua_ls"] = function()
         require("neodev").setup {}
