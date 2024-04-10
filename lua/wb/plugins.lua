@@ -72,7 +72,6 @@ local function spec(use)
         "stevearc/dressing.nvim",
         "szw/vim-maximizer",
         "windwp/nvim-autopairs",
-        "zbirenbaum/neodim",
         "s1n7ax/nvim-window-picker",
         { "j-hui/fidget.nvim", branch = "legacy" },
         { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
