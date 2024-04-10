@@ -7,9 +7,10 @@ lsp_lines.setup()
 
 local DEFAULT_CONFIG = {
     virtual_text = true,
-    warden = {
-        line_highlight = true,
-    },
+    warden = false,
+    -- warden = {
+    --     line_highlight = true,
+    -- },
     virtual_lines = false,
     underline = true,
     signs = false,
