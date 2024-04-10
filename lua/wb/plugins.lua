@@ -51,7 +51,6 @@ local function spec(use)
         "mfussenegger/nvim-dap",
         "rcarriga/nvim-dap-ui",
         "theHamsta/nvim-dap-virtual-text",
-        "jbyuki/one-small-step-for-vimkind",
     }
 
     -- things that either enhance builtin behaviours or could easily be candidates for default behaviour
@@ -64,7 +63,7 @@ local function spec(use)
         "levouh/tint.nvim",
         "lewis6991/hover.nvim",
         "lewis6991/satellite.nvim",
-        "linty-org/readline.nvim",
+        "https://git.redwill.se/williamboman/readline.nvim",
         "monaqa/dial.nvim",
         "numToStr/Comment.nvim",
         "nvim-lualine/lualine.nvim",
@@ -75,7 +74,7 @@ local function spec(use)
         "windwp/nvim-autopairs",
         "zbirenbaum/neodim",
         "s1n7ax/nvim-window-picker",
-        "j-hui/fidget.nvim",
+        { "j-hui/fidget.nvim", branch = "legacy" },
         { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
         { "kevinhwang91/nvim-bqf", ft = "qf", requires = {
             "junegunn/fzf",
@@ -176,7 +175,6 @@ local function spec(use)
         "DNLHC/glance.nvim",
         "b0o/SchemaStore.nvim",
         "folke/neodev.nvim",
-        "jmbuhr/otter.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "neovim/nvim-lspconfig",
         "pmizio/typescript-tools.nvim",
