@@ -1,0 +1,18 @@
+---
+name: readline.nvim
+homepage: https://git.redwill.se/williamboman/readline.nvim
+description: Readline motions and deletions in Neovim.
+languages: []
+categories: []
+licenses:
+  - proprietary
+
+source:
+  id: pkg:generic/williamboman/readline.nvim@v1.0.0
+  download:
+    files:
+      plugin.zip: https://git.redwill.se/williamboman/readline.nvim/-/archive/{{ version }}/readline.nvim-{{ version }}.zip
+    artifact: readline.nvim-{{version}}/
+
+opt:
+  pack/mason/opt/readline.nvim/: "{{source.download.artifact}}"

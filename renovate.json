@@ -1,0 +1,3 @@
+{
+    "extends": ["github>mason-org/registry-renovate-config"]
+}

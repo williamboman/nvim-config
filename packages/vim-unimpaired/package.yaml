@@ -1,0 +1,19 @@
+---
+name: vim-unimpaired
+homepage: https://github.com/tpope/vim-unimpaired
+description: "unimpaired.vim: Pairs of handy bracket mappings"
+languages: []
+categories: []
+licenses:
+  - proprietary
+
+source:
+  # renovate:datasource=github-tags
+  id: pkg:generic/tpope/vim-unimpaired@v2.0
+  download:
+    files:
+      plugin.zip: https://github.com/tpope/vim-unimpaired/archive/refs/tags/{{ version }}.zip
+    artifact: vim-unimpaired-{{version | strip_prefix "v" }}/
+
+opt:
+  pack/mason/opt/vim-unimpaired/: "{{source.download.artifact}}"

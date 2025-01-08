@@ -1,0 +1,6 @@
+[submodule "vendor/mason.nvim"]
+	path = vendor/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
+[submodule "pack/vendor/opt/mason.nvim"]
+	path = pack/vendor/opt/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
