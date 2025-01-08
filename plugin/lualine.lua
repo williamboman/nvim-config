@@ -16,6 +16,7 @@ end
 lualine.setup {
     options = {
         disabled_filetypes = { "neo-tree" },
+        globalstatus = true,
     },
     sections = {
         lualine_b = { "branch", "diff", cwd },
