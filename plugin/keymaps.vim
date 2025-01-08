@@ -4,8 +4,6 @@ nnoremap <Esc> :nohl<cr>
 
 " Buffers
 nnoremap <C-Space> <C-^>
-vnoremap < <gv
-vnoremap > >gv
 
 " Diagnostics
 nnoremap 9d <cmd>lua vim.diagnostic.jump { count = 1, float = true }<cr>

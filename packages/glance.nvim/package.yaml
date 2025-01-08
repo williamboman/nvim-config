@@ -13,7 +13,7 @@ source:
   download:
     files:
       plugin.zip: https://github.com/DNLHC/glance.nvim/archive/{{ version }}.zip
-    artifact: glance.nvim-{{version | strip_prefix "v" }}/
+    artifact: glance.nvim-{{ version }}/
 
 opt:
   pack/mason/opt/glance.nvim/: "{{source.download.artifact}}"
