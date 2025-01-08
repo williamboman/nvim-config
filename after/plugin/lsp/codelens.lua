@@ -1,3 +1,4 @@
+do return end
 local group = vim.api.nvim_create_augroup("lsp_document_codelens", {})
 
 ---@param bufnr number
