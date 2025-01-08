@@ -5,4 +5,5 @@ require("mason").setup {
         "github:mason-org/mason-registry"
     }
 }
+
 vim.opt.packpath:prepend(vim.fn.expand("$MASON/opt"))

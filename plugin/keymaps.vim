@@ -4,9 +4,12 @@ nnoremap <Esc> :nohl<cr>
 
 " Buffers
 nnoremap <C-Space> <C-^>
+vnoremap < <gv
+vnoremap > >gv
 
 " Diagnostics
-nnoremap 9d :lua vim.diagnostic.jump { count = 1 }<cr>
-nnoremap 8d :lua vim.diagnostic.jump { count = -1 }<cr>
-nnoremap 9e :lua vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }<cr>
-nnoremap 8e :lua vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }<cr>
+nnoremap 9d <cmd>lua vim.diagnostic.jump { count = 1, float = true }<cr>
+nnoremap 8d <cmd>lua vim.diagnostic.jump { count = -1, float = true }<cr>
+nnoremap 9e <cmd>lua vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR, float = true }<cr>
+nnoremap 8e <cmd>lua vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR, float = true }<cr>
+nnoremap 9. <cmd>lua vim.diagnostic.open_float()<cr>

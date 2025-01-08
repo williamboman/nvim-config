@@ -12,7 +12,10 @@ nmap 9Q ]Q
 nmap 8Q [Q
 nmap 9n ]n
 nmap 8n [n
-nmap 9e ]e
-nmap 8e [e
 nmap 9f ]f
 nmap 8f [f
+
+nmap <C-k> [e==
+nmap <C-j> ]e==
+vmap <C-k> [egv=gv
+vmap <C-j> ]egv=gv
