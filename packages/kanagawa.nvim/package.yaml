@@ -1,0 +1,18 @@
+---
+name: kanagawa.nvim
+description: |
+    NeoVim dark colorscheme inspired by the colors of the famous painting by Katsushika Hokusai.
+homepage: https://github.com/rebelot/kanagawa.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/rebelot/kanagawa.nvim@988082eb00b845e4afbcaa4fd8e903da8a3ab3b9
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/kanagawa.nvim/: "./"

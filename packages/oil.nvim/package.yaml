@@ -1,19 +1,18 @@
 ---
 name: oil.nvim
+description: |
+    Neovim file explorer: edit your filesystem like a buffer
 homepage: https://github.com/stevearc/oil.nvim
-description: "Neovim file explorer: edit your filesystem like a buffer"
 languages: []
 categories: []
 licenses:
-  - MIT
+    - MIT
 
 source:
-  # renovate:datasource=github-tags
-  id: pkg:generic/stevearc/oil.nvim@v2.14.0
-  download:
-    files:
-      plugin.zip: https://github.com/stevearc/oil.nvim/archive/refs/tags/{{ version }}.zip
-    artifact: oil.nvim-{{version | strip_prefix "v" }}/
+    # renovate:datasource=github-tags
+    id: pkg:github/stevearc/oil.nvim@v2.14.0
+    archive:
+        type: zipball
 
 opt:
-  pack/mason/opt/oil.nvim/: "{{source.download.artifact}}"
+    pack/mason/opt/oil.nvim/: "./"

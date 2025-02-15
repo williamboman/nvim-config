@@ -1,5 +1,5 @@
 let g:mapleader=","
- 
+
 set title
 set clipboard=unnamedplus
 
@@ -11,6 +11,7 @@ set number
 set relativenumber
 set shiftwidth=4
 set textwidth=120
+set noswapfile
 
 " Windows
 set splitbelow

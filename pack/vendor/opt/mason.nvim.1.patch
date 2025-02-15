@@ -1,0 +1,348 @@
+From 1dd4ea761398148906e1bf45d88923ed96fdbd8f Mon Sep 17 00:00:00 2001
+From: William Boman <william@redwill.se>
+Date: Sun, 26 Jan 2025 07:00:51 +0100
+Subject: [PATCH] stuff
+
+---
+ lua/mason-core/fs.lua                         |  6 ++
+ lua/mason-core/installer/context.lua          | 12 +++
+ lua/mason-core/installer/init.lua             | 14 +++
+ .../registry/providers/github/archive.lua     | 87 +++++++++++++++++++
+ .../registry/providers/github/init.lua        | 14 ++-
+ lua/mason-core/package/init.lua               |  8 ++
+ lua/mason/ui/components/main/package_list.lua | 28 ++++++
+ lua/mason/ui/instance.lua                     | 14 +++
+ 8 files changed, 180 insertions(+), 3 deletions(-)
+ create mode 100644 lua/mason-core/installer/registry/providers/github/archive.lua
+
+diff --git a/lua/mason-core/fs.lua b/lua/mason-core/fs.lua
+index 203c96d7..9da7f63e 100644
+--- a/lua/mason-core/fs.lua
++++ b/lua/mason-core/fs.lua
+@@ -54,6 +54,12 @@ local function make_module(uv)
+         end
+     end
+ 
++    ---@param path string
++    function M.rmdir(path)
++        log.debug("fs: rmdir", path)
++        uv.fs_rmdir(path)
++    end
++
+     ---@param path string
+     function M.unlink(path)
+         log.debug("fs: unlink", path)
+diff --git a/lua/mason-core/installer/context.lua b/lua/mason-core/installer/context.lua
+index 7637209f..f3f4f6ec 100644
+--- a/lua/mason-core/installer/context.lua
++++ b/lua/mason-core/installer/context.lua
+@@ -111,6 +111,18 @@ function ContextualFs:rename(old_path, new_path)
+     return fs.async.rename(path.concat { self.cwd:get(), old_path }, path.concat { self.cwd:get(), new_path })
+ end
+ 
++---@async
++---@param dir_path? string
++function ContextualFs:readdir(dir_path)
++    return fs.async.readdir(path.concat { self.cwd:get(), dir_path })
++end
++
++---@async
++---@param dir_path string
++function ContextualFs:rmdir(dir_path)
++    return fs.async.rmdir(path.concat { self.cwd:get(), dir_path })
++end
++
+ ---@async
+ ---@param dir_path string
+ function ContextualFs:mkdir(dir_path)
+diff --git a/lua/mason-core/installer/init.lua b/lua/mason-core/installer/init.lua
+index 994ab847..293fc27a 100644
+--- a/lua/mason-core/installer/init.lua
++++ b/lua/mason-core/installer/init.lua
+@@ -204,6 +204,20 @@ function M.execute(handle, opts)
+                 -- 4. link package
+                 try(linker.link(context))
+ 
++                -- 4.1 write lspconfig
++                local lspconfig = _.path({ "lsp", "config" }, context.package.spec)
++                if lspconfig then
++                    a.scheduler()
++                    local lspconfig_dir = vim.fn.expand "$MASON/share/mason/lspconfig"
++                    local lspconfig_file = path.concat { lspconfig_dir, ("%s.json"):format(context.package.name) }
++                    if not fs.async.dir_exists(lspconfig_dir) then
++                        fs.async.mkdirp(lspconfig_dir)
++                    elseif fs.async.file_exists(lspconfig_file) then
++                        fs.async.unlink(lspconfig_file)
++                    end
++                    fs.async.write_file(lspconfig_file, vim.json.encode(lspconfig))
++                end
++
+                 -- 5. build & write receipt
+                 ---@type InstallReceipt
+                 local receipt = try(build_receipt(context))
+diff --git a/lua/mason-core/installer/registry/providers/github/archive.lua b/lua/mason-core/installer/registry/providers/github/archive.lua
+new file mode 100644
+index 00000000..9dd5d9df
+--- /dev/null
++++ b/lua/mason-core/installer/registry/providers/github/archive.lua
+@@ -0,0 +1,87 @@
++local Result = require "mason-core.result"
++local _ = require "mason-core.functional"
++local a = require "mason-core.async"
++local common = require "mason-core.installer.managers.common"
++local expr = require "mason-core.installer.registry.expr"
++local path = require "mason-core.path"
++local providers = require "mason-core.providers"
++local settings = require "mason.settings"
++local util = require "mason-core.installer.registry.util"
++
++---@class GitHubArchive
++---@field type '"zipball"' | '"tarball"'
++
++---@class GitHubArchiveSource : RegistryPackageSource
++---@field archive GitHubArchive
++
++local M = {}
++
++---@param source GitHubArchiveSource
++---@param purl Purl
++---@param opts PackageInstallOpts
++function M.parse(source, purl, opts)
++    return Result.try(function(try)
++        local expr_ctx = { version = purl.version }
++        local archive = try(util.coalesce_by_target(try(expr.tbl_interpolate(source.archive, expr_ctx)), opts))
++
++        ---@class ParsedGitHubArchiveSource : ParsedPackageSource
++        local parsed_source = {
++            archive = archive,
++            ---@type DownloadItem[]
++            downloads = {
++                {
++                    download_url = ("https://api.github.com/repos/%s/%s/%s/%s"):format(
++                        purl.namespace,
++                        purl.name,
++                        source.archive.type,
++                        purl.version
++                    ),
++                    out_file = source.archive.type == "zipball" and "plugin.zip" or "plugin.tar",
++                },
++            },
++            owner = purl.namespace,
++            repo = purl.name,
++        }
++        return parsed_source
++    end)
++end
++
++---@async
++---@param ctx InstallContext
++---@param source ParsedGitHubArchiveSource
++function M.install(ctx, source)
++    return Result.try(function(try)
++        try(common.download_files(ctx, source.downloads))
++
++        local archive_dir_pattern = ("%s-%s"):format(source.owner, source.repo)
++
++        -- Hoist all files inside the unpacked archive directory to the current working directory
++        local archive_dir = _.compose(
++            _.find_first(_.all_pass {
++                _.compose(
++                    _.starts_with(archive_dir_pattern),
++                    _.to_lower, -- since we are using purl components we need to follow the spec which lowercases namespace and name
++                    _.prop "name"
++                ),
++                _.prop_satisfies(_.equals "directory", "type"),
++            })
++        )(ctx.fs:readdir())
++        if archive_dir == nil then
++            return Result.failure(
++                ("Failed to locate unpacked archive directory. Looked for directory starting with: %s"):format(archive_dir_pattern)
++            )
++        end
++        for _, entry in ipairs(ctx.fs:readdir(archive_dir.name)) do
++            ctx.fs:rename(path.concat { archive_dir.name, entry.name }, entry.name)
++        end
++        ctx.fs:rmdir(archive_dir.name)
++    end)
++end
++
++---@async
++---@param purl Purl
++function M.get_versions(purl)
++    return providers.github.get_all_tags(("%s/%s"):format(purl.namespace, purl.name))
++end
++
++return M
+diff --git a/lua/mason-core/installer/registry/providers/github/init.lua b/lua/mason-core/installer/registry/providers/github/init.lua
+index 0d68f3a5..708accae 100644
+--- a/lua/mason-core/installer/registry/providers/github/init.lua
++++ b/lua/mason-core/installer/registry/providers/github/init.lua
+@@ -2,7 +2,7 @@ local Result = require "mason-core.result"
+ 
+ local M = {}
+ 
+----@param source GitHubReleaseSource | GitHubBuildSource
++---@param source GitHubReleaseSource | GitHubBuildSource | GitHubArchiveSource
+ ---@param purl Purl
+ ---@param opts PackageInstallOpts
+ function M.parse(source, purl, opts)
+@@ -12,6 +12,9 @@ function M.parse(source, purl, opts)
+     elseif source.build then
+         source = source --[[@as GitHubBuildSource]]
+         return require("mason-core.installer.registry.providers.github.build").parse(source, purl, opts)
++    elseif source.archive then
++        source = source --[[@as GitHubArchiveSource]]
++        return require("mason-core.installer.registry.providers.github.archive").parse(source, purl, opts)
+     else
+         return Result.failure "Unknown source type."
+     end
+@@ -19,7 +22,7 @@ end
+ 
+ ---@async
+ ---@param ctx InstallContext
+----@param source ParsedGitHubReleaseSource | ParsedGitHubBuildSource
++---@param source ParsedGitHubReleaseSource | ParsedGitHubBuildSource | ParsedGitHubArchiveSource
+ function M.install(ctx, source, purl)
+     if source.asset then
+         source = source--[[@as ParsedGitHubReleaseSource]]
+@@ -27,6 +30,9 @@ function M.install(ctx, source, purl)
+     elseif source.build then
+         source = source--[[@as ParsedGitHubBuildSource]]
+         return require("mason-core.installer.registry.providers.github.build").install(ctx, source)
++    elseif source.archive then
++        source = source--[[@as ParsedGitHubArchiveSource]]
++        return require("mason-core.installer.registry.providers.github.archive").install(ctx, source)
+     else
+         return Result.failure "Unknown source type."
+     end
+@@ -34,13 +40,15 @@ end
+ 
+ ---@async
+ ---@param purl Purl
+----@param source GitHubReleaseSource | GitHubBuildSource
++---@param source GitHubReleaseSource | GitHubBuildSource | GitHubArchiveSource
+ function M.get_versions(purl, source)
+     if source.asset then
+         return require("mason-core.installer.registry.providers.github.release").get_versions(purl)
+     elseif source.build then
+         -- We can't yet reliably determine the true source (release, tag, commit, etc.) for "build" sources.
+         return Result.failure "Unimplemented."
++    elseif source.archive then
++        return require("mason-core.installer.registry.providers.github.archive").get_versions(purl)
+     else
+         return Result.failure "Unknown source type."
+     end
+diff --git a/lua/mason-core/package/init.lua b/lua/mason-core/package/init.lua
+index 57f4868d..4c8598a1 100644
+--- a/lua/mason-core/package/init.lua
++++ b/lua/mason-core/package/init.lua
+@@ -310,6 +310,14 @@ function Package:get_lsp_settings_schema()
+     return Optional.empty()
+ end
+ 
++function Package:get_default_lsp_config()
++    local config_file = path.share_prefix(path.concat { "mason", "lspconfig", ("%s.json"):format(self.name) })
++    if fs.sync.file_exists(config_file) then
++        return Result.pcall(vim.json.decode, fs.sync.read_file(config_file)):ok()
++    end
++    return Optional.empty()
++end
++
+ ---@return boolean
+ function Package:is_registry_spec()
+     return is_registry_spec(self.spec)
+diff --git a/lua/mason/ui/components/main/package_list.lua b/lua/mason/ui/components/main/package_list.lua
+index 455a8196..649fdb17 100644
+--- a/lua/mason/ui/components/main/package_list.lua
++++ b/lua/mason/ui/components/main/package_list.lua
+@@ -114,6 +114,34 @@ local function ExpandedPackageInfo(state, pkg, is_installed)
+                 end),
+             }
+         end),
++        Ui.When(pkg_state.lspconfig ~= nil, function()
++            local has_expanded = pkg_state.is_lspconfig_expanded
++            return Ui.Node {
++                Ui.EmptyLine(),
++                Ui.HlTextNode {
++                    {
++                        p.Bold(("%s Default LSP client settings"):format(has_expanded and "↓" or "→")),
++                        p.Comment((" (press enter to %s)"):format(has_expanded and "collapse" or "expand")),
++                    },
++                },
++                Ui.Keybind(
++                    settings.current.ui.keymaps.toggle_package_expand,
++                    "TOGGLE_DEFAULT_LSP_CONFIG",
++                    { package = pkg }
++                ),
++                Ui.When(has_expanded, function()
++                    return Ui.CascadingStyleNode({ "INDENT" }, {
++                        Ui.HlTextNode(
++                            p.muted "This is a read-only overview of the default client settings."
++                        ),
++                        Ui.EmptyLine(),
++                        Ui.HlTextNode(
++                            p.none(vim.json.encode(pkg_state.lspconfig))
++                        )
++                    })
++                end),
++            }
++        end),
+         Ui.EmptyLine(),
+     })
+ end
+diff --git a/lua/mason/ui/instance.lua b/lua/mason/ui/instance.lua
+index c8f7856b..00ab0c1e 100644
+--- a/lua/mason/ui/instance.lua
++++ b/lua/mason/ui/instance.lua
+@@ -50,6 +50,8 @@ end
+ ---@field latest_spawn string?
+ ---@field linked_executables table<string, string>?
+ ---@field lsp_settings_schema table?
++---@field lspconfig table?
++---@field is_lspconfig_expanded boolean
+ ---@field new_version NewPackageVersion?
+ ---@field short_tailed_output string?
+ ---@field tailed_output string[]
+@@ -220,6 +222,8 @@ local function create_initial_package_state()
+         latest_spawn = nil,
+         linked_executables = nil,
+         lsp_settings_schema = nil,
++        lspconfig = nil,
++        is_lspconfig_expanded = false,
+         new_version = nil,
+         short_tailed_output = nil,
+         tailed_output = {},
+@@ -305,6 +309,7 @@ local function hydrate_detailed_package_state(pkg)
+         state.packages.states[pkg.name].expanded_json_schema_keys["lsp"] = state.packages.states[pkg.name].expanded_json_schema_keys["lsp"]
+             or {}
+         state.packages.states[pkg.name].lsp_settings_schema = pkg:get_lsp_settings_schema():or_else(nil)
++        state.packages.states[pkg.name].lspconfig = pkg:get_default_lsp_config():or_else(nil)
+     end)
+ 
+     pkg:get_installed_version(function(success, version_or_err)
+@@ -552,6 +557,14 @@ local function toggle_json_schema_keys(event)
+     end)
+ end
+ 
++local function toggle_default_lsp_config(event)
++    local package = event.payload.package
++    mutate_state(function(state)
++        state.packages.states[package.name].is_lspconfig_expanded =
++            not state.packages.states[package.name].is_lspconfig_expanded
++    end)
++end
++
+ local function filter()
+     vim.ui.select(_.sort_by(_.identity, _.keys(Package.Lang)), {
+         prompt = "Select language:",
+@@ -619,6 +632,7 @@ local effects = {
+     ["TOGGLE_INSTALL_LOG"] = toggle_install_log,
+     ["TOGGLE_JSON_SCHEMA"] = toggle_json_schema,
+     ["TOGGLE_JSON_SCHEMA_KEY"] = toggle_json_schema_keys,
++    ["TOGGLE_DEFAULT_LSP_CONFIG"] = toggle_default_lsp_config,
+     ["UNINSTALL_PACKAGE"] = uninstall_package,
+     ["UPDATE_ALL_PACKAGES"] = update_all_packages,
+ }
+-- 
+2.47.1.windows.2
+

@@ -1,19 +1,18 @@
 ---
 name: glance.nvim
+description: |
+    Peek preview window for LSP locations in Neovim
 homepage: https://github.com/DNLHC/glance.nvim
-description: Peek preview window for LSP locations in Neovim
 languages: []
 categories: []
 licenses:
-  - MIT
+    - MIT
 
 source:
-  # renovate:datasource=github-refs
-  id: pkg:generic/DNLHC/glance.nvim@cf91734f28fcd35bd60a5a87b6d768faafb73268
-  download:
-    files:
-      plugin.zip: https://github.com/DNLHC/glance.nvim/archive/{{ version }}.zip
-    artifact: glance.nvim-{{ version }}/
+    # renovate:datasource=github-refs
+    id: pkg:github/DNLHC/glance.nvim@1a08824835d7582457b67acbe23ca33487912a5e
+    archive:
+        type: zipball
 
 opt:
-  pack/mason/opt/glance.nvim/: "{{source.download.artifact}}"
+    pack/mason/opt/glance.nvim/: "./"

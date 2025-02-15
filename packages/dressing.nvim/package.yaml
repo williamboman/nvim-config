@@ -1,0 +1,18 @@
+---
+name: dressing.nvim
+description: |
+    Neovim plugin to improve the default vim.ui interfaces
+homepage: https://github.com/stevearc/dressing.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/stevearc/dressing.nvim@56ef6a969a4990d938c5fed40c370f65e125fc97
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/dressing.nvim/: "./"

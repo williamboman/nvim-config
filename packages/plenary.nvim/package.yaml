@@ -1,0 +1,18 @@
+---
+name: plenary.nvim
+description: |
+    plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.
+homepage: https://github.com/nvim-lua/plenary.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/nvim-lua/plenary.nvim@3707cdb1e43f5cea73afb6037e6494e7ce847a66
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/plenary.nvim/: "./"

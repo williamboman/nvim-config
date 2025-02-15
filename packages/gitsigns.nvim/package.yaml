@@ -1,0 +1,18 @@
+---
+name: gitsigns.nvim
+description: |
+    Git integration for buffers
+homepage: https://github.com/lewis6991/gitsigns.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/lewis6991/gitsigns.nvim@d8918f06624dd53b9a82bd0e29c31bcfd541b40d
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/gitsigns.nvim/: "./"

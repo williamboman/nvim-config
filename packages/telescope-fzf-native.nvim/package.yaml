@@ -1,0 +1,19 @@
+---
+name: telescope-fzf-native.nvim
+homepage: https://github.com/nvim-telescope/telescope-fzf-native.nvim
+description: Find, Filter, Preview, Pick. All lua, all the time.
+languages: []
+categories: []
+licenses:
+  - MIT
+
+source:
+  # renovate:datasource=github-refs
+  id: pkg:github/nvim-telescope/telescope-fzf-native.nvim@dae2eac9d91464448b584c7949a31df8faefec56
+  build:
+    run: |
+      cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
+      cmake --build build --config Release
+
+opt:
+  pack/mason/opt/telescope-fzf-native.nvim/: "./"

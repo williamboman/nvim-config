@@ -1,11 +1,27 @@
 vim.lsp.config("lua-language-server", {
-    cmd = { "lua-language-server" },
-    root_markers = { '.git' },
-    filetypes = { 'lua' }
-})
-
-vim.lsp.config("yaml-language-server", {
-    cmd = { 'yaml-language-server', '--stdio' },
-    root_markers = { '.git' },
-    filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
+    settings = {
+        Lua = {
+            format = {
+                enable = false,
+            },
+            hint = {
+                enable = true,
+                arrayIndex = "Disable", -- "Enable", "Auto", "Disable"
+                await = true,
+                paramName = "All", -- "All", "Literal", "Disable"
+                paramType = true,
+                semicolon = "Disable", -- "All", "SameLine", "Disable"
+                setType = true,
+            },
+            diagnostics = {
+                globals = { "P" },
+            },
+            runtime = {
+                version = "LuaJIT"
+            },
+            workspace = {
+                checkThirdParty = false,
+            },
+        },
+    },
 })

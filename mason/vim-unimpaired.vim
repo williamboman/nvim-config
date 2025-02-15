@@ -12,6 +12,8 @@ nmap 9Q ]Q
 nmap 8Q [Q
 nmap 9n ]n
 nmap 8n [n
+xmap 9n ]n
+xmap 8n [n
 nmap 9f ]f
 nmap 8f [f
 

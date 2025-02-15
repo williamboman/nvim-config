@@ -1,0 +1,18 @@
+---
+name: leap.nvim
+description: |
+    Neovim's answer to the mouse 🦘
+homepage: https://github.com/ggandor/leap.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/ggandor/leap.nvim@be8e6eee2dabc68ce810ddf2e800c14bfda09fee
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/leap.nvim/: "./"

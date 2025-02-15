@@ -1,0 +1,18 @@
+---
+name: vim-fugitive
+description: |
+    fugitive.vim: A Git wrapper so awesome, it should be illegal
+homepage: https://github.com/tpope/vim-fugitive
+languages: []
+categories: []
+licenses:
+    - proprietary
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/tpope/vim-fugitive@d74a7cff4cfcf84f83cc7eccfa365488f3bbabc2
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/vim-fugitive/: "./"

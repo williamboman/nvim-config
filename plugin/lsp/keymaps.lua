@@ -3,36 +3,9 @@ local function buf_set_keymaps(bufnr)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
     end
 
-    local function format(client)
-        vim.api.nvim_echo({ { ("Formatting with %s…"):format(client.name) } }, false, {})
-        vim.lsp.buf.format { id = client.id }
+    if vim.fn.mapcheck("<leader>p", "n") == "" then
+        buf_set_keymap("n", "<leader>p", vim.lsp.buf.format)
     end
-
-    buf_set_keymap("n", "<leader>p", function()
-        local candidates = vim.tbl_filter(function(client)
-            return client.name ~= "lua_ls" and client.supports_method "textDocument/formatting"
-        end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() })
-        if #candidates > 1 then
-            vim.ui.select(candidates, {
-                prompt = "Client",
-                format_item = function(client)
-                    return client.name
-                end,
-            }, function(client)
-                if client then
-                    format(client)
-                end
-            end)
-        elseif #candidates == 1 then
-            format(candidates[1])
-        else
-            vim.api.nvim_echo(
-                { { "No clients that support textDocument/formatting are attached.", "WarningMsg" } },
-                false,
-                {}
-            )
-        end
-    end)
 
     -- Code actions
     buf_set_keymap("n", "<leader>r", vim.lsp.buf.rename)
@@ -71,8 +44,8 @@ local function buf_set_keymaps(bufnr)
     buf_set_keymap("n", "gI", "<cmd>Glance implementations<cr>")
 
     -- Docs
-    buf_set_keymap("n", "<M-p>", vim.lsp.buf.signature_help)
-    buf_set_keymap("i", "<M-p>", vim.lsp.buf.signature_help)
+    -- buf_set_keymap("n", "<M-p>", vim.lsp.buf.signature_help)
+    -- buf_set_keymap("i", "<M-p>", vim.lsp.buf.signature_help)
 
     -- buf_set_keymap("n", "<C-p>ws", w(telescope_lsp.workspace_symbols))
     -- buf_set_keymap("n", "<C-p>wd", w(telescope_lsp.workspace_diagnostics))

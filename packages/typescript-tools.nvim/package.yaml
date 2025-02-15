@@ -1,0 +1,17 @@
+---
+name: typescript-tools.nvim
+description: |
+    ⚡ TypeScript integration NeoVim deserves ⚡
+homepage: https://github.com/pmizio/typescript-tools.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    id: pkg:github/williamboman/typescript-tools.nvim@feat%2Fnative-lsp-config
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/typescript-tools.nvim/: "./"

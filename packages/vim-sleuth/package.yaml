@@ -1,0 +1,18 @@
+---
+name: vim-sleuth
+description: |
+    sleuth.vim: Heuristically set buffer options
+homepage: https://github.com/tpope/vim-sleuth
+languages: []
+categories: []
+licenses:
+    - proprietary
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/tpope/vim-sleuth@be69bff86754b1aa5adcbb527d7fcd1635a84080
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/vim-sleuth/: "./"
