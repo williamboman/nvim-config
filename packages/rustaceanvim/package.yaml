@@ -1,0 +1,18 @@
+---
+name: rustaceanvim
+description: |
+    🦀 Supercharge your Rust experience in Neovim! A heavily modified fork of rust-tools.nvim
+homepage: https://github.com/mrcjkb/rustaceanvim
+languages: []
+categories: []
+licenses:
+    - GPL-2.0
+
+source:
+    # renovate:datasource=github-tags
+    id: pkg:github/mrcjkb/rustaceanvim@v5.24.4
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/rustaceanvim/: "./"

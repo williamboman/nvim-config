@@ -1,0 +1,18 @@
+---
+name: aerial.nvim
+description: |
+    Neovim plugin for a code outline window
+homepage: https://github.com/stevearc/aerial.nvim
+languages: []
+categories: []
+licenses:
+    - MIT
+
+source:
+    # renovate:datasource=github-refs
+    id: pkg:github/stevearc/aerial.nvim@3284a2cb858ba009c79da87d5e010ccee3c99c4d
+    archive:
+        type: zipball
+
+opt:
+    pack/mason/opt/aerial.nvim/: "./"
