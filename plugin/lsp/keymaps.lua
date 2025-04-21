@@ -1,6 +1,6 @@
 local function buf_set_keymaps(bufnr)
     local function buf_set_keymap(mode, lhs, rhs)
-        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
+        vim.keymap.set(mode, lhs, rhs, { nowait = true, buffer = bufnr, silent = true })
     end
 
     if vim.fn.mapcheck("<leader>p", "n") == "" then

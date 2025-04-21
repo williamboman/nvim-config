@@ -33,7 +33,6 @@ local function open_terminal(winnr, terminal_id)
         api.nvim_win_set_buf(winnr, terminal_buffer)
     else
         vim.cmd.term()
-        vim.cmd.startinsert()
         vim.b.terminal_id = terminal_id
     end
     vim.w.terminal_id = terminal_id

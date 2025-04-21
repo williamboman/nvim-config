@@ -1,6 +1,3 @@
-vim.cmd.packadd("mason.nvim")
-vim.lsp.set_log_level("DEBUG")
-
 function lazy_require(module)
     return setmetatable({}, {
         __index = function(self, key)
@@ -42,12 +39,25 @@ function defer(jit_fn)
 end
 
 require("mason").setup({
+    log_level = vim.log.levels.DEBUG,
+    -- install_root_dir = "/var/folders/g_/krmqfsqd471dm6rkg1015yz40000gn/T/tmp.OmuQ5zxbXX",
     registries = {
         ("file:%s"):format(vim.fn.stdpath("config")),
-        -- "file:~/dev/mason-registry",
-        "github:mason-org/mason-registry",
+        -- "github:mason-org/mason-registry",
+        -- "github:nvim-java/mason-registry",
+        "file:~/dev/mason-registry",
     },
+    ui = {
+        -- check_outdated_packages_on_open = false,
+    }
 })
+
+require("mason-lspconfig").setup {
+    ensure_installed = { "lua_ls" }
+}
+
+-- local registry = require("mason-registry")
+-- registry.sources:prepend(("file:%s"):format(vim.fn.stdpath("config")))
 
 require("mason-plugin") {
     ["stevearc/dressing.nvim"] = "github-refs",
