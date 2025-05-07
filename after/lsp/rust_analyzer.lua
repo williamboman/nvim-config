@@ -1,6 +1,7 @@
 return {
-  on_attach = on_attach,
-  capabilities = capabilities,
+  on_attach = function ()
+    print("rust_analyzer attached")
+  end,
   settings = {
     ['rust-analyzer'] = {
       cargo = {
