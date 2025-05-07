@@ -34,3 +34,7 @@ function! s:terminal_history()
     call feedkeys("\<C-p>")
 endfunction
 autocmd TermOpen * nnoremap <buffer><nowait> <C-p> <cmd>call <sid>terminal_history()<cr>
+
+" Command line
+cmap <C-p> <Up>
+cmap <C-d> <Down>

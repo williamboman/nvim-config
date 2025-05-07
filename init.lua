@@ -43,18 +43,15 @@ require("mason").setup({
     -- install_root_dir = "/var/folders/g_/krmqfsqd471dm6rkg1015yz40000gn/T/tmp.OmuQ5zxbXX",
     registries = {
         ("file:%s"):format(vim.fn.stdpath("config")),
-        -- "github:mason-org/mason-registry",
-        -- "github:nvim-java/mason-registry",
-        "file:~/dev/mason-registry",
+        "github:mason-org/mason-registry",
+        -- "file:~/dev/mason-registry",
     },
     ui = {
         -- check_outdated_packages_on_open = false,
     }
 })
 
-require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls" }
-}
+require("mason-lspconfig").setup()
 
 -- local registry = require("mason-registry")
 -- registry.sources:prepend(("file:%s"):format(vim.fn.stdpath("config")))
