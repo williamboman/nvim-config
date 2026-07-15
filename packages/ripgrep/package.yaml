@@ -8,7 +8,7 @@ licenses:
   - MIT
 
 source:
-  id: pkg:github/BurntSushi/ripgrep@14.1.1
+  id: pkg:github/BurntSushi/ripgrep@15.2.0
   asset:
     - target: darwin_arm64
       file: ripgrep-{{ version }}-aarch64-apple-darwin.tar.gz
